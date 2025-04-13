@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pinplan
+ variation_name="ram_2port_0"
+ megafunction_name="RAM_2PORT"
+ intended_family="Agilex"
+ specifies="all_ports">
+ <global>
+  <pin name="data[63..0]" direction="input" scope="external" />
+  <pin name="q[63..0]" direction="output" scope="external" />
+  <pin name="wraddress[12..0]" direction="input" scope="external" />
+  <pin name="rdaddress[12..0]" direction="input" scope="external" />
+  <pin name="wren" direction="input" scope="external" />
+  <pin name="clock" direction="input" scope="external" />
+  <pin name="sclr" direction="input" scope="external" />
+ </global>
+</pinplan>

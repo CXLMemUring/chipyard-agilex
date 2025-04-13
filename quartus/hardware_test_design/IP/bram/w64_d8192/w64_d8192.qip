@@ -1,0 +1,46 @@
+set_global_assignment -entity "w64_d8192" -library "w64_d8192" -name IP_TOOL_NAME "QsysPrimePro"
+set_global_assignment -entity "w64_d8192" -library "w64_d8192" -name IP_TOOL_VERSION "23.3"
+set_global_assignment -entity "w64_d8192" -library "w64_d8192" -name IP_TOOL_ENV "QsysPrimePro"
+set_global_assignment -entity "w64_d8192" -library "w64_d8192" -name IP_TOOL_VENDOR_NAME "Intel Corporation"
+set_global_assignment -entity "w64_d8192" -library "w64_d8192" -name IP_TOP_LEVEL_COMPONENT_NAME "ram_2port"
+set_global_assignment -library "w64_d8192" -name SOPCINFO_FILE [file join $::quartus(qip_path) "w64_d8192.sopcinfo"]
+set_global_assignment -entity "w64_d8192" -library "w64_d8192" -name SLD_INFO "QSYS_NAME w64_d8192 HAS_SOPCINFO 1 GENERATION_ID 0"
+set_global_assignment -library "w64_d8192" -name MISC_FILE [file join $::quartus(qip_path) "w64_d8192.cmp"]
+set_global_assignment -entity "w64_d8192" -library "w64_d8192" -name IP_TARGETED_DEVICE_FAMILY "Agilex"
+set_global_assignment -entity "w64_d8192" -library "w64_d8192" -name IP_GENERATED_DEVICE_FAMILY "{Agilex}"
+set_global_assignment -entity "w64_d8192" -library "w64_d8192" -name IP_QSYS_MODE "STANDALONE"
+set_global_assignment -name SYNTHESIS_ONLY_QIP ON
+set_global_assignment -library "w64_d8192" -name MISC_FILE [file join $::quartus(qip_path) "../w64_d8192.ip"]
+
+set_global_assignment -entity "w64_d8192_ram_2port_2041_tpys6ny" -library "ram_2port_2041" -name IP_COMPONENT_NAME "dzY0X2Q4MTkyX3JhbV8ycG9ydF8yMDQxX3RweXM2bnk="
+set_global_assignment -entity "w64_d8192_ram_2port_2041_tpys6ny" -library "ram_2port_2041" -name IP_COMPONENT_DISPLAY_NAME "UkFNOiAyLVBPUlQgSW50ZWwgRlBHQSBJUA=="
+set_global_assignment -entity "w64_d8192_ram_2port_2041_tpys6ny" -library "ram_2port_2041" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
+set_global_assignment -entity "w64_d8192_ram_2port_2041_tpys6ny" -library "ram_2port_2041" -name IP_COMPONENT_INTERNAL "Off"
+set_global_assignment -entity "w64_d8192_ram_2port_2041_tpys6ny" -library "ram_2port_2041" -name IP_COMPONENT_AUTHOR "SW50ZWwgQ29ycG9yYXRpb24="
+set_global_assignment -entity "w64_d8192_ram_2port_2041_tpys6ny" -library "ram_2port_2041" -name IP_COMPONENT_VERSION "MjAuNC4x"
+set_global_assignment -entity "w64_d8192_ram_2port_2041_tpys6ny" -library "ram_2port_2041" -name IP_COMPONENT_DESCRIPTION "VGhlIFJBTTogMi1QT1JUIEludGVsIEZQR0EgSVAgYWxsb3dzIHlvdSB0byBpbXBsZW1lbnQgU2ltcGxlIGR1YWwtcG9ydCBSQU0gb3IgVHJ1ZSBkdWFsLXBvcnQgUkFN"
+set_global_assignment -entity "w64_d8192_ram_2port_2041_tpys6ny" -library "ram_2port_2041" -name IP_COMPONENT_GROUP "QmFzaWMgRnVuY3Rpb25zL09uIENoaXAgTWVtb3J5"
+set_global_assignment -entity "w64_d8192_ram_2port_2041_tpys6ny" -library "ram_2port_2041" -name IP_COMPONENT_DOCUMENTATION_LINK "aHR0cHM6Ly93d3cuaW50ZWwuY29tL2NvbnRlbnQvd3d3L3VzL2VuL2RvY3MvcHJvZ3JhbW1hYmxlLzY4MzgyOC8="
+set_global_assignment -entity "w64_d8192_ram_2port_2041_tpys6ny" -library "ram_2port_2041" -name IP_COMPONENT_DOCUMENTATION_LINK "aHR0cHM6Ly93d3cuaW50ZWwuY29tL2NvbnRlbnQvd3d3L3VzL2VuL2RvY3MvcHJvZ3JhbW1hYmxlLzY4Mzc3MS8="
+set_global_assignment -entity "w64_d8192_ram_2port_2041_tpys6ny" -library "ram_2port_2041" -name IP_COMPONENT_DOCUMENTATION_LINK "aHR0cHM6Ly93d3cuaW50ZWwuY29tL2NvbnRlbnQvd3d3L3VzL2VuL2RvY3MvcHJvZ3JhbW1hYmxlLzY4MzE4MS8="
+set_global_assignment -entity "w64_d8192_ram_2port_2041_tpys6ny" -library "ram_2port_2041" -name IP_COMPONENT_DOCUMENTATION_LINK "aHR0cHM6Ly93d3cuaW50ZWwuY29tL2NvbnRlbnQvd3d3L3VzL2VuL2RvY3MvcHJvZ3JhbW1hYmxlLzY4MzMwMS8="
+set_global_assignment -entity "w64_d8192_ram_2port_2041_tpys6ny" -library "ram_2port_2041" -name IP_COMPONENT_DOCUMENTATION_LINK "aHR0cHM6Ly93d3cuaW50ZWwuY29tL2NvbnRlbnQvd3d3L3VzL2VuL2RvY3MvcHJvZ3JhbW1hYmxlLzY4MzI0MC8="
+set_global_assignment -entity "w64_d8192_ram_2port_2041_tpys6ny" -library "ram_2port_2041" -name IP_COMPONENT_DOCUMENTATION_LINK "aHR0cHM6Ly93d3cuaW50ZWwuY29tL2NvbnRlbnQvd3d3L3VzL2VuL2RvY3MvcHJvZ3JhbW1hYmxlLzY4MzQyMy8="
+set_global_assignment -entity "w64_d8192_ram_2port_2041_tpys6ny" -library "ram_2port_2041" -name IP_COMPONENT_DOCUMENTATION_LINK "aHR0cHM6Ly93d3cuaW50ZWwuY29tL2NvbnRlbnQvd3d3L3VzL2VuL2RvY3MvcHJvZ3JhbW1hYmxlLzY4MzI0MS8="
+set_global_assignment -entity "w64_d8192_ram_2port_2041_tpys6ny" -library "ram_2port_2041" -name IP_COMPONENT_DOCUMENTATION_LINK "aHR0cHM6Ly93d3cuaW50ZWwuY29tL2NvbnRlbnQvd3d3L3VzL2VuL2RvY3MvcHJvZ3JhbW1hYmxlLzY4MzExMC8="
+set_global_assignment -entity "w64_d8192" -library "w64_d8192" -name IP_COMPONENT_NAME "dzY0X2Q4MTky"
+set_global_assignment -entity "w64_d8192" -library "w64_d8192" -name IP_COMPONENT_DISPLAY_NAME "c3lzdGVt"
+set_global_assignment -entity "w64_d8192" -library "w64_d8192" -name IP_COMPONENT_REPORT_HIERARCHY "On"
+set_global_assignment -entity "w64_d8192" -library "w64_d8192" -name IP_COMPONENT_INTERNAL "Off"
+set_global_assignment -entity "w64_d8192" -library "w64_d8192" -name IP_COMPONENT_AUTHOR "SW50ZWwgQ29ycG9yYXRpb24="
+set_global_assignment -entity "w64_d8192" -library "w64_d8192" -name IP_COMPONENT_VERSION "MS4w"
+
+
+set_global_assignment -library "ram_2port_2041" -name VERILOG_FILE [file join $::quartus(qip_path) "ram_2port_2041/synth/w64_d8192_ram_2port_2041_tpys6ny.v"]
+set_global_assignment -library "w64_d8192" -name VERILOG_FILE [file join $::quartus(qip_path) "synth/w64_d8192.v"]
+
+
+set_global_assignment -entity "w64_d8192_ram_2port_2041_tpys6ny" -library "ram_2port_2041" -name IP_TOOL_NAME "ram_2port"
+set_global_assignment -entity "w64_d8192_ram_2port_2041_tpys6ny" -library "ram_2port_2041" -name IP_TOOL_VERSION "20.4.1"
+set_global_assignment -entity "w64_d8192_ram_2port_2041_tpys6ny" -library "ram_2port_2041" -name IP_TOOL_ENV "QsysPrimePro"
+

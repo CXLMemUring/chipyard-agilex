@@ -1,0 +1,18 @@
+# system info port_1_ram on 2024.06.14.16:53:28
+system_info:
+name,value
+DEVICE,AGIB027R29A1E2VR3
+DEVICE_FAMILY,Agilex
+GENERATION_ID,0
+#
+#
+# Files generated for port_1_ram on 2024.06.14.16:53:28
+files:
+filepath,kind,attributes,module,is_top
+sim/port_1_ram.v,VERILOG,CONTAINS_INLINE_CONFIGURATION,port_1_ram,true
+ram_1port_2011/sim/port_1_ram_ram_1port_2011_puertoy.v,VERILOG,,port_1_ram_ram_1port_2011_puertoy,false
+#
+# Map from instance-path to kind of module
+instances:
+instancePath,module
+port_1_ram.ram_1port_0,port_1_ram_ram_1port_2011_puertoy

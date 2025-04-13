@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file
+   path="ram_1port_2011/sim/port_1_ram_ram_1port_2011_puertoy.v"
+   type="VERILOG"
+   library="ram_1port_2011" />
+ <file
+   path="sim/port_1_ram.v"
+   type="VERILOG"
+   library="port_1_ram"
+   hasInlineConfiguration="true" />
+ <topLevel name="port_1_ram.port_1_ram" />
+ <deviceFamily name="agilex7" />
+ <device name="AGIB027R29A1E2VR3" />
+</simPackage>

@@ -1,0 +1,714 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pinplan
+ variation_name="intel_rtile_cxl_top_0"
+ megafunction_name="INTEL_RTILE_CXL_TOP"
+ specifies="all_ports">
+ <global>
+  <pin name="refclk0" direction="input" scope="external" />
+  <pin name="refclk1" direction="input" scope="external" />
+  <pin name="refclk4" direction="input" scope="external" />
+  <pin name="resetn" direction="input" scope="external" />
+  <pin name="nInit_done" direction="input" scope="external" />
+  <pin name="ip2hdm_clk" direction="output" scope="external" />
+  <pin name="ip2hdm_reset_n" direction="output" scope="external" />
+  <pin name="cxl_warm_rst_n" direction="output" scope="external" />
+  <pin name="cxl_cold_rst_n" direction="output" scope="external" />
+  <pin name="hdm_size_256mb[35..0]" direction="input" scope="external" />
+  <pin name="mc2ip_memsize[63..0]" direction="input" scope="external" />
+  <pin name="cxl_rx_n[15..0]" direction="input" scope="external" />
+  <pin name="cxl_rx_p[15..0]" direction="input" scope="external" />
+  <pin name="cxl_tx_n[15..0]" direction="output" scope="external" />
+  <pin name="cxl_tx_p[15..0]" direction="output" scope="external" />
+  <pin name="mc2ip_0_sr_status[4..0]" direction="input" scope="external" />
+  <pin name="mc2ip_0_rspfifo_full" direction="input" scope="external" />
+  <pin name="mc2ip_0_rspfifo_empty" direction="input" scope="external" />
+  <pin
+     name="mc2ip_0_rspfifo_fill_level[5..0]"
+     direction="input"
+     scope="external" />
+  <pin name="mc2ip_0_reqfifo_full" direction="input" scope="external" />
+  <pin name="mc2ip_0_reqfifo_empty" direction="input" scope="external" />
+  <pin
+     name="mc2ip_0_reqfifo_fill_level[5..0]"
+     direction="input"
+     scope="external" />
+  <pin name="hdm2ip_avmm0_cxlmem_ready" direction="input" scope="external" />
+  <pin name="hdm2ip_avmm0_ready" direction="input" scope="external" />
+  <pin
+     name="hdm2ip_avmm0_readdata[511..0]"
+     direction="input"
+     scope="external" />
+  <pin
+     name="hdm2ip_avmm0_rsp_mdata[13..0]"
+     direction="input"
+     scope="external" />
+  <pin name="hdm2ip_avmm0_read_poison" direction="input" scope="external" />
+  <pin name="hdm2ip_avmm0_readdatavalid" direction="input" scope="external" />
+  <pin
+     name="hdm2ip_avmm0_ecc_err_corrected[7..0]"
+     direction="input"
+     scope="external" />
+  <pin
+     name="hdm2ip_avmm0_ecc_err_detected[7..0]"
+     direction="input"
+     scope="external" />
+  <pin
+     name="hdm2ip_avmm0_ecc_err_fatal[7..0]"
+     direction="input"
+     scope="external" />
+  <pin
+     name="hdm2ip_avmm0_ecc_err_syn_e[7..0]"
+     direction="input"
+     scope="external" />
+  <pin name="hdm2ip_avmm0_ecc_err_valid" direction="input" scope="external" />
+  <pin name="ip2hdm_avmm0_read" direction="output" scope="external" />
+  <pin name="ip2hdm_avmm0_write" direction="output" scope="external" />
+  <pin name="ip2hdm_avmm0_write_poison" direction="output" scope="external" />
+  <pin name="ip2hdm_avmm0_write_ras_sbe" direction="output" scope="external" />
+  <pin name="ip2hdm_avmm0_write_ras_dbe" direction="output" scope="external" />
+  <pin
+     name="ip2hdm_avmm0_writedata[511..0]"
+     direction="output"
+     scope="external" />
+  <pin
+     name="ip2hdm_avmm0_byteenable[63..0]"
+     direction="output"
+     scope="external" />
+  <pin
+     name="ip2hdm_avmm0_address[45..0]"
+     direction="output"
+     scope="external" />
+  <pin
+     name="ip2hdm_avmm0_req_mdata[13..0]"
+     direction="output"
+     scope="external" />
+  <pin name="mc2ip_1_sr_status[4..0]" direction="input" scope="external" />
+  <pin name="mc2ip_1_rspfifo_full" direction="input" scope="external" />
+  <pin name="mc2ip_1_rspfifo_empty" direction="input" scope="external" />
+  <pin
+     name="mc2ip_1_rspfifo_fill_level[5..0]"
+     direction="input"
+     scope="external" />
+  <pin name="mc2ip_1_reqfifo_full" direction="input" scope="external" />
+  <pin name="mc2ip_1_reqfifo_empty" direction="input" scope="external" />
+  <pin
+     name="mc2ip_1_reqfifo_fill_level[5..0]"
+     direction="input"
+     scope="external" />
+  <pin name="hdm2ip_avmm1_cxlmem_ready" direction="input" scope="external" />
+  <pin name="hdm2ip_avmm1_ready" direction="input" scope="external" />
+  <pin
+     name="hdm2ip_avmm1_readdata[511..0]"
+     direction="input"
+     scope="external" />
+  <pin
+     name="hdm2ip_avmm1_rsp_mdata[13..0]"
+     direction="input"
+     scope="external" />
+  <pin name="hdm2ip_avmm1_read_poison" direction="input" scope="external" />
+  <pin name="hdm2ip_avmm1_readdatavalid" direction="input" scope="external" />
+  <pin
+     name="hdm2ip_avmm1_ecc_err_corrected[7..0]"
+     direction="input"
+     scope="external" />
+  <pin
+     name="hdm2ip_avmm1_ecc_err_detected[7..0]"
+     direction="input"
+     scope="external" />
+  <pin
+     name="hdm2ip_avmm1_ecc_err_fatal[7..0]"
+     direction="input"
+     scope="external" />
+  <pin
+     name="hdm2ip_avmm1_ecc_err_syn_e[7..0]"
+     direction="input"
+     scope="external" />
+  <pin name="hdm2ip_avmm1_ecc_err_valid" direction="input" scope="external" />
+  <pin name="ip2hdm_avmm1_read" direction="output" scope="external" />
+  <pin name="ip2hdm_avmm1_write" direction="output" scope="external" />
+  <pin name="ip2hdm_avmm1_write_poison" direction="output" scope="external" />
+  <pin name="ip2hdm_avmm1_write_ras_sbe" direction="output" scope="external" />
+  <pin name="ip2hdm_avmm1_write_ras_dbe" direction="output" scope="external" />
+  <pin
+     name="ip2hdm_avmm1_writedata[511..0]"
+     direction="output"
+     scope="external" />
+  <pin
+     name="ip2hdm_avmm1_byteenable[63..0]"
+     direction="output"
+     scope="external" />
+  <pin
+     name="ip2hdm_avmm1_address[45..0]"
+     direction="output"
+     scope="external" />
+  <pin
+     name="ip2hdm_avmm1_req_mdata[13..0]"
+     direction="output"
+     scope="external" />
+  <pin name="afu_cam_ext5" direction="input" scope="external" />
+  <pin name="afu_cam_ext6" direction="input" scope="external" />
+  <pin name="cam_afu_ext5" direction="output" scope="external" />
+  <pin name="cam_afu_ext6" direction="output" scope="external" />
+  <pin name="resetprep_en" direction="output" scope="external" />
+  <pin name="bfe_afu_quiesce_req" direction="output" scope="external" />
+  <pin name="afu_bfe_quiesce_ack" direction="input" scope="external" />
+  <pin name="cafu2ip_aximm0_awid[11..0]" direction="input" scope="external" />
+  <pin
+     name="cafu2ip_aximm0_awaddr[63..0]"
+     direction="input"
+     scope="external" />
+  <pin name="cafu2ip_aximm0_awlen[9..0]" direction="input" scope="external" />
+  <pin name="cafu2ip_aximm0_awsize[2..0]" direction="input" scope="external" />
+  <pin
+     name="cafu2ip_aximm0_awburst[1..0]"
+     direction="input"
+     scope="external" />
+  <pin name="cafu2ip_aximm0_awprot[2..0]" direction="input" scope="external" />
+  <pin name="cafu2ip_aximm0_awqos[3..0]" direction="input" scope="external" />
+  <pin name="cafu2ip_aximm0_awuser[4..0]" direction="input" scope="external" />
+  <pin name="cafu2ip_aximm0_awvalid" direction="input" scope="external" />
+  <pin
+     name="cafu2ip_aximm0_awcache[3..0]"
+     direction="input"
+     scope="external" />
+  <pin name="cafu2ip_aximm0_awlock[1..0]" direction="input" scope="external" />
+  <pin
+     name="cafu2ip_aximm0_awregion[3..0]"
+     direction="input"
+     scope="external" />
+  <pin name="ip2cafu_aximm0_awready" direction="output" scope="external" />
+  <pin name="cafu2ip_aximm1_awid[11..0]" direction="input" scope="external" />
+  <pin
+     name="cafu2ip_aximm1_awaddr[63..0]"
+     direction="input"
+     scope="external" />
+  <pin name="cafu2ip_aximm1_awlen[9..0]" direction="input" scope="external" />
+  <pin name="cafu2ip_aximm1_awsize[2..0]" direction="input" scope="external" />
+  <pin
+     name="cafu2ip_aximm1_awburst[1..0]"
+     direction="input"
+     scope="external" />
+  <pin name="cafu2ip_aximm1_awprot[2..0]" direction="input" scope="external" />
+  <pin name="cafu2ip_aximm1_awqos[3..0]" direction="input" scope="external" />
+  <pin name="cafu2ip_aximm1_awuser[4..0]" direction="input" scope="external" />
+  <pin name="cafu2ip_aximm1_awvalid" direction="input" scope="external" />
+  <pin
+     name="cafu2ip_aximm1_awcache[3..0]"
+     direction="input"
+     scope="external" />
+  <pin name="cafu2ip_aximm1_awlock[1..0]" direction="input" scope="external" />
+  <pin
+     name="cafu2ip_aximm1_awregion[3..0]"
+     direction="input"
+     scope="external" />
+  <pin name="ip2cafu_aximm1_awready" direction="output" scope="external" />
+  <pin
+     name="cafu2ip_aximm0_wdata[511..0]"
+     direction="input"
+     scope="external" />
+  <pin name="cafu2ip_aximm0_wstrb[63..0]" direction="input" scope="external" />
+  <pin name="cafu2ip_aximm0_wlast" direction="input" scope="external" />
+  <pin name="cafu2ip_aximm0_wuser" direction="input" scope="external" />
+  <pin name="cafu2ip_aximm0_wvalid" direction="input" scope="external" />
+  <pin name="ip2cafu_aximm0_wready" direction="output" scope="external" />
+  <pin
+     name="cafu2ip_aximm1_wdata[511..0]"
+     direction="input"
+     scope="external" />
+  <pin name="cafu2ip_aximm1_wstrb[63..0]" direction="input" scope="external" />
+  <pin name="cafu2ip_aximm1_wlast" direction="input" scope="external" />
+  <pin name="cafu2ip_aximm1_wuser" direction="input" scope="external" />
+  <pin name="cafu2ip_aximm1_wvalid" direction="input" scope="external" />
+  <pin name="ip2cafu_aximm1_wready" direction="output" scope="external" />
+  <pin name="ip2cafu_aximm0_bid[11..0]" direction="output" scope="external" />
+  <pin name="ip2cafu_aximm0_bresp[1..0]" direction="output" scope="external" />
+  <pin name="ip2cafu_aximm0_buser[3..0]" direction="output" scope="external" />
+  <pin name="ip2cafu_aximm0_bvalid" direction="output" scope="external" />
+  <pin name="cafu2ip_aximm0_bready" direction="input" scope="external" />
+  <pin name="ip2cafu_aximm1_bid[11..0]" direction="output" scope="external" />
+  <pin name="ip2cafu_aximm1_bresp[1..0]" direction="output" scope="external" />
+  <pin name="ip2cafu_aximm1_buser[3..0]" direction="output" scope="external" />
+  <pin name="ip2cafu_aximm1_bvalid" direction="output" scope="external" />
+  <pin name="cafu2ip_aximm1_bready" direction="input" scope="external" />
+  <pin name="cafu2ip_aximm0_arid[11..0]" direction="input" scope="external" />
+  <pin
+     name="cafu2ip_aximm0_araddr[63..0]"
+     direction="input"
+     scope="external" />
+  <pin name="cafu2ip_aximm0_arlen[9..0]" direction="input" scope="external" />
+  <pin name="cafu2ip_aximm0_arsize[2..0]" direction="input" scope="external" />
+  <pin
+     name="cafu2ip_aximm0_arburst[1..0]"
+     direction="input"
+     scope="external" />
+  <pin name="cafu2ip_aximm0_arprot[2..0]" direction="input" scope="external" />
+  <pin name="cafu2ip_aximm0_arqos[3..0]" direction="input" scope="external" />
+  <pin name="cafu2ip_aximm0_aruser[4..0]" direction="input" scope="external" />
+  <pin name="cafu2ip_aximm0_arvalid" direction="input" scope="external" />
+  <pin
+     name="cafu2ip_aximm0_arcache[3..0]"
+     direction="input"
+     scope="external" />
+  <pin name="cafu2ip_aximm0_arlock[1..0]" direction="input" scope="external" />
+  <pin
+     name="cafu2ip_aximm0_arregion[3..0]"
+     direction="input"
+     scope="external" />
+  <pin name="ip2cafu_aximm0_arready" direction="output" scope="external" />
+  <pin name="cafu2ip_aximm1_arid[11..0]" direction="input" scope="external" />
+  <pin
+     name="cafu2ip_aximm1_araddr[63..0]"
+     direction="input"
+     scope="external" />
+  <pin name="cafu2ip_aximm1_arlen[9..0]" direction="input" scope="external" />
+  <pin name="cafu2ip_aximm1_arsize[2..0]" direction="input" scope="external" />
+  <pin
+     name="cafu2ip_aximm1_arburst[1..0]"
+     direction="input"
+     scope="external" />
+  <pin name="cafu2ip_aximm1_arprot[2..0]" direction="input" scope="external" />
+  <pin name="cafu2ip_aximm1_arqos[3..0]" direction="input" scope="external" />
+  <pin name="cafu2ip_aximm1_aruser[4..0]" direction="input" scope="external" />
+  <pin name="cafu2ip_aximm1_arvalid" direction="input" scope="external" />
+  <pin
+     name="cafu2ip_aximm1_arcache[3..0]"
+     direction="input"
+     scope="external" />
+  <pin name="cafu2ip_aximm1_arlock[1..0]" direction="input" scope="external" />
+  <pin
+     name="cafu2ip_aximm1_arregion[3..0]"
+     direction="input"
+     scope="external" />
+  <pin name="ip2cafu_aximm1_arready" direction="output" scope="external" />
+  <pin name="ip2cafu_aximm0_rid[11..0]" direction="output" scope="external" />
+  <pin
+     name="ip2cafu_aximm0_rdata[511..0]"
+     direction="output"
+     scope="external" />
+  <pin name="ip2cafu_aximm0_rresp[1..0]" direction="output" scope="external" />
+  <pin name="ip2cafu_aximm0_rlast" direction="output" scope="external" />
+  <pin name="ip2cafu_aximm0_ruser" direction="output" scope="external" />
+  <pin name="ip2cafu_aximm0_rvalid" direction="output" scope="external" />
+  <pin name="cafu2ip_aximm0_rready" direction="input" scope="external" />
+  <pin name="ip2cafu_aximm1_rid[11..0]" direction="output" scope="external" />
+  <pin
+     name="ip2cafu_aximm1_rdata[511..0]"
+     direction="output"
+     scope="external" />
+  <pin name="ip2cafu_aximm1_rresp[1..0]" direction="output" scope="external" />
+  <pin name="ip2cafu_aximm1_rlast" direction="output" scope="external" />
+  <pin name="ip2cafu_aximm1_ruser" direction="output" scope="external" />
+  <pin name="ip2cafu_aximm1_rvalid" direction="output" scope="external" />
+  <pin name="cafu2ip_aximm1_rready" direction="input" scope="external" />
+  <pin name="ip2csr_avmm_clk" direction="output" scope="external" />
+  <pin name="ip2csr_avmm_rstn" direction="output" scope="external" />
+  <pin name="csr2ip_avmm_waitrequest" direction="input" scope="external" />
+  <pin name="csr2ip_avmm_readdata[31..0]" direction="input" scope="external" />
+  <pin name="csr2ip_avmm_readdatavalid" direction="input" scope="external" />
+  <pin
+     name="ip2csr_avmm_writedata[31..0]"
+     direction="output"
+     scope="external" />
+  <pin name="ip2csr_avmm_address[21..0]" direction="output" scope="external" />
+  <pin name="ip2csr_avmm_write" direction="output" scope="external" />
+  <pin name="ip2csr_avmm_read" direction="output" scope="external" />
+  <pin
+     name="ip2csr_avmm_byteenable[3..0]"
+     direction="output"
+     scope="external" />
+  <pin name="ip2cafu_avmm_clk" direction="output" scope="external" />
+  <pin name="ip2cafu_avmm_rstn" direction="output" scope="external" />
+  <pin name="cafu2ip_avmm_waitrequest" direction="input" scope="external" />
+  <pin
+     name="cafu2ip_avmm_readdata[63..0]"
+     direction="input"
+     scope="external" />
+  <pin name="cafu2ip_avmm_readdatavalid" direction="input" scope="external" />
+  <pin name="ip2cafu_avmm_burstcount" direction="output" scope="external" />
+  <pin
+     name="ip2cafu_avmm_writedata[63..0]"
+     direction="output"
+     scope="external" />
+  <pin
+     name="ip2cafu_avmm_address[21..0]"
+     direction="output"
+     scope="external" />
+  <pin name="ip2cafu_avmm_write" direction="output" scope="external" />
+  <pin name="ip2cafu_avmm_read" direction="output" scope="external" />
+  <pin
+     name="ip2cafu_avmm_byteenable[7..0]"
+     direction="output"
+     scope="external" />
+  <pin
+     name="ccv_afu_conf_base_addr_high[31..0]"
+     direction="output"
+     scope="external" />
+  <pin
+     name="ccv_afu_conf_base_addr_high_valid"
+     direction="output"
+     scope="external" />
+  <pin
+     name="ccv_afu_conf_base_addr_low[31..0]"
+     direction="output"
+     scope="external" />
+  <pin
+     name="ccv_afu_conf_base_addr_low_valid"
+     direction="output"
+     scope="external" />
+  <pin name="ip2uio_tx_ready" direction="output" scope="external" />
+  <pin name="uio2ip_tx_st0_dvalid" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st0_sop" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st0_eop" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st0_passthrough" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st0_data[255..0]" direction="input" scope="external" />
+  <pin
+     name="uio2ip_tx_st0_data_parity[7..0]"
+     direction="input"
+     scope="external" />
+  <pin name="uio2ip_tx_st0_hdr[127..0]" direction="input" scope="external" />
+  <pin
+     name="uio2ip_tx_st0_hdr_parity[3..0]"
+     direction="input"
+     scope="external" />
+  <pin name="uio2ip_tx_st0_hvalid" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st0_prefix[31..0]" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st0_prefix_parity" direction="input" scope="external" />
+  <pin
+     name="uio2ip_tx_st0_RSSAI_prefix[11..0]"
+     direction="input"
+     scope="external" />
+  <pin
+     name="uio2ip_tx_st0_RSSAI_prefix_parity"
+     direction="input"
+     scope="external" />
+  <pin name="uio2ip_tx_st0_pvalid[1..0]" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st0_vfactive" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st0_vfnum[10..0]" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st0_pfnum[2..0]" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st0_chnum" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st0_empty[2..0]" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st0_misc_parity" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st1_dvalid" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st1_sop" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st1_eop" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st1_passthrough" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st1_data[255..0]" direction="input" scope="external" />
+  <pin
+     name="uio2ip_tx_st1_data_parity[7..0]"
+     direction="input"
+     scope="external" />
+  <pin name="uio2ip_tx_st1_hdr[127..0]" direction="input" scope="external" />
+  <pin
+     name="uio2ip_tx_st1_hdr_parity[3..0]"
+     direction="input"
+     scope="external" />
+  <pin name="uio2ip_tx_st1_hvalid" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st1_prefix[31..0]" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st1_prefix_parity" direction="input" scope="external" />
+  <pin
+     name="uio2ip_tx_st1_RSSAI_prefix[11..0]"
+     direction="input"
+     scope="external" />
+  <pin
+     name="uio2ip_tx_st1_RSSAI_prefix_parity"
+     direction="input"
+     scope="external" />
+  <pin name="uio2ip_tx_st1_pvalid[1..0]" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st1_vfactive" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st1_vfnum[10..0]" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st1_pfnum[2..0]" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st1_chnum" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st1_empty[2..0]" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st1_misc_parity" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st2_dvalid" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st2_sop" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st2_eop" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st2_passthrough" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st2_data[255..0]" direction="input" scope="external" />
+  <pin
+     name="uio2ip_tx_st2_data_parity[7..0]"
+     direction="input"
+     scope="external" />
+  <pin name="uio2ip_tx_st2_hdr[127..0]" direction="input" scope="external" />
+  <pin
+     name="uio2ip_tx_st2_hdr_parity[3..0]"
+     direction="input"
+     scope="external" />
+  <pin name="uio2ip_tx_st2_hvalid" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st2_prefix[31..0]" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st2_prefix_parity" direction="input" scope="external" />
+  <pin
+     name="uio2ip_tx_st2_RSSAI_prefix[11..0]"
+     direction="input"
+     scope="external" />
+  <pin
+     name="uio2ip_tx_st2_RSSAI_prefix_parity"
+     direction="input"
+     scope="external" />
+  <pin name="uio2ip_tx_st2_pvalid[1..0]" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st2_vfactive" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st2_vfnum[10..0]" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st2_pfnum[2..0]" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st2_chnum" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st2_empty[2..0]" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st2_misc_parity" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st3_dvalid" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st3_sop" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st3_eop" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st3_passthrough" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st3_data[255..0]" direction="input" scope="external" />
+  <pin
+     name="uio2ip_tx_st3_data_parity[7..0]"
+     direction="input"
+     scope="external" />
+  <pin name="uio2ip_tx_st3_hdr[127..0]" direction="input" scope="external" />
+  <pin
+     name="uio2ip_tx_st3_hdr_parity[3..0]"
+     direction="input"
+     scope="external" />
+  <pin name="uio2ip_tx_st3_hvalid" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st3_prefix[31..0]" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st3_prefix_parity" direction="input" scope="external" />
+  <pin
+     name="uio2ip_tx_st3_RSSAI_prefix[11..0]"
+     direction="input"
+     scope="external" />
+  <pin
+     name="uio2ip_tx_st3_RSSAI_prefix_parity"
+     direction="input"
+     scope="external" />
+  <pin name="uio2ip_tx_st3_pvalid[1..0]" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st3_vfactive" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st3_vfnum[10..0]" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st3_pfnum[2..0]" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st3_chnum" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st3_empty[2..0]" direction="input" scope="external" />
+  <pin name="uio2ip_tx_st3_misc_parity" direction="input" scope="external" />
+  <pin
+     name="ip2uio_tx_st_Hcrdt_update[2..0]"
+     direction="output"
+     scope="external" />
+  <pin name="ip2uio_tx_st_Hcrdt_ch" direction="output" scope="external" />
+  <pin
+     name="ip2uio_tx_st_Hcrdt_update_cnt[5..0]"
+     direction="output"
+     scope="external" />
+  <pin
+     name="ip2uio_tx_st_Hcrdt_init[2..0]"
+     direction="output"
+     scope="external" />
+  <pin
+     name="uio2ip_tx_st_Hcrdt_init_ack[2..0]"
+     direction="input"
+     scope="external" />
+  <pin
+     name="ip2uio_tx_st_Dcrdt_update[2..0]"
+     direction="output"
+     scope="external" />
+  <pin name="ip2uio_tx_st_Dcrdt_ch" direction="output" scope="external" />
+  <pin
+     name="ip2uio_tx_st_Dcrdt_update_cnt[11..0]"
+     direction="output"
+     scope="external" />
+  <pin
+     name="ip2uio_tx_st_Dcrdt_init[2..0]"
+     direction="output"
+     scope="external" />
+  <pin
+     name="uio2ip_tx_st_Dcrdt_init_ack[2..0]"
+     direction="input"
+     scope="external" />
+  <pin name="ip2uio_rx_st0_dvalid" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st0_sop" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st0_eop" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st0_passthrough" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st0_data[255..0]" direction="output" scope="external" />
+  <pin
+     name="ip2uio_rx_st0_data_parity[7..0]"
+     direction="output"
+     scope="external" />
+  <pin name="ip2uio_rx_st0_hdr[127..0]" direction="output" scope="external" />
+  <pin
+     name="ip2uio_rx_st0_hdr_parity[3..0]"
+     direction="output"
+     scope="external" />
+  <pin name="ip2uio_rx_st0_hvalid" direction="output" scope="external" />
+  <pin
+     name="ip2uio_rx_st0_prefix[31..0]"
+     direction="output"
+     scope="external" />
+  <pin
+     name="ip2uio_rx_st0_prefix_parity"
+     direction="output"
+     scope="external" />
+  <pin
+     name="ip2uio_rx_st0_RSSAI_prefix[11..0]"
+     direction="output"
+     scope="external" />
+  <pin
+     name="ip2uio_rx_st0_RSSAI_prefix_parity"
+     direction="output"
+     scope="external" />
+  <pin name="ip2uio_rx_st0_pvalid[1..0]" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st0_bar[2..0]" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st0_vfactive" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st0_vfnum[10..0]" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st0_pfnum[2..0]" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st0_chnum" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st0_misc_parity" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st0_empty[2..0]" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st1_dvalid" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st1_sop" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st1_eop" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st1_passthrough" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st1_data[255..0]" direction="output" scope="external" />
+  <pin
+     name="ip2uio_rx_st1_data_parity[7..0]"
+     direction="output"
+     scope="external" />
+  <pin name="ip2uio_rx_st1_hdr[127..0]" direction="output" scope="external" />
+  <pin
+     name="ip2uio_rx_st1_hdr_parity[3..0]"
+     direction="output"
+     scope="external" />
+  <pin name="ip2uio_rx_st1_hvalid" direction="output" scope="external" />
+  <pin
+     name="ip2uio_rx_st1_prefix[31..0]"
+     direction="output"
+     scope="external" />
+  <pin
+     name="ip2uio_rx_st1_prefix_parity"
+     direction="output"
+     scope="external" />
+  <pin
+     name="ip2uio_rx_st1_RSSAI_prefix[11..0]"
+     direction="output"
+     scope="external" />
+  <pin
+     name="ip2uio_rx_st1_RSSAI_prefix_parity"
+     direction="output"
+     scope="external" />
+  <pin name="ip2uio_rx_st1_pvalid[1..0]" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st1_bar[2..0]" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st1_vfactive" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st1_vfnum[10..0]" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st1_pfnum[2..0]" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st1_chnum" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st1_misc_parity" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st1_empty[2..0]" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st2_dvalid" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st2_sop" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st2_eop" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st2_passthrough" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st2_data[255..0]" direction="output" scope="external" />
+  <pin
+     name="ip2uio_rx_st2_data_parity[7..0]"
+     direction="output"
+     scope="external" />
+  <pin name="ip2uio_rx_st2_hdr[127..0]" direction="output" scope="external" />
+  <pin
+     name="ip2uio_rx_st2_hdr_parity[3..0]"
+     direction="output"
+     scope="external" />
+  <pin name="ip2uio_rx_st2_hvalid" direction="output" scope="external" />
+  <pin
+     name="ip2uio_rx_st2_prefix[31..0]"
+     direction="output"
+     scope="external" />
+  <pin
+     name="ip2uio_rx_st2_prefix_parity"
+     direction="output"
+     scope="external" />
+  <pin
+     name="ip2uio_rx_st2_RSSAI_prefix[11..0]"
+     direction="output"
+     scope="external" />
+  <pin
+     name="ip2uio_rx_st2_RSSAI_prefix_parity"
+     direction="output"
+     scope="external" />
+  <pin name="ip2uio_rx_st2_pvalid[1..0]" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st2_bar[2..0]" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st2_vfactive" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st2_vfnum[10..0]" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st2_pfnum[2..0]" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st2_chnum" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st2_misc_parity" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st2_empty[2..0]" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st3_dvalid" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st3_sop" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st3_eop" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st3_passthrough" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st3_data[255..0]" direction="output" scope="external" />
+  <pin
+     name="ip2uio_rx_st3_data_parity[7..0]"
+     direction="output"
+     scope="external" />
+  <pin name="ip2uio_rx_st3_hdr[127..0]" direction="output" scope="external" />
+  <pin
+     name="ip2uio_rx_st3_hdr_parity[3..0]"
+     direction="output"
+     scope="external" />
+  <pin name="ip2uio_rx_st3_hvalid" direction="output" scope="external" />
+  <pin
+     name="ip2uio_rx_st3_prefix[31..0]"
+     direction="output"
+     scope="external" />
+  <pin
+     name="ip2uio_rx_st3_prefix_parity"
+     direction="output"
+     scope="external" />
+  <pin
+     name="ip2uio_rx_st3_RSSAI_prefix[11..0]"
+     direction="output"
+     scope="external" />
+  <pin
+     name="ip2uio_rx_st3_RSSAI_prefix_parity"
+     direction="output"
+     scope="external" />
+  <pin name="ip2uio_rx_st3_pvalid[1..0]" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st3_bar[2..0]" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st3_vfactive" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st3_vfnum[10..0]" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st3_pfnum[2..0]" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st3_chnum" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st3_misc_parity" direction="output" scope="external" />
+  <pin name="ip2uio_rx_st3_empty[2..0]" direction="output" scope="external" />
+  <pin
+     name="uio2ip_rx_st_Hcrdt_update[2..0]"
+     direction="input"
+     scope="external" />
+  <pin name="uio2ip_rx_st_Hcrdt_ch" direction="input" scope="external" />
+  <pin
+     name="uio2ip_rx_st_Hcrdt_update_cnt[5..0]"
+     direction="input"
+     scope="external" />
+  <pin
+     name="uio2ip_rx_st_Hcrdt_init[2..0]"
+     direction="input"
+     scope="external" />
+  <pin
+     name="ip2uio_rx_st_Hcrdt_init_ack[2..0]"
+     direction="output"
+     scope="external" />
+  <pin
+     name="uio2ip_rx_st_Dcrdt_update[2..0]"
+     direction="input"
+     scope="external" />
+  <pin name="uio2ip_rx_st_Dcrdt_ch" direction="input" scope="external" />
+  <pin
+     name="uio2ip_rx_st_Dcrdt_update_cnt[11..0]"
+     direction="input"
+     scope="external" />
+  <pin
+     name="uio2ip_rx_st_Dcrdt_init[2..0]"
+     direction="input"
+     scope="external" />
+  <pin
+     name="ip2uio_rx_st_Dcrdt_init_ack[2..0]"
+     direction="output"
+     scope="external" />
+  <pin name="ip2uio_bus_number[7..0]" direction="output" scope="external" />
+  <pin name="ip2uio_device_number[4..0]" direction="output" scope="external" />
+ </global>
+</pinplan>

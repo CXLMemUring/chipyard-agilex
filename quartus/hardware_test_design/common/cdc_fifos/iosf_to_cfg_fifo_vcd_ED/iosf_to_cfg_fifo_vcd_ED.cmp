@@ -1,0 +1,14 @@
+	component iosf_to_cfg_fifo_vcd_ED is
+		port (
+			data    : in  std_logic_vector(143 downto 0) := (others => 'X'); -- datain
+			wrreq   : in  std_logic                      := 'X';             -- wrreq
+			rdreq   : in  std_logic                      := 'X';             -- rdreq
+			wrclk   : in  std_logic                      := 'X';             -- wrclk
+			rdclk   : in  std_logic                      := 'X';             -- rdclk
+			aclr    : in  std_logic                      := 'X';             -- aclr
+			q       : out std_logic_vector(143 downto 0);                    -- dataout
+			rdempty : out std_logic;                                         -- rdempty
+			wrfull  : out std_logic                                          -- wrfull
+		);
+	end component iosf_to_cfg_fifo_vcd_ED;
+

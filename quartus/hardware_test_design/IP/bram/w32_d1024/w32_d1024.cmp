@@ -1,0 +1,12 @@
+	component w32_d1024 is
+		port (
+			data      : in  std_logic_vector(31 downto 0) := (others => 'X'); -- datain
+			q         : out std_logic_vector(31 downto 0);                    -- dataout
+			wraddress : in  std_logic_vector(9 downto 0)  := (others => 'X'); -- wraddress
+			rdaddress : in  std_logic_vector(9 downto 0)  := (others => 'X'); -- rdaddress
+			wren      : in  std_logic                     := 'X';             -- wren
+			clock     : in  std_logic                     := 'X';             -- clk
+			sclr      : in  std_logic                     := 'X'              -- reset
+		);
+	end component w32_d1024;
+
