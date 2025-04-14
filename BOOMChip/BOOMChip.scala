@@ -15,7 +15,7 @@ class With4BMemPort extends Config((site, here, up) => {
 /* ------------------------- */
 
 // Configuració del sistema
-class UABConfig extends Config(
+class BOOMConfig extends Config(
   // El Harness és la interfície de simulació. No s'utilitza, però s'ha de definir obligatoriament.
   new chipyard.harness.WithUARTAdapter ++                       
   new chipyard.harness.WithBlackBoxSimMem ++                    
@@ -59,5 +59,22 @@ class UABConfig extends Config(
   new freechips.rocketchip.subsystem.WithNoSlavePort ++          // Sense port per a DMA
   new freechips.rocketchip.system.BaseConfig)                    // Config. base de RocketChip
 
-// Dispositiu a generar. Conté 1 RocketCore RV64GC + configuració custom.
-class UABChip extends Config( new freechips.rocketchip.subsystem.WithNBigCores(1) ++ new UABConfig)
+// Dispositiu a generar amb BOOM core en lloc de RocketCore
+class BOOMChip extends Config(
+  new boom.v3.common.WithNLargeBooms(1) ++                      // 1 BOOM core (out-of-order)
+  new chipyard.config.WithSystemBusWidth(128) ++                // Configuració amb bus adequat per a BOOM
+  new BOOMConfig)                                                // Resta de configuració del sistema
+
+// Variacions amb diferents mides del BOOM core
+class SmallBOOMChip extends Config(
+  new boom.v3.common.WithNSmallBooms(1) ++
+  new chipyard.config.WithSystemBusWidth(128) ++
+  new BOOMConfig)
+
+class MediumBOOMChip extends Config(
+  new boom.v3.common.WithNMediumBooms(1) ++
+  new chipyard.config.WithSystemBusWidth(128) ++
+  new BOOMConfig)
+
+// Aquesta és la configuració per defecte, amb un Large BOOM
+class UABChip extends Config(new BOOMChip)
