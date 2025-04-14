@@ -28,7 +28,21 @@
 //
 
 // QPDS UPDATE
+`ifndef SKIP_CXL_DEFINES
+// 删除这行以允许包含cxl_type2_defines.svh.iv
+// `define SKIP_CXL_DEFINES
+`endif
+
+`ifndef EXCLUDE_EMIF_CAL_TWO_CH
+`define EXCLUDE_EMIF_CAL_TWO_CH
+`endif
+
+`ifndef SKIP_CXL_DEFINES
 `include "cxl_type2_defines.svh.iv"
+`endif
+
+// 添加包含intel_rtile_cxl_top模块定义的文件
+`include "../intel_rtile_cxl_top_cxltyp2_ed/synth/intel_rtile_cxl_top_cxltyp2_ed.v"
 
 import cxlip_top_pkg::*;
 import afu_axi_if_pkg::*;
@@ -43,6 +57,7 @@ module cxltyp2_ed (
   input                    refclk1,     // to RTile
   input                    refclk4,     // to Fabric PLL
   input                    resetn,
+  input                    nInit_done,  // 添加缺失的nInit_done信号
   // CXL 
   input             [15:0] cxl_rx_n,
   input             [15:0] cxl_rx_p,
@@ -386,636 +401,66 @@ module cxltyp2_ed (
    logic                      ip2cafu_aximm1_wready;
   
   //AXI <--> AXI2CCIP_SHIM <--> CCIP        write response channels
-   logic [11:0]               ip2cafu_aximm0_bid;
+  logic [15:0]               ip2cafu_aximm0_bid;
    logic [1:0]                ip2cafu_aximm0_bresp;
-   logic [3:0]                ip2cafu_aximm0_buser;
+  logic                      ip2cafu_aximm0_buser;
    logic                      ip2cafu_aximm0_bvalid;
    logic                      cafu2ip_aximm0_bready;
   
-   logic [11:0]               ip2cafu_aximm1_bid;
+  logic [7:0]                ip2cafu_aximm1_bid;
    logic [1:0]                ip2cafu_aximm1_bresp;
-   logic [3:0]                ip2cafu_aximm1_buser;
+  logic                      ip2cafu_aximm1_buser;
    logic                      ip2cafu_aximm1_bvalid;
    logic                      cafu2ip_aximm1_bready;
-  
-  //AXI <--> AXI2CCIP_SHIM <--> CCIP        read address channels
-   logic [11:0]                        cafu2ip_aximm0_arid;
-   logic [63:0]                        cafu2ip_aximm0_araddr;
-   logic [9:0]                         cafu2ip_aximm0_arlen;
-   logic [2:0]                         cafu2ip_aximm0_arsize;
-   logic [1:0]                         cafu2ip_aximm0_arburst;
-   logic [2:0]                         cafu2ip_aximm0_arprot;
-   logic [3:0]                         cafu2ip_aximm0_arqos;
-   logic [4:0]                         cafu2ip_aximm0_aruser;
-   logic                               cafu2ip_aximm0_arvalid;
-   logic [3:0]                         cafu2ip_aximm0_arcache;
-   logic [1:0]                         cafu2ip_aximm0_arlock;
-   logic [3:0]                         cafu2ip_aximm0_arregion;
-   logic                               ip2cafu_aximm0_arready;
-  
-   logic [11:0]                        cafu2ip_aximm1_arid;
-   logic [63:0]                        cafu2ip_aximm1_araddr;
-   logic [9:0]                         cafu2ip_aximm1_arlen;
-   logic [2:0]                         cafu2ip_aximm1_arsize;
-   logic [1:0]                         cafu2ip_aximm1_arburst;
-   logic [2:0]                         cafu2ip_aximm1_arprot;
-   logic [3:0]                         cafu2ip_aximm1_arqos;
-   logic [4:0]                         cafu2ip_aximm1_aruser;
-   logic                               cafu2ip_aximm1_arvalid;
-   logic [3:0]                         cafu2ip_aximm1_arcache;
-   logic [1:0]                         cafu2ip_aximm1_arlock;
-   logic [3:0]                         cafu2ip_aximm1_arregion;
-   logic                               ip2cafu_aximm1_arready;
-
-  //AXI <--> AXI2CCIP_SHIM <--> CCIP        read response channels
-   logic [11:0]                        ip2cafu_aximm0_rid;
-   logic [511:0]                       ip2cafu_aximm0_rdata;
-   logic [3:0]                         ip2cafu_aximm0_rresp;
-   logic                               ip2cafu_aximm0_rlast;
-   logic                               ip2cafu_aximm0_ruser;
-   logic                               ip2cafu_aximm0_rvalid;
-   logic                               cafu2ip_aximm0_rready;
-  
-   logic [11:0]                        ip2cafu_aximm1_rid;
-   logic [511:0]                       ip2cafu_aximm1_rdata;
-   logic [3:0]                         ip2cafu_aximm1_rresp;
-   logic                               ip2cafu_aximm1_rlast;
-   logic                               ip2cafu_aximm1_ruser;
-   logic                               ip2cafu_aximm1_rvalid;
-   logic                               cafu2ip_aximm1_rready;
-
-
-  // IO - User AVST interface
-    logic                             ip2uio_tx_ready;      //TBD
-     logic                            uio2ip_tx_st0_dvalid;
-     logic                            uio2ip_tx_st0_sop;
-     logic                            uio2ip_tx_st0_eop;
-     logic                            uio2ip_tx_st0_passthrough;
-     logic [(CXL_IO_DWIDTH-1):0]      uio2ip_tx_st0_data;
-     logic [((CXL_IO_DWIDTH/32)-1):0] uio2ip_tx_st0_data_parity;
-     logic [127:0]                    uio2ip_tx_st0_hdr;
-     logic [3:0]                      uio2ip_tx_st0_hdr_parity;
-     logic                            uio2ip_tx_st0_hvalid;
-     logic [(CXL_IO_PWIDTH-1):0]      uio2ip_tx_st0_prefix;
-     logic [((CXL_IO_PWIDTH/32)-1):0] uio2ip_tx_st0_prefix_parity;
-     logic [11:0]                     uio2ip_tx_st0_RSSAI_prefix;
-     logic                            uio2ip_tx_st0_RSSAI_prefix_parity;
-     logic [1:0]                      uio2ip_tx_st0_pvalid;
-     logic                            uio2ip_tx_st0_vfactive;
-     logic [10:0]                     uio2ip_tx_st0_vfnum ;
-     logic [2:0]                      uio2ip_tx_st0_pfnum;
-     logic [(CXL_IO_CHWIDTH-1):0]     uio2ip_tx_st0_chnum;
-     logic [2:0]                      uio2ip_tx_st0_empty;  // [log2(CXL_IO_DWIDTH/32)-1:0]
-     logic                            uio2ip_tx_st0_misc_parity;
-
-     logic                            uio2ip_tx_st1_dvalid;
-     logic                            uio2ip_tx_st1_sop;
-     logic                            uio2ip_tx_st1_eop;
-     logic                            uio2ip_tx_st1_passthrough;
-     logic [(CXL_IO_DWIDTH-1):0]      uio2ip_tx_st1_data;
-     logic [((CXL_IO_DWIDTH/32)-1):0] uio2ip_tx_st1_data_parity;
-     logic [127:0]                    uio2ip_tx_st1_hdr;
-     logic [3:0]                      uio2ip_tx_st1_hdr_parity;
-     logic                            uio2ip_tx_st1_hvalid;
-     logic [(CXL_IO_PWIDTH-1):0]      uio2ip_tx_st1_prefix;
-     logic [((CXL_IO_PWIDTH/32)-1):0] uio2ip_tx_st1_prefix_parity;
-     logic [11:0]                     uio2ip_tx_st1_RSSAI_prefix;
-     logic                            uio2ip_tx_st1_RSSAI_prefix_parity;
-     logic [1:0]                      uio2ip_tx_st1_pvalid;
-     logic                            uio2ip_tx_st1_vfactive;
-     logic [10:0]                     uio2ip_tx_st1_vfnum ;
-     logic [2:0]                      uio2ip_tx_st1_pfnum;
-     logic [(CXL_IO_CHWIDTH-1):0]     uio2ip_tx_st1_chnum;
-     logic [2:0]                      uio2ip_tx_st1_empty; 
-     logic                            uio2ip_tx_st1_misc_parity;
-
-     logic                            uio2ip_tx_st2_dvalid;
-     logic                            uio2ip_tx_st2_sop;
-     logic                            uio2ip_tx_st2_eop;
-     logic                            uio2ip_tx_st2_passthrough;
-     logic [(CXL_IO_DWIDTH-1):0]      uio2ip_tx_st2_data;
-     logic [((CXL_IO_DWIDTH/32)-1):0] uio2ip_tx_st2_data_parity;
-     logic [127:0]                    uio2ip_tx_st2_hdr;
-     logic [3:0]                      uio2ip_tx_st2_hdr_parity;
-     logic                            uio2ip_tx_st2_hvalid;
-     logic [(CXL_IO_PWIDTH-1):0]      uio2ip_tx_st2_prefix;
-     logic [((CXL_IO_PWIDTH/32)-1):0] uio2ip_tx_st2_prefix_parity;
-     logic [11:0]                     uio2ip_tx_st2_RSSAI_prefix;
-     logic                            uio2ip_tx_st2_RSSAI_prefix_parity;
-     logic [1:0]                      uio2ip_tx_st2_pvalid;
-     logic                            uio2ip_tx_st2_vfactive;
-     logic [10:0]                     uio2ip_tx_st2_vfnum ;
-     logic [2:0]                      uio2ip_tx_st2_pfnum;
-     logic [(CXL_IO_CHWIDTH-1):0]     uio2ip_tx_st2_chnum;
-     logic [2:0]                      uio2ip_tx_st2_empty;  
-     logic                            uio2ip_tx_st2_misc_parity;
-
-     logic                            uio2ip_tx_st3_dvalid;
-     logic                            uio2ip_tx_st3_sop;
-     logic                            uio2ip_tx_st3_eop;
-     logic                            uio2ip_tx_st3_passthrough;
-     logic [(CXL_IO_DWIDTH-1):0]      uio2ip_tx_st3_data;
-     logic [((CXL_IO_DWIDTH/32)-1):0] uio2ip_tx_st3_data_parity;
-     logic [127:0]                    uio2ip_tx_st3_hdr;
-     logic [3:0]                      uio2ip_tx_st3_hdr_parity;
-     logic                            uio2ip_tx_st3_hvalid;
-     logic [(CXL_IO_PWIDTH-1):0]      uio2ip_tx_st3_prefix;
-     logic [((CXL_IO_PWIDTH/32)-1):0] uio2ip_tx_st3_prefix_parity;
-     logic [11:0]                     uio2ip_tx_st3_RSSAI_prefix;
-     logic                            uio2ip_tx_st3_RSSAI_prefix_parity;
-     logic [1:0]                      uio2ip_tx_st3_pvalid;
-     logic                            uio2ip_tx_st3_vfactive;
-     logic [10:0]                     uio2ip_tx_st3_vfnum ;
-     logic [2:0]                      uio2ip_tx_st3_pfnum;
-     logic [(CXL_IO_CHWIDTH-1):0]     uio2ip_tx_st3_chnum;
-     logic [2:0]                      uio2ip_tx_st3_empty;  
-     logic                            uio2ip_tx_st3_misc_parity;
-
-//TBD 
-    logic [2:0]                      ip2uio_tx_st_Hcrdt_update;
-    logic [(CXL_IO_CHWIDTH-1):0]     ip2uio_tx_st_Hcrdt_ch;
-    logic [5:0]                      ip2uio_tx_st_Hcrdt_update_cnt;
-    logic [2:0]                      ip2uio_tx_st_Hcrdt_init;
-     logic [2:0]                      uio2ip_tx_st_Hcrdt_init_ack;
-    logic [2:0]                      ip2uio_tx_st_Dcrdt_update;
-    logic [(CXL_IO_CHWIDTH-1):0]     ip2uio_tx_st_Dcrdt_ch;
-    logic [11:0]                     ip2uio_tx_st_Dcrdt_update_cnt;
-    logic [2:0]                      ip2uio_tx_st_Dcrdt_init ;
-     logic [2:0]                      uio2ip_tx_st_Dcrdt_init_ack;
-  
-   logic                             ip2uio_rx_st0_dvalid;
-   logic                             ip2uio_rx_st0_sop;
-   logic                             ip2uio_rx_st0_eop;
-   logic                             ip2uio_rx_st0_passthrough;
-   logic  [(CXL_IO_DWIDTH-1):0]      ip2uio_rx_st0_data;
-   logic  [((CXL_IO_DWIDTH/32)-1):0] ip2uio_rx_st0_data_parity;
-   logic  [127:0]                    ip2uio_rx_st0_hdr;
-   logic  [3:0]                      ip2uio_rx_st0_hdr_parity;
-   logic                             ip2uio_rx_st0_hvalid;
-   logic  [(CXL_IO_PWIDTH-1):0]      ip2uio_rx_st0_prefix;
-   logic  [((CXL_IO_PWIDTH/32)-1):0] ip2uio_rx_st0_prefix_parity;
-   logic  [11:0]                     ip2uio_rx_st0_RSSAI_prefix;
-   logic                             ip2uio_rx_st0_RSSAI_prefix_parity;
-   logic  [1:0]                      ip2uio_rx_st0_pvalid;
-   logic  [2:0]                      ip2uio_rx_st0_bar;
-   logic                             ip2uio_rx_st0_vfactive;
-   logic  [10:0]                     ip2uio_rx_st0_vfnum;
-   logic  [2:0]                      ip2uio_rx_st0_pfnum;
-   logic  [(CXL_IO_CHWIDTH-1):0]     ip2uio_rx_st0_chnum;
-   logic                             ip2uio_rx_st0_misc_parity;
-   logic  [2:0]                      ip2uio_rx_st0_empty;  
-
-   logic                             ip2uio_rx_st1_dvalid;
-   logic                             ip2uio_rx_st1_sop;
-   logic                             ip2uio_rx_st1_eop;
-   logic                             ip2uio_rx_st1_passthrough;
-   logic  [(CXL_IO_DWIDTH-1):0]      ip2uio_rx_st1_data;
-   logic  [((CXL_IO_DWIDTH/32)-1):0] ip2uio_rx_st1_data_parity;
-   logic  [127:0]                    ip2uio_rx_st1_hdr;
-   logic  [3:0]                      ip2uio_rx_st1_hdr_parity;
-   logic                             ip2uio_rx_st1_hvalid;
-   logic  [(CXL_IO_PWIDTH-1):0]      ip2uio_rx_st1_prefix;
-   logic  [((CXL_IO_PWIDTH/32)-1):0] ip2uio_rx_st1_prefix_parity;
-   logic  [11:0]                     ip2uio_rx_st1_RSSAI_prefix;
-   logic                             ip2uio_rx_st1_RSSAI_prefix_parity;
-   logic  [1:0]                      ip2uio_rx_st1_pvalid;
-   logic  [2:0]                      ip2uio_rx_st1_bar;
-   logic                             ip2uio_rx_st1_vfactive;
-   logic  [10:0]                     ip2uio_rx_st1_vfnum;
-   logic  [2:0]                      ip2uio_rx_st1_pfnum;
-   logic  [(CXL_IO_CHWIDTH-1):0]     ip2uio_rx_st1_chnum;
-   logic                             ip2uio_rx_st1_misc_parity;
-   logic  [2:0]                      ip2uio_rx_st1_empty;  // [log2(CXL_IO_DWIDTH/32)-1:0]
-  
-   logic                             ip2uio_rx_st2_dvalid;
-   logic                             ip2uio_rx_st2_sop;
-   logic                             ip2uio_rx_st2_eop;
-   logic                             ip2uio_rx_st2_passthrough;
-   logic  [(CXL_IO_DWIDTH-1):0]      ip2uio_rx_st2_data;
-   logic  [((CXL_IO_DWIDTH/32)-1):0] ip2uio_rx_st2_data_parity;
-   logic  [127:0]                    ip2uio_rx_st2_hdr;
-   logic  [3:0]                      ip2uio_rx_st2_hdr_parity;
-   logic                             ip2uio_rx_st2_hvalid;
-   logic  [(CXL_IO_PWIDTH-1):0]      ip2uio_rx_st2_prefix;
-   logic  [((CXL_IO_PWIDTH/32)-1):0] ip2uio_rx_st2_prefix_parity;
-   logic  [11:0]                     ip2uio_rx_st2_RSSAI_prefix;
-   logic                             ip2uio_rx_st2_RSSAI_prefix_parity;
-   logic  [1:0]                      ip2uio_rx_st2_pvalid;
-   logic  [2:0]                      ip2uio_rx_st2_bar;
-   logic                             ip2uio_rx_st2_vfactive;
-   logic  [10:0]                     ip2uio_rx_st2_vfnum;
-   logic  [2:0]                      ip2uio_rx_st2_pfnum;
-   logic  [(CXL_IO_CHWIDTH-1):0]     ip2uio_rx_st2_chnum;
-   logic                             ip2uio_rx_st2_misc_parity;
-   logic  [2:0]                      ip2uio_rx_st2_empty;  // [log2(CXL_IO_DWIDTH/32)-1:0]
-
-   logic                             ip2uio_rx_st3_dvalid;
-   logic                             ip2uio_rx_st3_sop;
-   logic                             ip2uio_rx_st3_eop;
-   logic                             ip2uio_rx_st3_passthrough;
-   logic  [(CXL_IO_DWIDTH-1):0]      ip2uio_rx_st3_data;
-   logic  [((CXL_IO_DWIDTH/32)-1):0] ip2uio_rx_st3_data_parity;
-   logic  [127:0]                    ip2uio_rx_st3_hdr;
-   logic  [3:0]                      ip2uio_rx_st3_hdr_parity;
-   logic                             ip2uio_rx_st3_hvalid;
-   logic  [(CXL_IO_PWIDTH-1):0]      ip2uio_rx_st3_prefix;
-   logic  [((CXL_IO_PWIDTH/32)-1):0] ip2uio_rx_st3_prefix_parity;
-   logic  [11:0]                     ip2uio_rx_st3_RSSAI_prefix;
-   logic                             ip2uio_rx_st3_RSSAI_prefix_parity;
-   logic  [1:0]                      ip2uio_rx_st3_pvalid;
-   logic  [2:0]                      ip2uio_rx_st3_bar;
-   logic                             ip2uio_rx_st3_vfactive;
-   logic  [10:0]                     ip2uio_rx_st3_vfnum;
-   logic  [2:0]                      ip2uio_rx_st3_pfnum;
-   logic  [(CXL_IO_CHWIDTH-1):0]     ip2uio_rx_st3_chnum;
-   logic                             ip2uio_rx_st3_misc_parity;
-   logic  [2:0]                      ip2uio_rx_st3_empty;  // [log2(CXL_IO_DWIDTH/32)-1:0]
-  
-    logic [2:0]                       uio2ip_rx_st_Hcrdt_update;
-    logic [(CXL_IO_CHWIDTH-1):0]      uio2ip_rx_st_Hcrdt_ch;
-    logic [5:0]                       uio2ip_rx_st_Hcrdt_update_cnt;
-    logic [2:0]                       uio2ip_rx_st_Hcrdt_init;
-   logic [2:0]                       ip2uio_rx_st_Hcrdt_init_ack;
-    logic [2:0]                       uio2ip_rx_st_Dcrdt_update;
-    logic [(CXL_IO_CHWIDTH-1):0]      uio2ip_rx_st_Dcrdt_ch;
-    logic [11:0]                      uio2ip_rx_st_Dcrdt_update_cnt;
-    logic [2:0]                       uio2ip_rx_st_Dcrdt_init;
-   logic [2:0]                       ip2uio_rx_st_Dcrdt_init_ack;
-
-   logic [7:0]                       ip2uio_bus_number ;                            
-   logic [4:0]                       ip2uio_device_number ;
-
- 
-
-
-//>>>
-
-  
-  //-------------------------------------------------------
-  // --------------------IP------------------  
-  //-------------------------------------------------------
-
-//<<<
-
-  // QPDS DEBUG
-  //cxl_type2_cxlip_top #(
-  //`ifdef SIM_ADME_OFF     
-  //.ADME_ENABLE (0) 
-  //`else
-  //.ADME_ENABLE (1) 
-  //`endif
-  //)
-  //cxl_type2_cxlip_top 
-  //( 
-  intel_rtile_cxl_top_cxltyp2_ed intel_rtile_cxl_top_inst (
-    .refclk0                                (refclk0       ) ,     // To R-Tile
-    .refclk1                                (refclk1       ) ,     // To R-Tile
-    .refclk4                                (refclk4       ) ,     // To Fabric PLL
-    
-    .resetn                                 (resetn        ) ,
-    .cxl_warm_rst_n                         (cxl_warm_rst_n) ,     // OUTPUT  
-    .cxl_cold_rst_n                         (cxl_cold_rst_n) ,     // OUTPUT
-
-    .cxl_tx_n                               (cxl_tx_n      ) ,     // To R-tile
-    .cxl_tx_p                               (cxl_tx_p      ) ,     // To R-tile
-    .cxl_rx_n                               (cxl_rx_n      ) ,     // To R-tile
-    .cxl_rx_p                               (cxl_rx_p      ) ,     // To R-tile
-
-    .ip2hdm_clk                             (ip2hdm_clk    ) ,     // PLD clk 
-    
-
-// DDRMC <--> BBS Slice
-    .ip2hdm_reset_n                        (ip2hdm_reset_n ),     // pipelined Warm reset from from BBS
-    .hdm_size_256mb                        (hdm_size_256mb ),   	 
-    .mc2ip_memsize                         (mc2ip_memsize  ),
-  
-`ifndef ENABLE_4_BBS_SLICE   // MC_CHANNEL=2
-
-    //Channel-->0	  
-   // .mc2ip_0_memsize                       (mc2ip_0_memsize            ),
-    .mc2ip_0_sr_status                     (mc2ip_0_sr_status          ),
-        
-    .ip2hdm_avmm0_read                     (ip2hdm_avmm0_read          ),
-    .ip2hdm_avmm0_write                    (ip2hdm_avmm0_write         ),
-    .ip2hdm_avmm0_write_poison             (ip2hdm_avmm0_write_poison  ),
-    .ip2hdm_avmm0_write_ras_sbe            (ip2hdm_avmm0_write_ras_sbe ),    
-    .ip2hdm_avmm0_write_ras_dbe            (ip2hdm_avmm0_write_ras_dbe ),    
-    .ip2hdm_avmm0_address                  (ip2hdm_avmm0_address       ),
-    .ip2hdm_avmm0_req_mdata                (ip2hdm_avmm0_req_mdata     ),
-    .ip2hdm_avmm0_writedata                (ip2hdm_avmm0_writedata     ),
-    .ip2hdm_avmm0_byteenable               (ip2hdm_avmm0_byteenable    ),
-
-    .hdm2ip_avmm0_ready                    (hdm2ip_avmm0_ready            ),
-    .hdm2ip_avmm0_readdata                 (hdm2ip_avmm0_readdata         ),
-    .hdm2ip_avmm0_rsp_mdata                (hdm2ip_avmm0_rsp_mdata        ),
-    .hdm2ip_avmm0_cxlmem_ready             (hdm2ip_avmm0_cxlmem_ready     ),       
-    .hdm2ip_avmm0_read_poison              (hdm2ip_avmm0_read_poison      ),
-    .hdm2ip_avmm0_readdatavalid            (hdm2ip_avmm0_readdatavalid    ),
-    .hdm2ip_avmm0_ecc_err_corrected        (hdm2ip_avmm0_ecc_err_corrected),
-    .hdm2ip_avmm0_ecc_err_detected         (hdm2ip_avmm0_ecc_err_detected ),
-    .hdm2ip_avmm0_ecc_err_fatal            (hdm2ip_avmm0_ecc_err_fatal    ),
-    .hdm2ip_avmm0_ecc_err_syn_e            (hdm2ip_avmm0_ecc_err_syn_e    ),
-    .hdm2ip_avmm0_ecc_err_valid            (hdm2ip_avmm0_ecc_err_valid    ),
-
-    .mc2ip_0_rspfifo_full                  (mc2ip_0_rspfifo_full          ),
-    .mc2ip_0_rspfifo_empty                 (mc2ip_0_rspfifo_empty         ),
-    .mc2ip_0_rspfifo_fill_level            (mc2ip_0_rspfifo_fill_level    ),
-    .mc2ip_0_reqfifo_full                  (mc2ip_0_reqfifo_full          ),
-    .mc2ip_0_reqfifo_empty                 (mc2ip_0_reqfifo_empty         ),
-    .mc2ip_0_reqfifo_fill_level            (mc2ip_0_reqfifo_fill_level    ),
-	  
-    //Channel-->1	  
-    //.mc2ip_1_memsize                       (mc2ip_1_memsize            ),
-    .mc2ip_1_sr_status                     (mc2ip_1_sr_status          ),
-
-    .ip2hdm_avmm1_read                     (ip2hdm_avmm1_read          ),
-    .ip2hdm_avmm1_write                    (ip2hdm_avmm1_write         ),
-    .ip2hdm_avmm1_write_poison             (ip2hdm_avmm1_write_poison  ),
-    .ip2hdm_avmm1_write_ras_sbe            (ip2hdm_avmm1_write_ras_sbe ),    
-    .ip2hdm_avmm1_write_ras_dbe            (ip2hdm_avmm1_write_ras_dbe ),    
-    .ip2hdm_avmm1_address                  (ip2hdm_avmm1_address       ),
-    .ip2hdm_avmm1_req_mdata                (ip2hdm_avmm1_req_mdata     ),
-    .ip2hdm_avmm1_writedata                (ip2hdm_avmm1_writedata     ),
-    .ip2hdm_avmm1_byteenable               (ip2hdm_avmm1_byteenable    ),
-
-    .hdm2ip_avmm1_ready                    (hdm2ip_avmm1_ready            ),
-    .hdm2ip_avmm1_readdata                 (hdm2ip_avmm1_readdata         ),
-    .hdm2ip_avmm1_rsp_mdata                (hdm2ip_avmm1_rsp_mdata        ),
-    .hdm2ip_avmm1_cxlmem_ready             (hdm2ip_avmm1_cxlmem_ready     ),       
-    .hdm2ip_avmm1_read_poison              (hdm2ip_avmm1_read_poison      ),
-    .hdm2ip_avmm1_readdatavalid            (hdm2ip_avmm1_readdatavalid    ),
-    .hdm2ip_avmm1_ecc_err_corrected        (hdm2ip_avmm1_ecc_err_corrected),
-    .hdm2ip_avmm1_ecc_err_detected         (hdm2ip_avmm1_ecc_err_detected ),
-    .hdm2ip_avmm1_ecc_err_fatal            (hdm2ip_avmm1_ecc_err_fatal    ),
-    .hdm2ip_avmm1_ecc_err_syn_e            (hdm2ip_avmm1_ecc_err_syn_e    ),
-    .hdm2ip_avmm1_ecc_err_valid            (hdm2ip_avmm1_ecc_err_valid    ),
-
-    .mc2ip_1_rspfifo_full                  (mc2ip_1_rspfifo_full          ),
-    .mc2ip_1_rspfifo_empty                 (mc2ip_1_rspfifo_empty         ),
-    .mc2ip_1_rspfifo_fill_level            (mc2ip_1_rspfifo_fill_level    ),
-    .mc2ip_1_reqfifo_full                  (mc2ip_1_reqfifo_full          ),
-    .mc2ip_1_reqfifo_empty                 (mc2ip_1_reqfifo_empty         ),
-    .mc2ip_1_reqfifo_fill_level            (mc2ip_1_reqfifo_fill_level    ),	  
-
-`else
-
-    // DDRMC <--> BBS Slice
-	  
-    //Channel-->0	  
-//    .mc2ip_0_memsize                       (mc2ip_0_memsize            ),
-    .mc2ip_0_sr_status                     (mc2ip_0_sr_status          ),
-
-    .ip2hdm_avmm0_read                     (ip2hdm_avmm0_read          ),
-    .ip2hdm_avmm0_write                    (ip2hdm_avmm0_write         ),
-    .ip2hdm_avmm0_write_poison             (ip2hdm_avmm0_write_poison  ),
-    .ip2hdm_avmm0_write_ras_sbe            (ip2hdm_avmm0_write_ras_sbe ),    
-    .ip2hdm_avmm0_write_ras_dbe            (ip2hdm_avmm0_write_ras_dbe ),    
-    .ip2hdm_avmm0_address                  (ip2hdm_avmm0_address       ),
-    .ip2hdm_avmm0_req_mdata                (ip2hdm_avmm0_req_mdata     ),
-    .ip2hdm_avmm0_writedata                (ip2hdm_avmm0_writedata     ),
-    .ip2hdm_avmm0_byteenable               (ip2hdm_avmm0_byteenable    ),
-
-    .hdm2ip_avmm0_ready                    (hdm2ip_avmm0_ready            ),
-    .hdm2ip_avmm0_readdata                 (hdm2ip_avmm0_readdata         ),
-    .hdm2ip_avmm0_rsp_mdata                (hdm2ip_avmm0_rsp_mdata        ),
-    .hdm2ip_avmm0_cxlmem_ready             (hdm2ip_avmm0_cxlmem_ready     ),       
-    .hdm2ip_avmm0_read_poison              (hdm2ip_avmm0_read_poison      ),
-    .hdm2ip_avmm0_readdatavalid            (hdm2ip_avmm0_readdatavalid    ),
-    .hdm2ip_avmm0_ecc_err_corrected        (hdm2ip_avmm0_ecc_err_corrected),
-    .hdm2ip_avmm0_ecc_err_detected         (hdm2ip_avmm0_ecc_err_detected ),
-    .hdm2ip_avmm0_ecc_err_fatal            (hdm2ip_avmm0_ecc_err_fatal    ),
-    .hdm2ip_avmm0_ecc_err_syn_e            (hdm2ip_avmm0_ecc_err_syn_e    ),
-    .hdm2ip_avmm0_ecc_err_valid            (hdm2ip_avmm0_ecc_err_valid    ),
-
-    .mc2ip_0_rspfifo_full                  (mc2ip_0_rspfifo_full          ),
-    .mc2ip_0_rspfifo_empty                 (mc2ip_0_rspfifo_empty         ),
-    .mc2ip_0_rspfifo_fill_level            (mc2ip_0_rspfifo_fill_level    ),
-    .mc2ip_0_reqfifo_full                  (mc2ip_0_reqfifo_full          ),
-    .mc2ip_0_reqfifo_empty                 (mc2ip_0_reqfifo_empty         ),
-    .mc2ip_0_reqfifo_fill_level            (mc2ip_0_reqfifo_fill_level    ),
-	  
-    //Channel-->1	  
-    //.mc2ip_1_memsize                       (mc2ip_1_memsize            ),
-    .mc2ip_1_sr_status                     (mc2ip_1_sr_status          ),
-
-    .ip2hdm_avmm1_read                     (ip2hdm_avmm1_read          ),
-    .ip2hdm_avmm1_write                    (ip2hdm_avmm1_write         ),
-    .ip2hdm_avmm1_write_poison             (ip2hdm_avmm1_write_poison  ),
-    .ip2hdm_avmm1_write_ras_sbe            (ip2hdm_avmm1_write_ras_sbe ),    
-    .ip2hdm_avmm1_write_ras_dbe            (ip2hdm_avmm1_write_ras_dbe ),    
-    .ip2hdm_avmm1_address                  (ip2hdm_avmm1_address       ),
-    .ip2hdm_avmm1_req_mdata                (ip2hdm_avmm1_req_mdata     ),
-    .ip2hdm_avmm1_writedata                (ip2hdm_avmm1_writedata     ),
-    .ip2hdm_avmm1_byteenable               (ip2hdm_avmm1_byteenable    ),
-
-    .hdm2ip_avmm1_ready                    (hdm2ip_avmm1_ready            ),
-    .hdm2ip_avmm1_readdata                 (hdm2ip_avmm1_readdata         ),
-    .hdm2ip_avmm1_rsp_mdata                (hdm2ip_avmm1_rsp_mdata        ),
-    .hdm2ip_avmm1_cxlmem_ready             (hdm2ip_avmm1_cxlmem_ready     ),       
-    .hdm2ip_avmm1_read_poison              (hdm2ip_avmm1_read_poison      ),
-    .hdm2ip_avmm1_readdatavalid            (hdm2ip_avmm1_readdatavalid    ),
-    .hdm2ip_avmm1_ecc_err_corrected        (hdm2ip_avmm1_ecc_err_corrected),
-    .hdm2ip_avmm1_ecc_err_detected         (hdm2ip_avmm1_ecc_err_detected ),
-    .hdm2ip_avmm1_ecc_err_fatal            (hdm2ip_avmm1_ecc_err_fatal    ),
-    .hdm2ip_avmm1_ecc_err_syn_e            (hdm2ip_avmm1_ecc_err_syn_e    ),
-    .hdm2ip_avmm1_ecc_err_valid            (hdm2ip_avmm1_ecc_err_valid    ),
-
-    .mc2ip_1_rspfifo_full                  (mc2ip_1_rspfifo_full          ),
-    .mc2ip_1_rspfifo_empty                 (mc2ip_1_rspfifo_empty         ),
-    .mc2ip_1_rspfifo_fill_level            (mc2ip_1_rspfifo_fill_level    ),
-    .mc2ip_1_reqfifo_full                  (mc2ip_1_reqfifo_full          ),
-    .mc2ip_1_reqfifo_empty                 (mc2ip_1_reqfifo_empty         ),
-    .mc2ip_1_reqfifo_fill_level            (mc2ip_1_reqfifo_fill_level    ),	  
-	  
- 
-
- //Channel-->2	  
-    //.mc2ip_2_memsize                       (mc2ip_2_memsize            ),
-    .mc2ip_2_sr_status                     (mc2ip_2_sr_status          ),
-
-    .ip2hdm_avmm2_read                     (ip2hdm_avmm2_read          ),
-    .ip2hdm_avmm2_write                    (ip2hdm_avmm2_write         ),
-    .ip2hdm_avmm2_write_poison             (ip2hdm_avmm2_write_poison  ),
-    .ip2hdm_avmm2_write_ras_sbe            (ip2hdm_avmm2_write_ras_sbe ),    
-    .ip2hdm_avmm2_write_ras_dbe            (ip2hdm_avmm2_write_ras_dbe ),    
-    .ip2hdm_avmm2_address                  (ip2hdm_avmm2_address       ),
-    .ip2hdm_avmm2_req_mdata                (ip2hdm_avmm2_req_mdata     ),
-    .ip2hdm_avmm2_writedata                (ip2hdm_avmm2_writedata     ),
-    .ip2hdm_avmm2_byteenable               (ip2hdm_avmm2_byteenable    ),
-
-    .hdm2ip_avmm2_ready                    (hdm2ip_avmm2_ready            ),
-    .hdm2ip_avmm2_readdata                 (hdm2ip_avmm2_readdata         ),
-    .hdm2ip_avmm2_rsp_mdata                (hdm2ip_avmm2_rsp_mdata        ),
-    .hdm2ip_avmm2_cxlmem_ready             (hdm2ip_avmm2_cxlmem_ready     ),       
-    .hdm2ip_avmm2_read_poison              (hdm2ip_avmm2_read_poison      ),
-    .hdm2ip_avmm2_readdatavalid            (hdm2ip_avmm2_readdatavalid    ),
-    .hdm2ip_avmm2_ecc_err_corrected        (hdm2ip_avmm2_ecc_err_corrected),
-    .hdm2ip_avmm2_ecc_err_detected         (hdm2ip_avmm2_ecc_err_detected ),
-    .hdm2ip_avmm2_ecc_err_fatal            (hdm2ip_avmm2_ecc_err_fatal    ),
-    .hdm2ip_avmm2_ecc_err_syn_e            (hdm2ip_avmm2_ecc_err_syn_e    ),
-    .hdm2ip_avmm2_ecc_err_valid            (hdm2ip_avmm2_ecc_err_valid    ),
-
-    .mc2ip_2_rspfifo_full                  (mc2ip_2_rspfifo_full          ),
-    .mc2ip_2_rspfifo_empty                 (mc2ip_2_rspfifo_empty         ),
-    .mc2ip_2_rspfifo_fill_level            (mc2ip_2_rspfifo_fill_level    ),
-    .mc2ip_2_reqfifo_full                  (mc2ip_2_reqfifo_full          ),
-    .mc2ip_2_reqfifo_empty                 (mc2ip_2_reqfifo_empty         ),
-    .mc2ip_2_reqfifo_fill_level            (mc2ip_2_reqfifo_fill_level    ),
-	  
-    //Channel-->3	  
-
-    //.mc2ip_3_memsize                       (mc2ip_3_memsize            ),
-    .mc2ip_3_sr_status                     (mc2ip_3_sr_status          ),
-
-    .ip2hdm_avmm3_read                     (ip2hdm_avmm3_read          ),
-    .ip2hdm_avmm3_write                    (ip2hdm_avmm3_write         ),
-    .ip2hdm_avmm3_write_poison             (ip2hdm_avmm3_write_poison  ),
-    .ip2hdm_avmm3_write_ras_sbe            (ip2hdm_avmm3_write_ras_sbe ),    
-    .ip2hdm_avmm3_write_ras_dbe            (ip2hdm_avmm3_write_ras_dbe ),    
-    .ip2hdm_avmm3_address                  (ip2hdm_avmm3_address       ),
-    .ip2hdm_avmm3_req_mdata                (ip2hdm_avmm3_req_mdata     ),
-    .ip2hdm_avmm3_writedata                (ip2hdm_avmm3_writedata     ),
-    .ip2hdm_avmm3_byteenable               (ip2hdm_avmm3_byteenable    ),
-
-    .hdm2ip_avmm3_ready                    (hdm2ip_avmm3_ready            ),
-    .hdm2ip_avmm3_readdata                 (hdm2ip_avmm3_readdata         ),
-    .hdm2ip_avmm3_rsp_mdata                (hdm2ip_avmm3_rsp_mdata        ),
-    .hdm2ip_avmm3_cxlmem_ready             (hdm2ip_avmm3_cxlmem_ready     ),       
-    .hdm2ip_avmm3_read_poison              (hdm2ip_avmm3_read_poison      ),
-    .hdm2ip_avmm3_readdatavalid            (hdm2ip_avmm3_readdatavalid    ),
-    .hdm2ip_avmm3_ecc_err_corrected        (hdm2ip_avmm3_ecc_err_corrected),
-    .hdm2ip_avmm3_ecc_err_detected         (hdm2ip_avmm3_ecc_err_detected ),
-    .hdm2ip_avmm3_ecc_err_fatal            (hdm2ip_avmm3_ecc_err_fatal    ),
-    .hdm2ip_avmm3_ecc_err_syn_e            (hdm2ip_avmm3_ecc_err_syn_e    ),
-    .hdm2ip_avmm3_ecc_err_valid            (hdm2ip_avmm3_ecc_err_valid    ),
-
-    .mc2ip_3_rspfifo_full                  (mc2ip_3_rspfifo_full          ),
-    .mc2ip_3_rspfifo_empty                 (mc2ip_3_rspfifo_empty         ),
-    .mc2ip_3_rspfifo_fill_level            (mc2ip_3_rspfifo_fill_level    ),
-    .mc2ip_3_reqfifo_full                  (mc2ip_3_reqfifo_full          ),
-    .mc2ip_3_reqfifo_empty                 (mc2ip_3_reqfifo_empty         ),
-    .mc2ip_3_reqfifo_fill_level            (mc2ip_3_reqfifo_fill_level    ),	  
-	  
-
-`endif	
-
- //AXI <--> AXI2CCIP_SHIM <--> CCIP        write address channels
-
-   .cafu2ip_aximm0_awid                 (cafu2ip_aximm0_awid      ) ,
-   .cafu2ip_aximm0_awaddr               (cafu2ip_aximm0_awaddr    ) , 
-   .cafu2ip_aximm0_awlen                (cafu2ip_aximm0_awlen     ) ,
-   .cafu2ip_aximm0_awsize               (cafu2ip_aximm0_awsize    ) ,
-   .cafu2ip_aximm0_awburst              (cafu2ip_aximm0_awburst   ) ,
-   .cafu2ip_aximm0_awprot               (cafu2ip_aximm0_awprot    ) ,
-   .cafu2ip_aximm0_awqos                (cafu2ip_aximm0_awqos     ) ,
-   .cafu2ip_aximm0_awuser               (cafu2ip_aximm0_awuser    ) ,
-   .cafu2ip_aximm0_awvalid              (cafu2ip_aximm0_awvalid   ) ,
-   .cafu2ip_aximm0_awcache              (cafu2ip_aximm0_awcache   ) ,
-   .cafu2ip_aximm0_awlock               (cafu2ip_aximm0_awlock    ) ,
-   .cafu2ip_aximm0_awregion             (cafu2ip_aximm0_awregion  ) ,
-   .ip2cafu_aximm0_awready              (ip2cafu_aximm0_awready   ) ,
-  
-   .cafu2ip_aximm1_awid                 (cafu2ip_aximm1_awid      ) ,
-   .cafu2ip_aximm1_awaddr               (cafu2ip_aximm1_awaddr    ),
-   .cafu2ip_aximm1_awlen                (cafu2ip_aximm1_awlen     ),
-   .cafu2ip_aximm1_awsize               (cafu2ip_aximm1_awsize    ),
-   .cafu2ip_aximm1_awburst              (cafu2ip_aximm1_awburst   ),
-   .cafu2ip_aximm1_awprot               (cafu2ip_aximm1_awprot    ),
-   .cafu2ip_aximm1_awqos                (cafu2ip_aximm1_awqos     ),
-   .cafu2ip_aximm1_awuser               (cafu2ip_aximm1_awuser    ),
-   .cafu2ip_aximm1_awvalid              (cafu2ip_aximm1_awvalid   ),
-   .cafu2ip_aximm1_awcache              (cafu2ip_aximm1_awcache   ),
-   .cafu2ip_aximm1_awlock               (cafu2ip_aximm1_awlock    ),
-   .cafu2ip_aximm1_awregion             (cafu2ip_aximm1_awregion  ),
-   .ip2cafu_aximm1_awready              (ip2cafu_aximm1_awready   ), 
-
-  
-  //AXI <--> AXI2CCIP_SHIM <--> CCIP        write data channels
-  
-   .cafu2ip_aximm0_wdata                (cafu2ip_aximm0_wdata     ),
-   .cafu2ip_aximm0_wstrb                (cafu2ip_aximm0_wstrb     ),
-   .cafu2ip_aximm0_wlast                (cafu2ip_aximm0_wlast     ),
-   .cafu2ip_aximm0_wuser                (cafu2ip_aximm0_wuser     ),
-   .cafu2ip_aximm0_wvalid               (cafu2ip_aximm0_wvalid    ),
-  //.cafu2ip_aximm0_wid                  (cafu2ip_aximm0_wid       ),
-   .ip2cafu_aximm0_wready               (ip2cafu_aximm0_wready    ),
-  
-   .cafu2ip_aximm1_wdata                (cafu2ip_aximm1_wdata     ),
-   .cafu2ip_aximm1_wstrb                (cafu2ip_aximm1_wstrb     ),
-   .cafu2ip_aximm1_wlast                (cafu2ip_aximm1_wlast     ),
-   .cafu2ip_aximm1_wuser                (cafu2ip_aximm1_wuser     ),
-   .cafu2ip_aximm1_wvalid               (cafu2ip_aximm1_wvalid    ),
-  //.cafu2ip_aximm1_wid                  (cafu2ip_aximm1_wid       ),
-   .ip2cafu_aximm1_wready               (ip2cafu_aximm1_wready    ),
-
-  
-  //AXI <--> AXI2CCIP_SHIM <--> CCIP        write response channels
-
-  .ip2cafu_aximm0_bid                  (ip2cafu_aximm0_bid       ),
-  .ip2cafu_aximm0_bresp                (ip2cafu_aximm0_bresp     ),
-  .ip2cafu_aximm0_buser                (ip2cafu_aximm0_buser     ),
-  .ip2cafu_aximm0_bvalid               (ip2cafu_aximm0_bvalid    ),
-  .cafu2ip_aximm0_bready               (cafu2ip_aximm0_bready    ),
-  
-  .ip2cafu_aximm1_bid                  (ip2cafu_aximm1_bid       ),
-  .ip2cafu_aximm1_bresp                (ip2cafu_aximm1_bresp     ),
-  .ip2cafu_aximm1_buser                (ip2cafu_aximm1_buser     ),
-  .ip2cafu_aximm1_bvalid               (ip2cafu_aximm1_bvalid    ),
-  .cafu2ip_aximm1_bready               (cafu2ip_aximm1_bready    ),
 
   
   //AXI <--> AXI2CCIP_SHIM <--> CCIP        read address channels
-
-   .cafu2ip_aximm0_arid               (cafu2ip_aximm0_arid     ),
-   .cafu2ip_aximm0_araddr             (cafu2ip_aximm0_araddr   ),
-   .cafu2ip_aximm0_arlen              (cafu2ip_aximm0_arlen    ),
-   .cafu2ip_aximm0_arsize             (cafu2ip_aximm0_arsize   ),
-   .cafu2ip_aximm0_arburst            (cafu2ip_aximm0_arburst  ),
-   .cafu2ip_aximm0_arprot             (cafu2ip_aximm0_arprot   ),
-   .cafu2ip_aximm0_arqos              (cafu2ip_aximm0_arqos    ),
-   .cafu2ip_aximm0_aruser             (cafu2ip_aximm0_aruser   ),
-   .cafu2ip_aximm0_arvalid            (cafu2ip_aximm0_arvalid  ),
-   .cafu2ip_aximm0_arcache            (cafu2ip_aximm0_arcache  ),
-   .cafu2ip_aximm0_arlock             (cafu2ip_aximm0_arlock   ),
-   .cafu2ip_aximm0_arregion           (cafu2ip_aximm0_arregion ),
-   .ip2cafu_aximm0_arready            (ip2cafu_aximm0_arready  ),
+  logic [11:0]               cafu2ip_aximm0_arid;
+  logic [63:0]               cafu2ip_aximm0_araddr;
+  logic [9:0]                cafu2ip_aximm0_arlen;
+  logic [2:0]                cafu2ip_aximm0_arsize;
+  logic [1:0]                cafu2ip_aximm0_arburst;
+  logic [2:0]                cafu2ip_aximm0_arprot;
+  logic [3:0]                cafu2ip_aximm0_arqos;
+  logic [4:0]                cafu2ip_aximm0_aruser;
+  logic                      cafu2ip_aximm0_arvalid;
+  logic [3:0]                cafu2ip_aximm0_arcache;
+  logic [1:0]                cafu2ip_aximm0_arlock;
+  logic [3:0]                cafu2ip_aximm0_arregion;
+  logic                      ip2cafu_aximm0_arready;
   
-   .cafu2ip_aximm1_arid               (cafu2ip_aximm1_arid     ),
-   .cafu2ip_aximm1_araddr             (cafu2ip_aximm1_araddr   ),
-   .cafu2ip_aximm1_arlen              (cafu2ip_aximm1_arlen    ),
-   .cafu2ip_aximm1_arsize             (cafu2ip_aximm1_arsize   ),
-   .cafu2ip_aximm1_arburst            (cafu2ip_aximm1_arburst  ),
-   .cafu2ip_aximm1_arprot             (cafu2ip_aximm1_arprot   ),
-   .cafu2ip_aximm1_arqos              (cafu2ip_aximm1_arqos    ),
-   .cafu2ip_aximm1_aruser             (cafu2ip_aximm1_aruser   ),
-   .cafu2ip_aximm1_arvalid            (cafu2ip_aximm1_arvalid  ),
-   .cafu2ip_aximm1_arcache            (cafu2ip_aximm1_arcache  ),
-   .cafu2ip_aximm1_arlock             (cafu2ip_aximm1_arlock   ),
-   .cafu2ip_aximm1_arregion           (cafu2ip_aximm1_arregion ),
-   .ip2cafu_aximm1_arready            (ip2cafu_aximm1_arready  ),
- 
-
+  logic [11:0]               cafu2ip_aximm1_arid;
+  logic [63:0]               cafu2ip_aximm1_araddr;
+  logic [9:0]                cafu2ip_aximm1_arlen;
+  logic [2:0]                cafu2ip_aximm1_arsize;
+  logic [1:0]                cafu2ip_aximm1_arburst;
+  logic [2:0]                cafu2ip_aximm1_arprot;
+  logic [3:0]                cafu2ip_aximm1_arqos;
+  logic [4:0]                cafu2ip_aximm1_aruser;
+  logic                      cafu2ip_aximm1_arvalid;
+  logic [3:0]                cafu2ip_aximm1_arcache;
+  logic [1:0]                cafu2ip_aximm1_arlock;
+  logic [3:0]                cafu2ip_aximm1_arregion;
+  logic                      ip2cafu_aximm1_arready;
 
   //AXI <--> AXI2CCIP_SHIM <--> CCIP        read response channels
- 
-   .ip2cafu_aximm0_rid               (ip2cafu_aximm0_rid     ),
-   .ip2cafu_aximm0_rdata             (ip2cafu_aximm0_rdata   ),
-   .ip2cafu_aximm0_rresp             (ip2cafu_aximm0_rresp   ),
-   .ip2cafu_aximm0_rlast             (ip2cafu_aximm0_rlast   ),
-   .ip2cafu_aximm0_ruser             (ip2cafu_aximm0_ruser   ),
-   .ip2cafu_aximm0_rvalid            (ip2cafu_aximm0_rvalid  ),
-   .cafu2ip_aximm0_rready            (cafu2ip_aximm0_rready  ),
+  logic [15:0]               ip2cafu_aximm0_rid;
+  logic [511:0]              ip2cafu_aximm0_rdata;
+  logic [1:0]                ip2cafu_aximm0_rresp;
+  logic                      ip2cafu_aximm0_rlast;
+  logic                      ip2cafu_aximm0_ruser;
+  logic                      ip2cafu_aximm0_rvalid;
+  logic                      cafu2ip_aximm0_rready;
   
-   .ip2cafu_aximm1_rid               (ip2cafu_aximm1_rid     ),
-   .ip2cafu_aximm1_rdata             (ip2cafu_aximm1_rdata   ),
-   .ip2cafu_aximm1_rresp             (ip2cafu_aximm1_rresp   ),
-   .ip2cafu_aximm1_rlast             (ip2cafu_aximm1_rlast   ),
-   .ip2cafu_aximm1_ruser             (ip2cafu_aximm1_ruser   ),
-   .ip2cafu_aximm1_rvalid            (ip2cafu_aximm1_rvalid  ),
-   .cafu2ip_aximm1_rready            (cafu2ip_aximm1_rready  ),
+  logic [7:0]                ip2cafu_aximm1_rid;
+  logic [511:0]              ip2cafu_aximm1_rdata;
+  logic [1:0]                ip2cafu_aximm1_rresp;
+  logic                      ip2cafu_aximm1_rlast;
+  logic                      ip2cafu_aximm1_ruser;
+  logic                      ip2cafu_aximm1_rvalid;
+  logic                      cafu2ip_aximm1_rready;
 
-  
-
+/*
 // Mirror
     .ip2csr_avmm_clk           ,  
     .ip2csr_avmm_rstn          , 
@@ -1032,7 +477,7 @@ module cxltyp2_ed (
     .ip2cafu_avmm_rstn           ,
     .cafu2ip_avmm_waitrequest    ,
     .cafu2ip_avmm_readdata       ,
-    .cafu2ip_avmm_readdatavalid  ,
+    .cafu2ip_avmm_readdatavalid   ,
     .ip2cafu_avmm_burstcount     ,
     .ip2cafu_avmm_writedata      ,
     .ip2cafu_avmm_address        ,
@@ -1144,111 +589,11 @@ module cxltyp2_ed (
     .ip2uio_tx_st_Dcrdt_update_cnt       (ip2uio_tx_st_Dcrdt_update_cnt      ),
     .ip2uio_tx_st_Dcrdt_init             (ip2uio_tx_st_Dcrdt_init            ),
     .uio2ip_tx_st_Dcrdt_init_ack         (uio2ip_tx_st_Dcrdt_init_ack        ),
-  
-    .ip2uio_rx_st0_dvalid                (ip2uio_rx_st0_dvalid             ),
-    .ip2uio_rx_st0_sop                   (ip2uio_rx_st0_sop                ),
-    .ip2uio_rx_st0_eop                   (ip2uio_rx_st0_eop                ),
-    .ip2uio_rx_st0_passthrough           (ip2uio_rx_st0_passthrough        ),
-    .ip2uio_rx_st0_data                  (ip2uio_rx_st0_data               ),
-    .ip2uio_rx_st0_data_parity           (ip2uio_rx_st0_data_parity        ),
-    .ip2uio_rx_st0_hdr                   (ip2uio_rx_st0_hdr                ),
-    .ip2uio_rx_st0_hdr_parity            (ip2uio_rx_st0_hdr_parity         ),
-    .ip2uio_rx_st0_hvalid                (ip2uio_rx_st0_hvalid             ),
-    .ip2uio_rx_st0_prefix                (ip2uio_rx_st0_prefix             ),
-    .ip2uio_rx_st0_prefix_parity         (ip2uio_rx_st0_prefix_parity      ),
-    .ip2uio_rx_st0_RSSAI_prefix          (ip2uio_rx_st0_RSSAI_prefix       ),
-    .ip2uio_rx_st0_RSSAI_prefix_parity   (ip2uio_rx_st0_RSSAI_prefix_parity),
-    .ip2uio_rx_st0_pvalid                (ip2uio_rx_st0_pvalid             ),
-    .ip2uio_rx_st0_bar                   (ip2uio_rx_st0_bar                ),
-    .ip2uio_rx_st0_vfactive              (ip2uio_rx_st0_vfactive           ),
-    .ip2uio_rx_st0_vfnum                 (ip2uio_rx_st0_vfnum              ),
-    .ip2uio_rx_st0_pfnum                 (ip2uio_rx_st0_pfnum              ),
-    .ip2uio_rx_st0_chnum                 (ip2uio_rx_st0_chnum              ),
-    .ip2uio_rx_st0_misc_parity           (ip2uio_rx_st0_misc_parity        ),
-    .ip2uio_rx_st0_empty                 (ip2uio_rx_st0_empty              ),
-  
-    .ip2uio_rx_st1_dvalid                (ip2uio_rx_st1_dvalid             ),
-    .ip2uio_rx_st1_sop                   (ip2uio_rx_st1_sop                ),
-    .ip2uio_rx_st1_eop                   (ip2uio_rx_st1_eop                ),
-    .ip2uio_rx_st1_passthrough           (ip2uio_rx_st1_passthrough        ),
-    .ip2uio_rx_st1_data                  (ip2uio_rx_st1_data               ),
-    .ip2uio_rx_st1_data_parity           (ip2uio_rx_st1_data_parity        ),
-    .ip2uio_rx_st1_hdr                   (ip2uio_rx_st1_hdr                ),
-    .ip2uio_rx_st1_hdr_parity            (ip2uio_rx_st1_hdr_parity         ),
-    .ip2uio_rx_st1_hvalid                (ip2uio_rx_st1_hvalid             ),
-    .ip2uio_rx_st1_prefix                (ip2uio_rx_st1_prefix             ),
-    .ip2uio_rx_st1_prefix_parity         (ip2uio_rx_st1_prefix_parity      ),
-    .ip2uio_rx_st1_RSSAI_prefix          (ip2uio_rx_st1_RSSAI_prefix       ),
-    .ip2uio_rx_st1_RSSAI_prefix_parity   (ip2uio_rx_st1_RSSAI_prefix_parity),
-    .ip2uio_rx_st1_pvalid                (ip2uio_rx_st1_pvalid             ),
-    .ip2uio_rx_st1_bar                   (ip2uio_rx_st1_bar                ),
-    .ip2uio_rx_st1_vfactive              (ip2uio_rx_st1_vfactive           ),
-    .ip2uio_rx_st1_vfnum                 (ip2uio_rx_st1_vfnum              ),
-    .ip2uio_rx_st1_pfnum                 (ip2uio_rx_st1_pfnum              ),
-    .ip2uio_rx_st1_chnum                 (ip2uio_rx_st1_chnum              ),
-    .ip2uio_rx_st1_misc_parity           (ip2uio_rx_st1_misc_parity        ),
-    .ip2uio_rx_st1_empty                 (ip2uio_rx_st1_empty              ),
-  
-    .ip2uio_rx_st2_dvalid                (ip2uio_rx_st2_dvalid             ),
-    .ip2uio_rx_st2_sop                   (ip2uio_rx_st2_sop                ),
-    .ip2uio_rx_st2_eop                   (ip2uio_rx_st2_eop                ),
-    .ip2uio_rx_st2_passthrough           (ip2uio_rx_st2_passthrough        ),
-    .ip2uio_rx_st2_data                  (ip2uio_rx_st2_data               ),
-    .ip2uio_rx_st2_data_parity           (ip2uio_rx_st2_data_parity        ),
-    .ip2uio_rx_st2_hdr                   (ip2uio_rx_st2_hdr                ),
-    .ip2uio_rx_st2_hdr_parity            (ip2uio_rx_st2_hdr_parity         ),
-    .ip2uio_rx_st2_hvalid                (ip2uio_rx_st2_hvalid             ),
-    .ip2uio_rx_st2_prefix                (ip2uio_rx_st2_prefix             ),
-    .ip2uio_rx_st2_prefix_parity         (ip2uio_rx_st2_prefix_parity      ),
-    .ip2uio_rx_st2_RSSAI_prefix          (ip2uio_rx_st2_RSSAI_prefix       ),
-    .ip2uio_rx_st2_RSSAI_prefix_parity   (ip2uio_rx_st2_RSSAI_prefix_parity),
-    .ip2uio_rx_st2_pvalid                (ip2uio_rx_st2_pvalid             ),
-    .ip2uio_rx_st2_bar                   (ip2uio_rx_st2_bar                ),
-    .ip2uio_rx_st2_vfactive              (ip2uio_rx_st2_vfactive           ),
-    .ip2uio_rx_st2_vfnum                 (ip2uio_rx_st2_vfnum              ),
-    .ip2uio_rx_st2_pfnum                 (ip2uio_rx_st2_pfnum              ),
-    .ip2uio_rx_st2_chnum                 (ip2uio_rx_st2_chnum              ),
-    .ip2uio_rx_st2_misc_parity           (ip2uio_rx_st2_misc_parity        ),
-    .ip2uio_rx_st2_empty                 (ip2uio_rx_st2_empty              ),
-    
-    .ip2uio_rx_st3_dvalid                (ip2uio_rx_st3_dvalid             ),
-    .ip2uio_rx_st3_sop                   (ip2uio_rx_st3_sop                ),
-    .ip2uio_rx_st3_eop                   (ip2uio_rx_st3_eop                ),
-    .ip2uio_rx_st3_passthrough           (ip2uio_rx_st3_passthrough        ),
-    .ip2uio_rx_st3_data                  (ip2uio_rx_st3_data               ),
-    .ip2uio_rx_st3_data_parity           (ip2uio_rx_st3_data_parity        ),
-    .ip2uio_rx_st3_hdr                   (ip2uio_rx_st3_hdr                ),
-    .ip2uio_rx_st3_hdr_parity            (ip2uio_rx_st3_hdr_parity         ),
-    .ip2uio_rx_st3_hvalid                (ip2uio_rx_st3_hvalid             ),
-    .ip2uio_rx_st3_prefix                (ip2uio_rx_st3_prefix             ),
-    .ip2uio_rx_st3_prefix_parity         (ip2uio_rx_st3_prefix_parity      ),
-    .ip2uio_rx_st3_RSSAI_prefix          (ip2uio_rx_st3_RSSAI_prefix       ),
-    .ip2uio_rx_st3_RSSAI_prefix_parity   (ip2uio_rx_st3_RSSAI_prefix_parity),
-    .ip2uio_rx_st3_pvalid                (ip2uio_rx_st3_pvalid             ),
-    .ip2uio_rx_st3_bar                   (ip2uio_rx_st3_bar                ),
-    .ip2uio_rx_st3_vfactive              (ip2uio_rx_st3_vfactive           ),
-    .ip2uio_rx_st3_vfnum                 (ip2uio_rx_st3_vfnum              ),
-    .ip2uio_rx_st3_pfnum                 (ip2uio_rx_st3_pfnum              ),
-    .ip2uio_rx_st3_chnum                 (ip2uio_rx_st3_chnum              ),
-    .ip2uio_rx_st3_misc_parity           (ip2uio_rx_st3_misc_parity        ),
-    .ip2uio_rx_st3_empty                 (ip2uio_rx_st3_empty              ),
-  
-    .uio2ip_rx_st_Hcrdt_update           (uio2ip_rx_st_Hcrdt_update         ),
-    .uio2ip_rx_st_Hcrdt_ch               (uio2ip_rx_st_Hcrdt_ch             ),
-    .uio2ip_rx_st_Hcrdt_update_cnt       (uio2ip_rx_st_Hcrdt_update_cnt     ),
-    .uio2ip_rx_st_Hcrdt_init             (uio2ip_rx_st_Hcrdt_init           ),
-    .ip2uio_rx_st_Hcrdt_init_ack         (ip2uio_rx_st_Hcrdt_init_ack       ),
-    .uio2ip_rx_st_Dcrdt_update           (uio2ip_rx_st_Dcrdt_update         ),
-    .uio2ip_rx_st_Dcrdt_ch               (uio2ip_rx_st_Dcrdt_ch             ),
-    .uio2ip_rx_st_Dcrdt_update_cnt       (uio2ip_rx_st_Dcrdt_update_cnt     ),
-    .uio2ip_rx_st_Dcrdt_init             (uio2ip_rx_st_Dcrdt_init           ),
-    .ip2uio_rx_st_Dcrdt_init_ack         (ip2uio_rx_st_Dcrdt_init_ack       ),
 
     .ip2uio_bus_number                   (ip2uio_bus_number                 ) , 
     .ip2uio_device_number                (ip2uio_device_number              )  
   );
-  
-//>>> 
+*/
 
 
   //-------------------------------------------------------
@@ -1264,7 +609,7 @@ ed_top_wrapper_typ2 ed_top_wrapper_typ2_inst
 
  // Resets
   .ip2hdm_reset_n                      (ip2hdm_reset_n),
-
+  
   .ccv_afu_conf_base_addr_high         (ccv_afu_conf_base_addr_high),
   .ccv_afu_conf_base_addr_high_valid   (ccv_afu_conf_base_addr_high_valid),
   .ccv_afu_conf_base_addr_low          (ccv_afu_conf_base_addr_low),
@@ -1286,16 +631,16 @@ ed_top_wrapper_typ2 ed_top_wrapper_typ2_inst
   .ip2cafu_avmm_read            ,
   .ip2cafu_avmm_byteenable      ,
 
-  .ip2csr_avmm_clk                   ,
-  .ip2csr_avmm_rstn                  ,
-  .csr2ip_avmm_waitrequest           ,
-  .csr2ip_avmm_readdata              ,
-  .csr2ip_avmm_readdatavalid         ,
-  .ip2csr_avmm_writedata             ,
-  .ip2csr_avmm_address               ,
-  .ip2csr_avmm_write                 ,
-  .ip2csr_avmm_read                  ,
-  .ip2csr_avmm_byteenable            ,
+    .ip2csr_avmm_clk                   ,
+    .ip2csr_avmm_rstn                  ,
+    .csr2ip_avmm_waitrequest           ,
+    .csr2ip_avmm_readdata              ,
+    .csr2ip_avmm_readdatavalid         ,
+    .ip2csr_avmm_writedata             ,
+    .ip2csr_avmm_address               ,
+    .ip2csr_avmm_write                 ,
+    .ip2csr_avmm_read                  ,
+    .ip2csr_avmm_byteenable            , 
 
   // Keep existing RX stream interface
   .ed_rx_st0_bar_i                  (ip2uio_rx_st0_bar                   ),
@@ -1348,7 +693,7 @@ ed_top_wrapper_typ2 ed_top_wrapper_typ2_inst
   .ed_rx_st0_misc_parity_i          (ip2uio_rx_st0_misc_parity           ),
   .ed_rx_st1_data_parity_i          (ip2uio_rx_st1_data_parity           ),
   .ed_rx_st1_hdr_parity_i           (ip2uio_rx_st1_hdr_parity            ),
-  .ed_rx_st1_tlp_prfx_parity_i      (ip2uio_rx_st1_prefix_parity       ) ,                                   
+    .ed_rx_st1_tlp_prfx_parity_i      (ip2uio_rx_st1_prefix_parity       ) ,                                   
   .ed_rx_st1_misc_parity_i          (ip2uio_rx_st1_misc_parity           ),
   .ed_rx_st2_data_parity_i          (ip2uio_rx_st2_data_parity           ),
   .ed_rx_st2_hdr_parity_i           (ip2uio_rx_st2_hdr_parity            ),
@@ -1441,6 +786,99 @@ ed_top_wrapper_typ2 ed_top_wrapper_typ2_inst
   .tx_st_dcrdt_update_cnt_i          (ip2uio_tx_st_Dcrdt_update_cnt       ),
   .tx_st_dcrdt_init_i                (ip2uio_tx_st_Dcrdt_init             ),
   .tx_st_dcrdt_init_ack_o            (uio2ip_tx_st_Dcrdt_init_ack         )
+);
+  
+//>>> 
+
+
+  //-------------------------------------------------------
+  //---------------- Example Design ------------------
+  //-------------------------------------------------------
+
+//<<<
+
+intel_rtile_cxl_top_cxltyp2_ed intel_rtile_cxl_top_inst
+(
+  // Mirror interfaces
+    .ip2csr_avmm_clk                      (ip2csr_avmm_clk            ),  
+    .ip2csr_avmm_rstn                     (ip2csr_avmm_rstn           ),
+    
+    // 添加标准接口连接
+    .refclk0                             (refclk0),
+    .refclk1                             (refclk1),
+    .refclk4                             (refclk4),
+    .resetn                              (resetn),
+    .nInit_done                          (nInit_done),
+
+    // CAFU interfaces
+    .ip2cafu_avmm_clk                     (ip2cafu_avmm_clk           ),
+    .ip2cafu_avmm_rstn                    (ip2cafu_avmm_rstn          ),
+    .cafu2ip_avmm_waitrequest             (cafu2ip_avmm_waitrequest   ),
+    .cafu2ip_avmm_readdata                (cafu2ip_avmm_readdata      ),
+    .cafu2ip_avmm_readdatavalid           (cafu2ip_avmm_readdatavalid ),
+    .ip2cafu_avmm_burstcount              (ip2cafu_avmm_burstcount    ),
+    .ip2cafu_avmm_writedata               (ip2cafu_avmm_writedata     ),
+    .ip2cafu_avmm_address                 (ip2cafu_avmm_address       ),
+    .ip2cafu_avmm_write                   (ip2cafu_avmm_write         ),
+    .ip2cafu_avmm_read                    (ip2cafu_avmm_read          ),
+    .ip2cafu_avmm_byteenable              (ip2cafu_avmm_byteenable    ),
+    
+    // AXI interfaces
+    .ip2cafu_aximm0_bid                   (ip2cafu_aximm0_bid         ),
+    .ip2cafu_aximm0_bresp                 (ip2cafu_aximm0_bresp       ),
+    .ip2cafu_aximm0_buser                 (ip2cafu_aximm0_buser       ),
+    .ip2cafu_aximm0_bvalid                (ip2cafu_aximm0_bvalid      ),
+    .cafu2ip_aximm0_bready                (cafu2ip_aximm0_bready      ),
+    
+    .ip2cafu_aximm1_bid                   (ip2cafu_aximm1_bid         ),
+    .ip2cafu_aximm1_bresp                 (ip2cafu_aximm1_bresp       ),
+    .ip2cafu_aximm1_buser                 (ip2cafu_aximm1_buser       ),
+    .ip2cafu_aximm1_bvalid                (ip2cafu_aximm1_bvalid      ),
+    .cafu2ip_aximm1_bready                (cafu2ip_aximm1_bready      ),
+  
+    .cafu2ip_aximm0_arid                  (cafu2ip_aximm0_arid        ),
+    .cafu2ip_aximm0_araddr                (cafu2ip_aximm0_araddr      ),
+    .cafu2ip_aximm0_arlen                 (cafu2ip_aximm0_arlen       ),
+    .cafu2ip_aximm0_arsize                (cafu2ip_aximm0_arsize      ),
+    .cafu2ip_aximm0_arburst               (cafu2ip_aximm0_arburst     ),
+    .cafu2ip_aximm0_arprot                (cafu2ip_aximm0_arprot      ),
+    .cafu2ip_aximm0_arqos                 (cafu2ip_aximm0_arqos       ),
+    .cafu2ip_aximm0_aruser                (cafu2ip_aximm0_aruser      ),
+    .cafu2ip_aximm0_arvalid               (cafu2ip_aximm0_arvalid     ),
+    .cafu2ip_aximm0_arcache               (cafu2ip_aximm0_arcache     ),
+    .cafu2ip_aximm0_arlock                (cafu2ip_aximm0_arlock      ),
+    .cafu2ip_aximm0_arregion              (cafu2ip_aximm0_arregion    ),
+    .ip2cafu_aximm0_arready               (ip2cafu_aximm0_arready     ),
+    
+    .cafu2ip_aximm1_arid                  (cafu2ip_aximm1_arid        ),
+    .cafu2ip_aximm1_araddr                (cafu2ip_aximm1_araddr      ),
+    .cafu2ip_aximm1_arlen                 (cafu2ip_aximm1_arlen       ),
+    .cafu2ip_aximm1_arsize                (cafu2ip_aximm1_arsize      ),
+    .cafu2ip_aximm1_arburst               (cafu2ip_aximm1_arburst     ),
+    .cafu2ip_aximm1_arprot                (cafu2ip_aximm1_arprot      ),
+    .cafu2ip_aximm1_arqos                 (cafu2ip_aximm1_arqos       ),
+    .cafu2ip_aximm1_aruser                (cafu2ip_aximm1_aruser      ),
+    .cafu2ip_aximm1_arvalid               (cafu2ip_aximm1_arvalid     ),
+    .cafu2ip_aximm1_arcache               (cafu2ip_aximm1_arcache     ),
+    .cafu2ip_aximm1_arlock                (cafu2ip_aximm1_arlock      ),
+    .cafu2ip_aximm1_arregion              (cafu2ip_aximm1_arregion    ),
+    .ip2cafu_aximm1_arready               (ip2cafu_aximm1_arready     ),
+    
+    .ip2cafu_aximm0_rid                   (ip2cafu_aximm0_rid         ),
+    .ip2cafu_aximm0_rdata                 (ip2cafu_aximm0_rdata       ),
+    .ip2cafu_aximm0_rresp                 (ip2cafu_aximm0_rresp       ),
+    .ip2cafu_aximm0_rlast                 (ip2cafu_aximm0_rlast       ),
+    .ip2cafu_aximm0_ruser                 (ip2cafu_aximm0_ruser       ),
+    .ip2cafu_aximm0_rvalid                (ip2cafu_aximm0_rvalid      ),
+    .cafu2ip_aximm0_rready                (cafu2ip_aximm0_rready      ),
+    
+    .ip2cafu_aximm1_rid                   (ip2cafu_aximm1_rid         ),
+    .ip2cafu_aximm1_rdata                 (ip2cafu_aximm1_rdata       ),
+    .ip2cafu_aximm1_rresp                 (ip2cafu_aximm1_rresp       ),
+    .ip2cafu_aximm1_rlast                 (ip2cafu_aximm1_rlast       ),
+    .ip2cafu_aximm1_ruser                 (ip2cafu_aximm1_ruser       ),
+    .ip2cafu_aximm1_rvalid                (ip2cafu_aximm1_rvalid      ),
+    .cafu2ip_aximm1_rready                (cafu2ip_aximm1_rready      )
 );
   
 //>>> 

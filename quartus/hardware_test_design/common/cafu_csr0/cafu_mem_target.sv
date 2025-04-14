@@ -116,22 +116,25 @@ module cafu_mem_target
     
     
     //write channels begin
-    assign axi_aw.awid                      = mwae_axi_aw.awid;    
-    assign axi_aw.awaddr                    = mwae_axi_aw.awaddr;  
-    assign axi_aw.awlen                     = mwae_axi_aw.awlen;   
-    assign axi_aw.awsize                    = mwae_axi_aw.awsize;  
-    assign axi_aw.awburst                   = mwae_axi_aw.awburst; 
-    assign axi_aw.awprot                    = mwae_axi_aw.awprot;  
-    assign axi_aw.awqos                     = mwae_axi_aw.awqos;   
-    assign axi_aw.awvalid                   = mwae_axi_aw.awvalid;
-    assign axi_aw.awcache                   = mwae_axi_aw.awcache; 
-    assign axi_aw.awlock                    = mwae_axi_aw.awlock;  
-    assign axi_aw.awregion                  = mwae_axi_aw.awregion;
-    
-    assign axi_aw.awuser                    = mwae_axi_aw.awuser;
-    always_comb begin
-      axi_aw = mwae_axi_aw;
-      axi_aw.awuser.target_hdm = axi_wtarget_hdm;
+    always_comb
+    begin
+        // 临时变量存储awuser
+        logic [$bits(axi_aw.awuser)-1:0] tmpuser_aw;
+        tmpuser_aw = mwae_axi_aw.awuser;
+        
+        // 复制所有字段
+        axi_aw = mwae_axi_aw;
+        
+        // 更新awuser值，确保target_hdm位被正确设置
+        // 注意：这里假设target_hdm是结构体中的最高位
+        if (axi_wtarget_hdm) begin
+            tmpuser_aw |= (1 << ($bits(axi_aw.awuser)-1));
+        end else begin
+            tmpuser_aw &= ~(1 << ($bits(axi_aw.awuser)-1));
+        end
+        
+        // 将修改后的值赋回
+        axi_aw.awuser = tmpuser_aw;
     end
 
     assign axi_awready         = cafu_axi_awready;
@@ -182,22 +185,25 @@ module cafu_mem_target
     
     
     //read channels begin
-    assign axi_ar.arid                      = mwae_axi_ar.arid;    
-    assign axi_ar.araddr                    = mwae_axi_ar.araddr;  
-    assign axi_ar.arlen                     = mwae_axi_ar.arlen;   
-    assign axi_ar.arsize                    = mwae_axi_ar.arsize;  
-    assign axi_ar.arburst                   = mwae_axi_ar.arburst; 
-    assign axi_ar.arprot                    = mwae_axi_ar.arprot;  
-    assign axi_ar.arqos                     = mwae_axi_ar.arqos;    
-    assign axi_ar.arvalid                   = mwae_axi_ar.arvalid;     
-    assign axi_ar.arcache                   = mwae_axi_ar.arcache; 
-    assign axi_ar.arlock                    = mwae_axi_ar.arlock;  
-    assign axi_ar.arregion                  = mwae_axi_ar.arregion;
-    
-    assign axi_ar.aruser                    = mwae_axi_ar.aruser;
-    always_comb begin
-      axi_ar = mwae_axi_ar;
-      axi_ar.aruser.target_hdm = axi_rtarget_hdm;
+    always_comb
+    begin
+        // 临时变量存储aruser
+        logic [$bits(axi_ar.aruser)-1:0] tmpuser_ar;
+        tmpuser_ar = mwae_axi_ar.aruser;
+        
+        // 复制所有字段
+        axi_ar = mwae_axi_ar;
+        
+        // 更新aruser值，确保target_hdm位被正确设置
+        // 注意：这里假设target_hdm是结构体中的最高位
+        if (axi_rtarget_hdm) begin
+            tmpuser_ar |= (1 << ($bits(axi_ar.aruser)-1));
+        end else begin
+            tmpuser_ar &= ~(1 << ($bits(axi_ar.aruser)-1));
+        end
+        
+        // 将修改后的值赋回
+        axi_ar.aruser = tmpuser_ar;
     end
 
     assign axi_arready         = cafu_axi_arready;

@@ -39,8 +39,20 @@ import tmp_cafu_csr0_cfg_pkg::*;
 import intel_cxl_pio_parameters :: *;
 import mc_ecc_pkg::*;
 import mc_axi_if_pkg::*;
+
+// Add conditional compilation macros
+`ifndef SKIP_CXL_DEFINES
+`define SKIP_CXL_DEFINES
+`endif
+
+`ifndef EXCLUDE_EMIF_CAL_TWO_CH
+`define EXCLUDE_EMIF_CAL_TWO_CH
+`endif
+
 `include "avst4to1_pld_if.svh.iv"
+`ifdef INCLUDE_CXL_DEFINES
 `include "cxl_ed_defines.svh.iv"
+`endif
 
 module ed_top_wrapper_typ2 
 #(

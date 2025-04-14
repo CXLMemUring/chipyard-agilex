@@ -128,12 +128,31 @@ afu_axi_if_pkg::t_axi4_rd_addr_ready [NUM_MC_CHANS-1:0] arready;
 afu_axi_if_pkg::t_axi4_resp_encoding [NUM_MC_CHANS-1:0] bresp;	
 afu_axi_if_pkg::t_axi4_resp_encoding [NUM_MC_CHANS-1:0] rresp;
 
-t_axi4_wr_resp_ch [NUM_MC_CHANS-1:0] b_resp;
-t_axi4_rd_resp_ch [NUM_MC_CHANS-1:0] r_resp;
+// 定义b_resp和r_resp的结构
+typedef struct packed {
+    logic [mc_axi_if_pkg::MC_AXI_WRC_ID_BW-1:0] id;
+    afu_axi_if_pkg::t_axi4_resp_encoding resp;
+    logic valid;
+    logic [mc_axi_if_pkg::MC_AXI_WRC_USER_BW-1:0] user;
+} t_b_resp;
 
-logic [NUM_MC_CHANS-1:0] bvalid;
-logic [NUM_MC_CHANS-1:0] rvalid;
-logic [NUM_MC_CHANS-1:0] rlast;
+typedef struct packed {
+    logic [mc_axi_if_pkg::MC_AXI_RRC_ID_BW-1:0] id;
+    logic [mc_axi_if_pkg::MC_AXI_RRC_DATA_BW-1:0] data;
+    afu_axi_if_pkg::t_axi4_resp_encoding resp;
+    logic valid;
+    logic last;
+    logic [mc_axi_if_pkg::MC_AXI_WRC_USER_BW-1:0] user;
+} t_r_resp;
+
+// 使用自定义结构体类型
+t_b_resp [NUM_MC_CHANS-1:0] b_resp;
+t_r_resp [NUM_MC_CHANS-1:0] r_resp;
+
+// 删除未使用的变量声明
+//logic [NUM_MC_CHANS-1:0] bvalid;
+//logic [NUM_MC_CHANS-1:0] rvalid;
+//logic [NUM_MC_CHANS-1:0] rlast;
 
 logic [NUM_MC_CHANS-1:0][mc_axi_if_pkg::MC_AXI_WAC_ID_BW-1:0] awid;
 logic [NUM_MC_CHANS-1:0][mc_axi_if_pkg::MC_AXI_RAC_ID_BW-1:0] arid;
@@ -144,14 +163,13 @@ generate for( outsigs = 0 ; outsigs < NUM_MC_CHANS ; outsigs=outsigs+1 )
 begin : gen_axi_output_signals
   always_comb
   begin
-      o_from_mc_axi4[outsigs].ready = awready[outsigs];
-      o_from_mc_axi4[outsigs].b = b_resp[outsigs];
-      o_from_mc_axi4[outsigs].rid = r_resp[outsigs].rid;
-      o_from_mc_axi4[outsigs].rdata = r_resp[outsigs].rdata;
-      o_from_mc_axi4[outsigs].rresp = r_resp[outsigs].rresp;
-      o_from_mc_axi4[outsigs].rvalid = rvalid[outsigs];
-      o_from_mc_axi4[outsigs].ruser = r_resp[outsigs].ruser;
-      o_from_mc_axi4[outsigs].rlast = rlast[outsigs];
+    b_resp[outsigs].id = awid[outsigs];
+    b_resp[outsigs].resp = bresp[outsigs];
+    b_resp[outsigs].user = 'd0;
+    
+    o_from_mc_axi4[outsigs].ready = awready[outsigs];
+    
+    o_from_mc_axi4[outsigs].b = b_resp[outsigs];
   end
 end
 endgenerate
@@ -198,8 +216,8 @@ generate for( genid = 0 ; genid < NUM_MC_CHANS ; genid=genid+1 )
 begin : gen_axi4_ids
   always_ff @( posedge ip_clk )
   begin
-    awid[genid] <= i_to_mc_axi4[genid].awid;
-	arid[genid] <= i_to_mc_axi4[genid].arid;
+    awid[genid] <= i_to_mc_axi4[genid].aw.id;
+    arid[genid] <= i_to_mc_axi4[genid].aw.id;
   end
 end
 endgenerate
@@ -308,16 +326,17 @@ generate for( genwrrsp = 0 ; genwrrsp < NUM_MC_CHANS ; genwrrsp=genwrrsp+1 )
 begin : gen_axi_signals_to_ip_wr  // map the AVMM signals to AXI write response
   always_comb
   begin
-         b_resp[genwrrsp].id =  'd0;
-       b_resp[genwrrsp].resp = eresp_OKAY;
-      bvalid[genwrrsp] = 1'b0;
-       b_resp[genwrrsp].user =  'd0;
+    // 初始化b_resp结构体
+    b_resp[genwrrsp].id = 'd0;
+    b_resp[genwrrsp].resp = eresp_OKAY;
+    b_resp[genwrrsp].valid = 1'b0;
+    b_resp[genwrrsp].user = 'd0;
 
-      if( send_write_response[genwrrsp] == 1'b1 )
-      begin
-           b_resp[genwrrsp].id = wr_id_staged[genwrrsp];
-        bvalid[genwrrsp] = 1'b1;
-      end
+    if( send_write_response[genwrrsp] == 1'b1 )
+    begin
+        b_resp[genwrrsp].id = wr_id_staged[genwrrsp];
+        b_resp[genwrrsp].valid = 1'b1;
+    end
   end
 end
 endgenerate
@@ -328,23 +347,24 @@ generate for( genrdrsp = 0 ; genrdrsp < NUM_MC_CHANS ; genrdrsp=genrdrsp+1 )
 begin : gen_axi_signals_to_ip_rd  // map the AVMM signals to AXI read response
   always_comb
   begin
-        r_resp[genrdrsp].rid = rd_id_fifo_dout[genrdrsp];
-      r_resp[genrdrsp].rdata = i_avmm_readdata[genrdrsp];
-      r_resp[genrdrsp].rresp = eresp_OKAY;
-     r_resp[genrdrsp].rvalid = 1'b0;
-      r_resp[genrdrsp].ruser = '0;
-	  rlast[genrdrsp] = 1'b0;
+    // 初始化r_resp结构体
+    r_resp[genrdrsp].id = rd_id_fifo_dout[genrdrsp];
+    r_resp[genrdrsp].data = i_avmm_readdata[genrdrsp];
+    r_resp[genrdrsp].resp = eresp_OKAY;
+    r_resp[genrdrsp].valid = 1'b0;
+    r_resp[genrdrsp].user = 'd0;
+    r_resp[genrdrsp].last = 1'b0;
 
-      rd_id_fifo_rd_enable[genrdrsp] = 1'b0;
+    rd_id_fifo_rd_enable[genrdrsp] = 1'b0;
 
-      if( i_avmm_readdatavalid[genrdrsp] == 1'b1 )
-      begin
-         r_resp[genrdrsp].rvalid = 1'b1;
-		 rlast[genrdrsp]        = 1'b1;
-         r_resp[genrdrsp].ruser = i_avmm_read_poison[genrdrsp];
+    if( i_avmm_readdatavalid[genrdrsp] == 1'b1 )
+    begin
+        r_resp[genrdrsp].valid = 1'b1;
+        r_resp[genrdrsp].last = 1'b1;
+        r_resp[genrdrsp].user = i_avmm_read_poison[genrdrsp];
 
-         rd_id_fifo_rd_enable[genrdrsp] = 1'b1;
-      end
+        rd_id_fifo_rd_enable[genrdrsp] = 1'b1;
+    end
   end  // end always
 end    // end for
 endgenerate
