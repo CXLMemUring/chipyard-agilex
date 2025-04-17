@@ -1,4 +1,4 @@
-// (C) 2001-2023 Intel Corporation. All rights reserved.
+// (C) 2001-2022 Intel Corporation. All rights reserved.
 // Your use of Intel Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files from any of the foregoing (including device programming or simulation 
@@ -11,7 +11,7 @@
 // agreement for further details.
 
 
-// (C) 2001-2023 Intel Corporation. All rights reserved.
+// (C) 2001-2022 Intel Corporation. All rights reserved.
 // Your use of Intel Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files from any of the foregoing (including device programming or simulation 
@@ -2711,7 +2711,7 @@ generate
       avmm_data_fifo.add_ram_output_register  = "ON",
       avmm_data_fifo.almost_full_value  = 8,
       avmm_data_fifo.enable_ecc  = "FALSE",
-      avmm_data_fifo.intended_device_family  = "Agilex",
+      avmm_data_fifo.intended_device_family  = "Stratix 10",
       avmm_data_fifo.lpm_hint  = "AUTO",
       avmm_data_fifo.lpm_numwords  = 256,
       avmm_data_fifo.lpm_showahead  = "ON",
@@ -2743,7 +2743,7 @@ generate
       avmm_data_fifo.add_ram_output_register  = "ON",
       avmm_data_fifo.almost_full_value  = 8,
       avmm_data_fifo.enable_ecc  = "FALSE",
-      avmm_data_fifo.intended_device_family  = "Agilex",
+      avmm_data_fifo.intended_device_family  = "Stratix 10",
       avmm_data_fifo.lpm_hint  = "AUTO",
       avmm_data_fifo.lpm_numwords  = 256,
       avmm_data_fifo.lpm_showahead  = "ON",
@@ -2776,7 +2776,7 @@ assign avmm_writedata_o[639:576] = 64'h0;
       avmm_data_fifo.add_ram_output_register  = "ON",
       avmm_data_fifo.almost_full_value  = 8,
       avmm_data_fifo.enable_ecc  = "FALSE",
-      avmm_data_fifo.intended_device_family  = "Agilex",
+      avmm_data_fifo.intended_device_family  = "Stratix 10",
       avmm_data_fifo.lpm_hint  = "AUTO",
       avmm_data_fifo.lpm_numwords  = 256,
       avmm_data_fifo.lpm_showahead  = "ON",
@@ -3325,7 +3325,7 @@ scfifo  avmm_cmd_fifo (
       avmm_cmd_fifo.add_ram_output_register  = "ON",
       avmm_cmd_fifo.almost_full_value  = 16,
       avmm_cmd_fifo.enable_ecc  = "FALSE",
-      avmm_cmd_fifo.intended_device_family  = "Agilex",
+      avmm_cmd_fifo.intended_device_family  = "Stratix 10",
       avmm_cmd_fifo.lpm_hint  = "AUTO",
       avmm_cmd_fifo.lpm_numwords  = 32,
       avmm_cmd_fifo.lpm_showahead  = "ON",
@@ -3358,7 +3358,7 @@ scfifo  avmm_cmd_fifo (
       avmm_cmd_fifo.add_ram_output_register  = "ON",
       avmm_cmd_fifo.almost_full_value  = 16,
       avmm_cmd_fifo.enable_ecc  = "FALSE",
-      avmm_cmd_fifo.intended_device_family  = "Agilex",
+      avmm_cmd_fifo.intended_device_family  = "Stratix 10",
       avmm_cmd_fifo.lpm_hint  = "AUTO",
       avmm_cmd_fifo.lpm_numwords  = 32,
       avmm_cmd_fifo.lpm_showahead  = "ON",
@@ -3393,7 +3393,7 @@ scfifo  avmm_cmd_fifo (
       avmm_cmd_fifo.add_ram_output_register  = "ON",
       avmm_cmd_fifo.almost_full_value  = 16,
       avmm_cmd_fifo.enable_ecc  = "FALSE",
-      avmm_cmd_fifo.intended_device_family  = "Agilex",
+      avmm_cmd_fifo.intended_device_family  = "Stratix 10",
       avmm_cmd_fifo.lpm_hint  = "AUTO",
       avmm_cmd_fifo.lpm_numwords  = 32,
       avmm_cmd_fifo.lpm_showahead  = "ON",
@@ -3442,7 +3442,7 @@ assign avmm_cmd_fifo_rddata_o[214:119] = 96'h0;
       cpl_cmd_fifo.add_ram_output_register  = "ON",
       cpl_cmd_fifo.almost_full_value  = 16,
       cpl_cmd_fifo.enable_ecc  = "FALSE",
-      cpl_cmd_fifo.intended_device_family  = "Agilex",
+      cpl_cmd_fifo.intended_device_family  = "Stratix 10",
       cpl_cmd_fifo.lpm_hint  = "AUTO",
       cpl_cmd_fifo.lpm_numwords  = 32,
       cpl_cmd_fifo.lpm_showahead  = "ON",

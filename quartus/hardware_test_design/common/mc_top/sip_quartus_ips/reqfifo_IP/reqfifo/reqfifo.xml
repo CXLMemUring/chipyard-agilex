@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <deploy
- date="2024.03.13.17:47:05"
- outputDirectory="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/reqfifo/">
+ date="2025.04.17.15:46:26"
+ outputDirectory="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/reqfifo/">
  <perimeter>
   <parameter
      name="AUTO_GENERATION_ID"
@@ -24,7 +24,7 @@
   <parameter
      name="AUTO_DEVICE"
      type="String"
-     defaultValue="AGIB027R29A1E2VR3"
+     defaultValue="AGIB027R29A1E2VR0"
      onHdl="0"
      affectsHdl="1" />
   <parameter
@@ -57,34 +57,34 @@
  </perimeter>
  <entity kind="reqfifo" version="1.0" name="reqfifo">
   <parameter name="AUTO_GENERATION_ID" value="0" />
-  <parameter name="AUTO_DEVICE" value="AGIB027R29A1E2VR3" />
+  <parameter name="AUTO_DEVICE" value="AGIB027R29A1E2VR0" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Agilex" />
   <parameter name="AUTO_UNIQUE_ID" value="" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
   <generatedFiles>
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/reqfifo/synth/reqfifo.v"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/reqfifo/synth/reqfifo.v"
        attributes="CONTAINS_INLINE_CONFIGURATION" />
   </generatedFiles>
   <childGeneratedFiles>
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/reqfifo/synth/reqfifo.v"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/reqfifo/synth/reqfifo.v"
        attributes="CONTAINS_INLINE_CONFIGURATION" />
   </childGeneratedFiles>
   <sourceFiles>
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/reqfifo.ip" />
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/reqfifo.ip" />
   </sourceFiles>
   <childSourceFiles>
    <file
-       path="/research/quartus/v23.3/ip/altera/megafunctions/fifo/fifo_hw.tcl" />
+       path="/mnt/intelFPGA_pro/22.3/ip/altera/megafunctions/fifo/fifo_hw.tcl" />
   </childSourceFiles>
   <messages>
    <message level="Info" culprit="reqfifo">"Generating: reqfifo"</message>
-   <message level="Info" culprit="reqfifo">"Generating: reqfifo_fifo_1923_jlcypci"</message>
+   <message level="Info" culprit="reqfifo">"Generating: reqfifo_fifo_1911_nm47wdi"</message>
   </messages>
  </entity>
- <entity kind="fifo" version="19.2.3" name="reqfifo_fifo_1923_jlcypci">
+ <entity kind="fifo" version="19.1.1" name="reqfifo_fifo_1911_nm47wdi">
   <parameter name="GUI_Full" value="true" />
   <parameter name="GUI_RdUsedw_width" value="6" />
   <parameter name="GUI_AlmostFullThr" value="1" />
@@ -130,28 +130,28 @@
   <parameter name="GUI_Width" value="640" />
   <generatedFiles>
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/reqfifo/fifo_1923/synth/reqfifo_fifo_1923_jlcypci.v"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/reqfifo/fifo_1911/synth/reqfifo_fifo_1911_nm47wdi.v"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/reqfifo/fifo_1923/synth/reqfifo_fifo_1923_jlcypci.sdc"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/reqfifo/fifo_1911/synth/reqfifo_fifo_1911_nm47wdi.sdc"
        attributes="NO_AUTO_INSTANCE_DISCOVERY NO_SDC_PROMOTION" />
   </generatedFiles>
   <childGeneratedFiles>
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/reqfifo/fifo_1923/synth/reqfifo_fifo_1923_jlcypci.v"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/reqfifo/fifo_1911/synth/reqfifo_fifo_1911_nm47wdi.v"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/reqfifo/fifo_1923/synth/reqfifo_fifo_1923_jlcypci.sdc"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/reqfifo/fifo_1911/synth/reqfifo_fifo_1911_nm47wdi.sdc"
        attributes="NO_AUTO_INSTANCE_DISCOVERY NO_SDC_PROMOTION" />
   </childGeneratedFiles>
   <sourceFiles>
    <file
-       path="/research/quartus/v23.3/ip/altera/megafunctions/fifo/fifo_hw.tcl" />
+       path="/mnt/intelFPGA_pro/22.3/ip/altera/megafunctions/fifo/fifo_hw.tcl" />
   </sourceFiles>
   <childSourceFiles/>
   <instantiator instantiator="reqfifo" as="fifo_0" />
   <messages>
-   <message level="Info" culprit="reqfifo">"Generating: reqfifo_fifo_1923_jlcypci"</message>
+   <message level="Info" culprit="reqfifo">"Generating: reqfifo_fifo_1911_nm47wdi"</message>
   </messages>
  </entity>
 </deploy>

@@ -1,4 +1,4 @@
-// (C) 2001-2023 Intel Corporation. All rights reserved.
+// (C) 2001-2022 Intel Corporation. All rights reserved.
 // Your use of Intel Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files from any of the foregoing (including device programming or simulation 
@@ -11,7 +11,7 @@
 // agreement for further details.
 
 
-// (C) 2001-2023 Intel Corporation. All rights reserved.
+// (C) 2001-2022 Intel Corporation. All rights reserved.
 // Your use of Intel Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files from any of the foregoing (including device programming or simulation 
@@ -764,7 +764,7 @@ intel_pcie_bam_v2_crdt_tx_ack tx_st_ack_cpl_header (
 
 
 endmodule
-/*
+
 module intel_pcie_bam_v2_crdt_tx_ack  //reply init ack only
    (
      input logic          clk,
@@ -804,4 +804,4 @@ module intel_pcie_bam_v2_crdt_tx_ack  //reply init ack only
   end 
 
 endmodule
-*/
+

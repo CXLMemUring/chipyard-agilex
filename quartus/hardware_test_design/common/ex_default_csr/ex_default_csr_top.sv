@@ -1,4 +1,4 @@
-// (C) 2001-2023 Intel Corporation. All rights reserved.
+// (C) 2001-2022 Intel Corporation. All rights reserved.
 // Your use of Intel Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files from any of the foregoing (including device programming or simulation 
@@ -11,7 +11,7 @@
 // agreement for further details.
 
 
-// Copyright 2023 Intel Corporation.
+// Copyright 2022 Intel Corporation.
 //
 // THIS SOFTWARE MAY CONTAIN PREPRODUCTION CODE AND IS PROVIDED BY THE
 // COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
@@ -31,39 +31,15 @@ module ex_default_csr_top (
     input  logic        csr_avmm_clk,
     input  logic        csr_avmm_rstn,  
     output logic        csr_avmm_waitrequest,  
-    output logic [63:0] csr_avmm_readdata,
+    output logic [31:0] csr_avmm_readdata,
     output logic        csr_avmm_readdatavalid,
-    input  logic [63:0] csr_avmm_writedata,
-    input  logic        csr_avmm_poison,
+    input  logic [31:0] csr_avmm_writedata,
     input  logic [21:0] csr_avmm_address,
     input  logic        csr_avmm_write,
     input  logic        csr_avmm_read, 
-    input  logic [7:0]  csr_avmm_byteenable,
-
-   // for monitor
-   input logic afu_clk,
-   input logic cxlip2iafu_read_eclk,
-   input logic cxlip2iafu_write_eclk,
-
-   // for tracker
-   output logic [31:0] page_query_rate,
-   output logic [31:0] cache_query_rate,
-   output logic [63:0] cxl_start_pa, // byte level address, start_pfn << 12
-   output logic [63:0] cxl_addr_offset,
-   input logic page_mig_addr_en,
-   input logic [27:0]  page_mig_addr,
-   input logic cache_mig_addr_en,
-   input logic [27:0]  cache_mig_addr,
-
-   // for prefetch
-   output logic [63:0] csr_prefetch_page_addr,
-   output logic        csr_start_prefetch,
-   input logic [511:0] csr_prefetch_page_data,
-   output logic [5:0] csr_aruser,
-   output logic [5:0] csr_awuser,
-   output logic [32:0]  csr_addr_ub,
-   output logic [32:0]  csr_addr_lb
+    input  logic [3:0]  csr_avmm_byteenable
 );
+
 
 //CSR block
 
@@ -73,33 +49,11 @@ module ex_default_csr_top (
        .writedata    (csr_avmm_writedata),
        .read         (csr_avmm_read),
        .write        (csr_avmm_write),
-       .poison       (csr_avmm_poison),
        .byteenable   (csr_avmm_byteenable),
        .readdata     (csr_avmm_readdata),
        .readdatavalid(csr_avmm_readdatavalid),
-       .address      ({10'h0,csr_avmm_address}),
-       .waitrequest  (csr_avmm_waitrequest),
-       .cxl_start_pa (cxl_start_pa),
-       .cxl_addr_offset (cxl_addr_offset),
-
-       .afu_clk               (afu_clk),
-       .cxlip2iafu_read_eclk  (cxlip2iafu_read_eclk),
-       .cxlip2iafu_write_eclk (cxlip2iafu_write_eclk),
-
-       .page_query_rate (page_query_rate),
-       .cache_query_rate (cache_query_rate),
-       .page_mig_addr_en  (page_mig_addr_en),
-       .page_mig_addr   (page_mig_addr),
-       .cache_mig_addr_en(cache_mig_addr_en),
-       .cache_mig_addr (cache_mig_addr),
-
-       .csr_prefetch_page_addr (csr_prefetch_page_addr),
-       .csr_start_prefetch     (csr_start_prefetch),
-       .csr_prefetch_page_data (csr_prefetch_page_data),
-       .csr_aruser(csr_aruser),
-       .csr_awuser(csr_awuser),
-       .csr_addr_ub(csr_addr_ub),
-       .csr_addr_lb(csr_addr_lb)
+       .address      (csr_avmm_address),
+       .waitrequest  (csr_avmm_waitrequest)
    );
 
 //USER LOGIC Implementation 

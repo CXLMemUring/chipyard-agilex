@@ -10155,7 +10155,7 @@ https://fpgasoftware.intel.com/eula.-->
         <ipxact:parameter parameterId="EXM_SIM" type="bit">
           <ipxact:name>EXM_SIM</ipxact:name>
           <ipxact:displayName>Simulation</ipxact:displayName>
-          <ipxact:value>false</ipxact:value>
+          <ipxact:value>true</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="EXM_HDL_FORMAT" type="int">
           <ipxact:name>EXM_HDL_FORMAT</ipxact:name>
@@ -10254,7 +10254,7 @@ https://fpgasoftware.intel.com/eula.-->
         <ipxact:parameter parameterId="device" type="string">
           <ipxact:name>device</ipxact:name>
           <ipxact:displayName>Device</ipxact:displayName>
-          <ipxact:value>AGIB027R29A1E2VR3</ipxact:value>
+          <ipxact:value>AGIB027R29A2E2VR3</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="deviceFamily" type="string">
           <ipxact:name>deviceFamily</ipxact:name>

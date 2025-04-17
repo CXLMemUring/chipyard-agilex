@@ -1,4 +1,4 @@
-// (C) 2001-2023 Intel Corporation. All rights reserved.
+// (C) 2001-2022 Intel Corporation. All rights reserved.
 // Your use of Intel Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files from any of the foregoing (including device programming or simulation 
@@ -11,7 +11,7 @@
 // agreement for further details.
 
 
-// (C) 2001-2023 Intel Corporation. All rights reserved.
+// (C) 2001-2022 Intel Corporation. All rights reserved.
 // Your use of Intel Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files from any of the foregoing (including device programming or simulation 
@@ -119,7 +119,6 @@ module intel_pcie_bam_v2_sch_intf
    output logic [VFNUM_WIDTH-1:0] bam_txc_vfnum_o,
    
    output logic                   valid_eop_o,
-   output logic           	  pio_to_send_cpl,
    
    input logic [2:0]              max_payload_size_i,
    
@@ -264,7 +263,7 @@ scfifo writedata_fifo
     defparam
       writedata_fifo.add_ram_output_register  = "ON",
       writedata_fifo.enable_ecc  = "FALSE",
-      writedata_fifo.intended_device_family  = "Agilex",
+      writedata_fifo.intended_device_family  = "Stratix 10",
       writedata_fifo.lpm_hint  = "AUTO",
       writedata_fifo.lpm_numwords  = 256,
       writedata_fifo.lpm_showahead  = "ON",
@@ -414,7 +413,6 @@ always_ff @(posedge clk)
       tx_header_reg1[96:0] <= tx_hdr_fifo_rdata_i[96:0];
 
 /// assigning the output ports
-assign pio_to_send_cpl	 = tx_valid_reg1 | tx_valid_reg2 | tx_valid_reg3;
 assign bam_txc_valid_o   = tx_valid_reg3;
 assign bam_txc_payload_o = tx_data_reg2;
 assign bam_txc_sop_o     = tx_sop_reg2;
@@ -1346,7 +1344,7 @@ scfifo  preproc_fifo (
       preproc_fifo.add_ram_output_register  = "ON",
       preproc_fifo.almost_full_value  = 8,
       preproc_fifo.enable_ecc  = "FALSE",
-      preproc_fifo.intended_device_family  = "Agilex",
+      preproc_fifo.intended_device_family  = "Stratix 10",
       preproc_fifo.lpm_hint  = "AUTO",
       preproc_fifo.lpm_numwords  = 32,
       preproc_fifo.lpm_showahead  = "ON",
@@ -1405,7 +1403,7 @@ scfifo  preproc_fifo (
       preproc_fifo.add_ram_output_register  = "ON",
       preproc_fifo.almost_full_value  = 8,
       preproc_fifo.enable_ecc  = "FALSE",
-      preproc_fifo.intended_device_family  = "Agilex",
+      preproc_fifo.intended_device_family  = "Stratix 10",
       preproc_fifo.lpm_hint  = "AUTO",
       preproc_fifo.lpm_numwords  = 32,
       preproc_fifo.lpm_showahead  = "ON",
@@ -1466,7 +1464,7 @@ scfifo  preproc_fifo (
       preproc_fifo.add_ram_output_register  = "ON",
       preproc_fifo.almost_full_value  = 8,
       preproc_fifo.enable_ecc  = "FALSE",
-      preproc_fifo.intended_device_family  = "Agilex",
+      preproc_fifo.intended_device_family  = "Stratix 10",
       preproc_fifo.lpm_hint  = "AUTO",
       preproc_fifo.lpm_numwords  = 32,
       preproc_fifo.lpm_showahead  = "ON",

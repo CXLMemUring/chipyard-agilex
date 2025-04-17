@@ -1,4 +1,4 @@
-// (C) 2001-2023 Intel Corporation. All rights reserved.
+// (C) 2001-2022 Intel Corporation. All rights reserved.
 // Your use of Intel Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files from any of the foregoing (including device programming or simulation 
@@ -15,7 +15,7 @@ package intel_cxl_pio_parameters;
     parameter ENABLE_ONLY_DEFAULT_CONFIG= 0;
     parameter ENABLE_ONLY_PIO           = 0;
     parameter ENABLE_BOTH_DEFAULT_CONFIG_PIO = 1;
-    parameter PFNUM_WIDTH               = 3;
+    parameter PFNUM_WIDTH               = 2;
     parameter VFNUM_WIDTH               = 12;
     parameter DATA_WIDTH                = 1024;
     parameter BAM_DATAWIDTH             = DATA_WIDTH;

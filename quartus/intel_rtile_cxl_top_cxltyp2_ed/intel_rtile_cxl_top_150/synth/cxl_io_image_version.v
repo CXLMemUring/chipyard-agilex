@@ -29,6 +29,6 @@
 module cxl_io_image_version (data_out);
     output [31:0] data_out;
     assign data_out[15:0] = 16'h2364; //SVN version
-    assign data_out[31:16] = 16'h2156;
+    assign data_out[31:16] = 16'h2164;
 endmodule
 

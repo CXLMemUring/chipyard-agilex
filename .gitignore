@@ -7,3 +7,6 @@ support_logic
 .qsys_edit
 qdb
 output_files
+sim
+sim_filelist
+qdb

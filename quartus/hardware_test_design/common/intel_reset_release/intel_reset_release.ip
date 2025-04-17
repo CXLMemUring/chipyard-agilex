@@ -16,14 +16,14 @@ https://fpgasoftware.intel.com/eula.-->
   <ipxact:vendor>Intel Corporation</ipxact:vendor>
   <ipxact:library>intel_reset_release</ipxact:library>
   <ipxact:name>s10_user_rst_clkgate_0</ipxact:name>
-  <ipxact:version>19.4.5</ipxact:version>
+  <ipxact:version>19.3.2</ipxact:version>
   <ipxact:busInterfaces>
     <ipxact:busInterface>
       <ipxact:name>ninit_done</ipxact:name>
-      <ipxact:busType vendor="intel" library="intel" name="conduit" version="23.3"></ipxact:busType>
+      <ipxact:busType vendor="intel" library="intel" name="conduit" version="21.4"></ipxact:busType>
       <ipxact:abstractionTypes>
         <ipxact:abstractionType>
-          <ipxact:abstractionRef vendor="intel" library="intel" name="conduit" version="23.3"></ipxact:abstractionRef>
+          <ipxact:abstractionRef vendor="intel" library="intel" name="conduit" version="21.4"></ipxact:abstractionRef>
           <ipxact:portMaps>
             <ipxact:portMap>
               <ipxact:logicalPort>
@@ -93,7 +93,7 @@ https://fpgasoftware.intel.com/eula.-->
       <ipxact:vendor>Intel Corporation</ipxact:vendor>
       <ipxact:library>intel_reset_release</ipxact:library>
       <ipxact:name>altera_s10_user_rst_clkgate</ipxact:name>
-      <ipxact:version>19.4.5</ipxact:version>
+      <ipxact:version>19.3.2</ipxact:version>
     </altera:entity_info>
     <altera:altera_module_parameters>
       <ipxact:parameters>
@@ -111,15 +111,10 @@ https://fpgasoftware.intel.com/eula.-->
     </altera:altera_module_parameters>
     <altera:altera_system_parameters>
       <ipxact:parameters>
-        <ipxact:parameter parameterId="board" type="string">
-          <ipxact:name>board</ipxact:name>
-          <ipxact:displayName>Board</ipxact:displayName>
-          <ipxact:value>default</ipxact:value>
-        </ipxact:parameter>
         <ipxact:parameter parameterId="device" type="string">
           <ipxact:name>device</ipxact:name>
           <ipxact:displayName>Device</ipxact:displayName>
-          <ipxact:value>AGIB027R29A1E2VR3</ipxact:value>
+          <ipxact:value>AGIB027R29B1E2VR2</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="deviceFamily" type="string">
           <ipxact:name>deviceFamily</ipxact:name>
@@ -169,11 +164,6 @@ https://fpgasoftware.intel.com/eula.-->
     &lt;connPtSystemInfos/&gt;
 &lt;/systemInfosDefinition&gt;</ipxact:value>
         </ipxact:parameter>
-        <ipxact:parameter parameterId="dflBitArray" type="string">
-          <ipxact:name>dflBitArray</ipxact:name>
-          <ipxact:displayName>dflBitArray</ipxact:displayName>
-          <ipxact:value></ipxact:value>
-        </ipxact:parameter>
       </ipxact:parameters>
     </altera:altera_system_parameters>
     <altera:altera_interface_boundary>
@@ -185,3 +175,4 @@ https://fpgasoftware.intel.com/eula.-->
     <altera:altera_has_errors>false</altera:altera_has_errors>
   </ipxact:vendorExtensions>
 </ipxact:component>
+ 

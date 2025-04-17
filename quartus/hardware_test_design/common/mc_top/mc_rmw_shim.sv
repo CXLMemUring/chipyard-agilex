@@ -1,4 +1,4 @@
-// (C) 2001-2023 Intel Corporation. All rights reserved.
+// (C) 2001-2022 Intel Corporation. All rights reserved.
 // Your use of Intel Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files from any of the foregoing (including device programming or simulation 
@@ -43,8 +43,6 @@ module mc_rmw_shim #(
 input  logic                  mem_clk                   ,  // EMIF User Clock
 input  logic                  mem_reset_n               ,  // EMIF reset
 
-output logic [6:0]            rd_cntr                   ,
-
 output logic                  mem_ready_ha_mclk         ,  //  width = 1,
 input  logic                  mem_read_ha_mclk          ,  //  width = 1,
 input  logic                  mem_write_ha_mclk         ,  //  width = 1,
@@ -86,6 +84,7 @@ input  logic [ALTECC_INST_NUMBER-1:0] mem_ecc_err_syn_e_mclk
 );
 
 logic [DATA_WIDTH-1:0] rmw_data;
+logic [5:0]   rd_cntr;
 logic         rmw_write;
 logic         rmw_poison;
 logic         rmw_pending;
@@ -143,21 +142,21 @@ assign mem_byteenable_mclk       = '1;
 assign mem_address_mclk          = mem_address_ha_mclk     ;
 
 assign mem_ready_ha_mclk = mem_write_partial_ha_mclk ? mem_ready_mclk & rmw_write : mem_ready_mclk;   // Pop reqfifo
-assign mem_readdatavalid_ha_mclk = mem_readdatavalid_mclk & ~(rmw_pending & (rd_cntr == 7'h1));
+assign mem_readdatavalid_ha_mclk = mem_readdatavalid_mclk & ~(rmw_pending & (rd_cntr == 6'h1));
 assign mem_ecc_err_valid_ha_mclk = mem_readdatavalid_mclk;
 
 assign mem_write_mclk        = mem_write_partial_ha_mclk ? rmw_write  : mem_write_ha_mclk;
 assign mem_writedata_mclk    = mem_write_partial_ha_mclk ? rmw_data   : mem_writedata_ha_mclk;
 assign mem_write_poison_mclk = mem_write_partial_ha_mclk ? rmw_poison : mem_write_poison_ha_mclk;
 
-assign mem_read_mclk = mem_write_partial_ha_mclk ? (~rmw_pending & ~rmw_write)  & (rd_cntr == 7'h0): mem_read_ha_mclk;
+assign mem_read_mclk = mem_write_partial_ha_mclk ? (~rmw_pending & ~rmw_write)  & (rd_cntr == 6'h0): mem_read_ha_mclk;
 
 always_ff @(posedge mem_clk) begin
   if (~mem_reset_n)
-    rd_cntr <= 7'h0;
+    rd_cntr <= 6'h0;
   else begin
-    if      (mem_ready_mclk & mem_read_mclk & ~mem_readdatavalid_mclk_internal)    rd_cntr <= rd_cntr + 7'h1;
-    else if (mem_readdatavalid_mclk_internal & ~(mem_ready_mclk & mem_read_mclk))  rd_cntr <= rd_cntr - 7'h1;
+    if      (mem_ready_mclk & mem_read_mclk & ~mem_readdatavalid_mclk_internal)    rd_cntr <= rd_cntr + 6'h1;
+    else if (mem_readdatavalid_mclk_internal & ~(mem_ready_mclk & mem_read_mclk))  rd_cntr <= rd_cntr - 6'h1;
   end
 end
 
@@ -181,14 +180,14 @@ always_ff @(posedge mem_clk) begin
     rmw_pending <= 1'b0;
   end
   else begin
-    if (rmw_pending & mem_readdatavalid_mclk_internal & (rd_cntr == 7'h1)) begin
+    if (rmw_pending & mem_readdatavalid_mclk_internal & (rd_cntr == 6'h1)) begin
       rmw_write   <= 1'b1;
       rmw_pending <= 1'b0;
     end
     else if (mem_ready_mclk & mem_write_mclk)
       rmw_write <= 1'b0;
 
-    if (mem_write_partial_ha_mclk & ~rmw_pending & mem_ready_mclk & ~rmw_write & (rd_cntr == 7'h0))
+    if (mem_write_partial_ha_mclk & ~rmw_pending & mem_ready_mclk & ~rmw_write & (rd_cntr == 6'h0))
       rmw_pending <= 1'b1;
   end
 end

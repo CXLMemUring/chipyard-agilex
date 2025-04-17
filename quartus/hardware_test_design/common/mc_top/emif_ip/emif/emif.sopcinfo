@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="emif" kind="emif" version="1.0" fabric="QSYS">
- <!-- Format version 23.3 104 (Future versions may contain additional information.) -->
- <!-- 2024.03.13.17:46:46 -->
+ <!-- Format version 22.3 104 (Future versions may contain additional information.) -->
+ <!-- 2025.04.17.15:46:14 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
@@ -32,7 +32,7 @@
  </parameter>
  <parameter name="AUTO_DEVICE">
   <type>java.lang.String</type>
-  <value>AGIB027R29A1E2VR3</value>
+  <value>AGIB027R29A1E2VR0</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -128,9 +128,9 @@
  <module
    name="emif"
    kind="altera_emif_fm"
-   version="2.7.2"
-   entity="emif_altera_emif_fm_272_dlxuzwy"
-   library="altera_emif_fm_272"
+   version="2.6.1"
+   entity="emif_altera_emif_fm_261_l3i6zza"
+   library="altera_emif_fm_261"
    path="emif"
    hpath="emif"
    className="altera_emif_fm">
@@ -147,7 +147,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SYS_INFO_DEVICE">
    <type>java.lang.String</type>
-   <value>AGIB027R29A1E2VR3</value>
+   <value>AGIB027R29A1E2VR0</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -185,7 +185,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SYS_INFO_DEVICE_DIE_REVISIONS">
    <type>[Ljava.lang.String;</type>
-   <value>HSSI_GDR_REVB,HSSI_RNR_REVB,MAIN_FM8_REVA</value>
+   <value>HSSI_GDR_REVA,HSSI_RNR_REVA,MAIN_FM8_REVA</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -212,7 +212,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="TRAIT_IOBANK_REVISION">
    <type>java.lang.String</type>
-   <value>IO96A_REVB2</value>
+   <value>IO96A_REVB0</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -273,7 +273,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PHY_FPGA_SPEEDGRADE_GUI">
    <type>java.lang.String</type>
-   <value>E2V (ES3) - change device under 'View'-&gt;'Device Family'</value>
+   <value>E2V (ES2) - change device under 'View'-&gt;'Device Family'</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -297,7 +297,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PHY_TARGET_IS_ES2">
    <type>boolean</type>
-   <value>false</value>
+   <value>true</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -305,7 +305,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PHY_TARGET_IS_ES3">
    <type>boolean</type>
-   <value>true</value>
+   <value>false</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -1927,14 +1927,6 @@ the requested settings for a module instance. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <parameter name="PHY_DDR4_ALLOW_72_DQ_WIDTH">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>false</visible>
-   <valid>true</valid>
-  </parameter>
   <parameter name="PHY_DDR4_REF_CLK_FREQ_MHZ">
    <type>double</type>
    <value>33.33</value>
@@ -1977,7 +1969,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PHY_DDR4_USER_AC_SLEW_RATE_ENUM">
    <type>java.lang.String</type>
-   <value>unset</value>
+   <value>SLEW_RATE_FM_FAST</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -2009,7 +2001,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PHY_DDR4_USER_CK_SLEW_RATE_ENUM">
    <type>java.lang.String</type>
-   <value>unset</value>
+   <value>SLEW_RATE_FM_FAST</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -2041,7 +2033,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PHY_DDR4_USER_DATA_OUT_SLEW_RATE_ENUM">
    <type>java.lang.String</type>
-   <value>unset</value>
+   <value>SLEW_RATE_FM_FAST</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -18895,7 +18887,7 @@ the requested settings for a module instance. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <interface name="local_reset_req" kind="conduit_end" version="23.3">
+  <interface name="local_reset_req" kind="conduit_end" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -18948,7 +18940,7 @@ parameters are a RESULT of the module parameters. -->
     <role>local_reset_req</role>
    </port>
   </interface>
-  <interface name="local_reset_status" kind="conduit_end" version="23.3">
+  <interface name="local_reset_status" kind="conduit_end" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -19001,7 +18993,7 @@ parameters are a RESULT of the module parameters. -->
     <role>local_reset_done</role>
    </port>
   </interface>
-  <interface name="pll_ref_clk" kind="clock_sink" version="23.3">
+  <interface name="pll_ref_clk" kind="clock_sink" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -19046,7 +19038,7 @@ parameters are a RESULT of the module parameters. -->
     <role>clk</role>
    </port>
   </interface>
-  <interface name="pll_ref_clk_out" kind="clock_source" version="23.3">
+  <interface name="pll_ref_clk_out" kind="clock_source" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -19115,7 +19107,7 @@ parameters are a RESULT of the module parameters. -->
     <role>clk</role>
    </port>
   </interface>
-  <interface name="pll_locked" kind="conduit_end" version="23.3">
+  <interface name="pll_locked" kind="conduit_end" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -19168,7 +19160,7 @@ parameters are a RESULT of the module parameters. -->
     <role>pll_locked</role>
    </port>
   </interface>
-  <interface name="oct" kind="conduit_end" version="23.3">
+  <interface name="oct" kind="conduit_end" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -19221,7 +19213,7 @@ parameters are a RESULT of the module parameters. -->
     <role>oct_rzqin</role>
    </port>
   </interface>
-  <interface name="mem" kind="conduit_end" version="23.3">
+  <interface name="mem" kind="conduit_end" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -19364,7 +19356,7 @@ parameters are a RESULT of the module parameters. -->
     <role>mem_dbi_n</role>
    </port>
   </interface>
-  <interface name="status" kind="conduit_end" version="23.3">
+  <interface name="status" kind="conduit_end" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -19423,7 +19415,7 @@ parameters are a RESULT of the module parameters. -->
     <role>local_cal_fail</role>
    </port>
   </interface>
-  <interface name="emif_usr_reset_n" kind="reset_source" version="23.3">
+  <interface name="emif_usr_reset_n" kind="reset_source" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -19484,7 +19476,7 @@ parameters are a RESULT of the module parameters. -->
     <role>reset_n</role>
    </port>
   </interface>
-  <interface name="emif_usr_clk" kind="clock_source" version="23.3">
+  <interface name="emif_usr_clk" kind="clock_source" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -19553,7 +19545,7 @@ parameters are a RESULT of the module parameters. -->
     <role>clk</role>
    </port>
   </interface>
-  <interface name="ctrl_amm_0" kind="avalon_slave" version="23.3">
+  <interface name="ctrl_amm_0" kind="avalon_slave" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -19901,86 +19893,6 @@ parameters are a RESULT of the module parameters. -->
     <visible>true</visible>
     <valid>true</valid>
    </parameter>
-   <parameter name="dfhFeatureGuid">
-    <type>java.math.BigInteger</type>
-    <value>0</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="dfhGroupId">
-    <type>int</type>
-    <value>0</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="dfhParameterId">
-    <type>[Ljava.lang.Integer;</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="dfhParameterName">
-    <type>[Ljava.lang.String;</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="dfhParameterVersion">
-    <type>[Ljava.lang.Integer;</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="dfhParameterData">
-    <type>[Ljava.lang.String;</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="dfhParameterDataLength">
-    <type>[Ljava.lang.Integer;</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="dfhFeatureMajorVersion">
-    <type>int</type>
-    <value>0</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="dfhFeatureMinorVersion">
-    <type>int</type>
-    <value>0</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="dfhFeatureId">
-    <type>int</type>
-    <value>35</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
    <parameter name="deviceFamily">
     <type>java.lang.String</type>
     <value>UNKNOWN</value>
@@ -20054,7 +19966,7 @@ parameters are a RESULT of the module parameters. -->
     <role>readdatavalid</role>
    </port>
   </interface>
-  <interface name="emif_calbus" kind="conduit_end" version="23.3">
+  <interface name="emif_calbus" kind="conduit_end" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -20137,7 +20049,7 @@ parameters are a RESULT of the module parameters. -->
     <role>calbus_seq_param_tbl</role>
    </port>
   </interface>
-  <interface name="emif_calbus_clk" kind="clock_sink" version="23.3">
+  <interface name="emif_calbus_clk" kind="clock_sink" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -20187,7 +20099,7 @@ parameters are a RESULT of the module parameters. -->
    name="emif_arch"
    kind="altera_emif_arch_fm"
    version="19.1"
-   entity="emif_altera_emif_arch_fm_191_ws7gkca"
+   entity="emif_altera_emif_arch_fm_191_uenu7qa"
    library="altera_emif_arch_fm_191"
    path="emif.arch"
    hpath="emif|arch"
@@ -20204,7 +20116,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SYS_INFO_DEVICE">
    <type>java.lang.String</type>
-   <value>AGIB027R29A1E2VR3</value>
+   <value>AGIB027R29A1E2VR0</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -20236,7 +20148,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SYS_INFO_DEVICE_DIE_REVISIONS">
    <type>[Ljava.lang.String;</type>
-   <value>HSSI_GDR_REVB,HSSI_RNR_REVB,MAIN_FM8_REVA</value>
+   <value>HSSI_GDR_REVA,HSSI_RNR_REVA,MAIN_FM8_REVA</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -20260,7 +20172,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="TRAIT_IOBANK_REVISION">
    <type>java.lang.String</type>
-   <value>IO96A_REVB2</value>
+   <value>IO96A_REVB0</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -20316,7 +20228,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PHY_FPGA_SPEEDGRADE_GUI">
    <type>java.lang.String</type>
-   <value>E2V (ES3) - change device under 'View'-&gt;'Device Family'</value>
+   <value>E2V (ES2) - change device under 'View'-&gt;'Device Family'</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -20340,7 +20252,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PHY_TARGET_IS_ES2">
    <type>boolean</type>
-   <value>false</value>
+   <value>true</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -20348,7 +20260,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PHY_TARGET_IS_ES3">
    <type>boolean</type>
-   <value>true</value>
+   <value>false</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -21970,14 +21882,6 @@ the requested settings for a module instance. -->
    <visible>false</visible>
    <valid>true</valid>
   </parameter>
-  <parameter name="PHY_DDR4_ALLOW_72_DQ_WIDTH">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>false</visible>
-   <valid>true</valid>
-  </parameter>
   <parameter name="PHY_DDR4_REF_CLK_FREQ_MHZ">
    <type>double</type>
    <value>33.33</value>
@@ -22020,7 +21924,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PHY_DDR4_USER_AC_SLEW_RATE_ENUM">
    <type>java.lang.String</type>
-   <value>unset</value>
+   <value>SLEW_RATE_FM_FAST</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -22052,7 +21956,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PHY_DDR4_USER_CK_SLEW_RATE_ENUM">
    <type>java.lang.String</type>
-   <value>unset</value>
+   <value>SLEW_RATE_FM_FAST</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -22084,7 +21988,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PHY_DDR4_USER_DATA_OUT_SLEW_RATE_ENUM">
    <type>java.lang.String</type>
-   <value>unset</value>
+   <value>SLEW_RATE_FM_FAST</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -38924,7 +38828,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SILICON_REV">
    <type>java.lang.String</type>
-   <value>14nm5</value>
+   <value>14nm5es2</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -38956,7 +38860,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PHY_HMC_CLK_RATIO">
    <type>int</type>
-   <value>2</value>
+   <value>4</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -38964,7 +38868,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DIAG_ABSTRACT_PHY_WLAT">
    <type>int</type>
-   <value>9</value>
+   <value>4</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -38972,7 +38876,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DIAG_ABSTRACT_PHY_RLAT">
    <type>int</type>
-   <value>20</value>
+   <value>13</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -39044,7 +38948,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEQ_PT_SYN_CONTENT">
    <type>java.lang.String</type>
-   <value>00024c400000000000000001000a2be801121608480909010102110902000101001401000903033400000000000000000d00c08100b0000000000000000000004066008000c40707016c00d40000012300000f3c0000015e00000000000000080814040c000b0a091003020100131211000000060000000400020301000000002b2a290012111000161514131a1918172524231b0000272600280b0000000908000000004434241474645404352515846555054526168575560646361086766618131211201b1a1928232221302b2a2938333231403b3a3948434241004b4a4908030201500b0a0958535251605b5a5968636261706b6a6978737271807b7a7988838281008b8a8900000a50000100010002003000030400000408000005146000060c0f</value>
+   <value>00024c400000000000000001000515f401121608480909010102110902000101001401000903033400000000000000000d00c08100b0000000000000000000004066008000c40707016c00d40000012300000f3c0000015e00000000000000080814040c000b0a091003020100131211000000060000000400020301000000002b2a290012111000161514131a1918172524231b0000272600280b0000000908000000004434241474645404352515846555054526168575560646361086766618131211201b1a1928232221302b2a2938333231403b3a3948434241004b4a4908030201500b0a0958535251605b5a5968636261706b6a6978737271807b7a7988838281008b8a8900000a50000100010002003000030400000408000005146000060c0f</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -39052,7 +38956,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEQ_PT_SIM_CONTENT">
    <type>java.lang.String</type>
-   <value>00024c400000000000000001000a2be801121608480909010102110902000101001401000903033400000000000000000d20e08100b0000000000000000000004077d58000c40707016c00d40000012300000f3c0000015e00000000000000080814040c000b0a091003020100131211000000060000000400020301000000002b2a290012111000161514131a1918172524231b0000272600280b0000000908000000004434241474645404352515846555054526168575560646361086766618131211201b1a1928232221302b2a2938333231403b3a3948434241004b4a4908030201500b0a0958535251605b5a5968636261706b6a6978737271807b7a7988838281008b8a8900000a50000100010002003000030400000408000005146000060c0f</value>
+   <value>00024c400000000000000001000515f401121608480909010102110902000101001401000903033400000000000000000d20e08100b0000000000000000000004077d58000c40707016c00d40000012300000f3c0000015e00000000000000080814040c000b0a091003020100131211000000060000000400020301000000002b2a290012111000161514131a1918172524231b0000272600280b0000000908000000004434241474645404352515846555054526168575560646361086766618131211201b1a1928232221302b2a2938333231403b3a3948434241004b4a4908030201500b0a0958535251605b5a5968636261706b6a6978737271807b7a7988838281008b8a8900000a50000100010002003000030400000408000005146000060c0f</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -42548,7 +42452,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DBC_WB_RESERVED_ENTRY">
    <type>int</type>
-   <value>116</value>
+   <value>105</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -42852,7 +42756,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_CTRL_ENABLE_RC">
    <type>java.lang.String</type>
-   <value>enable</value>
+   <value>disable</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -42860,7 +42764,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_DBC0_ENABLE_RC">
    <type>java.lang.String</type>
-   <value>enable</value>
+   <value>disable</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -42868,7 +42772,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_DBC1_ENABLE_RC">
    <type>java.lang.String</type>
-   <value>enable</value>
+   <value>disable</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -42876,7 +42780,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_DBC2_ENABLE_RC">
    <type>java.lang.String</type>
-   <value>enable</value>
+   <value>disable</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -42884,7 +42788,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_DBC3_ENABLE_RC">
    <type>java.lang.String</type>
-   <value>enable</value>
+   <value>disable</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -42988,7 +42892,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_CTRL_SLOT_OFFSET">
    <type>int</type>
-   <value>2</value>
+   <value>3</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -42996,7 +42900,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_DBC0_SLOT_OFFSET">
    <type>int</type>
-   <value>2</value>
+   <value>3</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43004,7 +42908,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_DBC1_SLOT_OFFSET">
    <type>int</type>
-   <value>2</value>
+   <value>3</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43012,7 +42916,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_DBC2_SLOT_OFFSET">
    <type>int</type>
-   <value>2</value>
+   <value>3</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43020,7 +42924,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_DBC3_SLOT_OFFSET">
    <type>int</type>
-   <value>2</value>
+   <value>3</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43068,7 +42972,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_COL_CMD_SLOT">
    <type>int</type>
-   <value>2</value>
+   <value>8</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43076,7 +42980,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_ROW_CMD_SLOT">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43084,7 +42988,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_ROW_TO_COL_OFFSET">
    <type>int</type>
-   <value>-1</value>
+   <value>-2</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43116,7 +43020,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_COL_TO_ROW_OFFSET">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43124,7 +43028,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_SIDEBAND_OFFSET">
    <type>int</type>
-   <value>1</value>
+   <value>3</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43204,7 +43108,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_RB_RESERVED_ENTRY">
    <type>int</type>
-   <value>8</value>
+   <value>1</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43212,7 +43116,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_WB_RESERVED_ENTRY">
    <type>int</type>
-   <value>116</value>
+   <value>105</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43244,7 +43148,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_DQSTRK_TO_VALID">
    <type>int</type>
-   <value>4</value>
+   <value>2</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43252,7 +43156,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_DQSTRK_TO_VALID_LAST">
    <type>int</type>
-   <value>28</value>
+   <value>17</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43324,7 +43228,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_MEM_CLK_DISABLE_ENTRY_CYC">
    <type>int</type>
-   <value>16</value>
+   <value>9</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43356,7 +43260,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_4_ACT_TO_ACT">
    <type>int</type>
-   <value>13</value>
+   <value>6</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43644,7 +43548,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_ACT_TO_ACT">
    <type>int</type>
-   <value>31</value>
+   <value>16</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43652,7 +43556,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_ACT_TO_ACT_DIFF_BANK">
    <type>int</type>
-   <value>4</value>
+   <value>2</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43660,7 +43564,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_ACT_TO_ACT_DIFF_BG">
    <type>int</type>
-   <value>2</value>
+   <value>1</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43668,7 +43572,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_ACT_TO_PCH">
    <type>int</type>
-   <value>22</value>
+   <value>11</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43676,7 +43580,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_ACT_TO_RDWR">
    <type>int</type>
-   <value>9</value>
+   <value>5</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43684,7 +43588,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_ARF_PERIOD">
    <type>int</type>
-   <value>2601</value>
+   <value>1301</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43692,7 +43596,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_ARF_TO_VALID">
    <type>int</type>
-   <value>234</value>
+   <value>118</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43708,7 +43612,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_MPR_TO_VALID">
    <type>int</type>
-   <value>16</value>
+   <value>8</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43724,7 +43628,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_MPS_EXIT_CKE_TO_CS">
    <type>int</type>
-   <value>6</value>
+   <value>3</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43732,7 +43636,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_MPS_EXIT_CS_TO_CKE">
    <type>int</type>
-   <value>5</value>
+   <value>3</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43740,7 +43644,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_MPS_TO_VALID">
    <type>int</type>
-   <value>768</value>
+   <value>384</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43764,7 +43668,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_MRS_TO_VALID">
    <type>int</type>
-   <value>12</value>
+   <value>6</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43772,7 +43676,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_PCH_ALL_TO_VALID">
    <type>int</type>
-   <value>10</value>
+   <value>5</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43780,7 +43684,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_PCH_TO_VALID">
    <type>int</type>
-   <value>10</value>
+   <value>5</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43796,7 +43700,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_PDN_TO_VALID">
    <type>int</type>
-   <value>5</value>
+   <value>3</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43804,7 +43708,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_POWER_SAVING_EXIT_CYC">
    <type>int</type>
-   <value>3</value>
+   <value>2</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43812,7 +43716,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_RD_AP_TO_VALID">
    <type>int</type>
-   <value>15</value>
+   <value>8</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43820,7 +43724,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_RD_TO_PCH">
    <type>int</type>
-   <value>6</value>
+   <value>3</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43828,7 +43732,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_RD_TO_RD">
    <type>int</type>
-   <value>4</value>
+   <value>2</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43836,7 +43740,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_RD_TO_RD_DIFF_BG">
    <type>int</type>
-   <value>2</value>
+   <value>1</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43844,7 +43748,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_RD_TO_RD_DIFF_CHIP">
    <type>int</type>
-   <value>4</value>
+   <value>2</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43852,7 +43756,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_RD_TO_WR">
    <type>int</type>
-   <value>10</value>
+   <value>5</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43860,7 +43764,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_RD_TO_WR_DIFF_BG">
    <type>int</type>
-   <value>10</value>
+   <value>5</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43868,7 +43772,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_RD_TO_WR_DIFF_CHIP">
    <type>int</type>
-   <value>10</value>
+   <value>5</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43980,7 +43884,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_SRF_TO_VALID">
    <type>int</type>
-   <value>513</value>
+   <value>257</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -43988,7 +43892,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_SRF_TO_ZQ_CAL">
    <type>int</type>
-   <value>385</value>
+   <value>193</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44052,7 +43956,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_WR_AP_TO_VALID">
    <type>int</type>
-   <value>31</value>
+   <value>16</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44060,7 +43964,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_WR_TO_PCH">
    <type>int</type>
-   <value>22</value>
+   <value>11</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44068,7 +43972,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_WR_TO_RD">
    <type>int</type>
-   <value>20</value>
+   <value>10</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44076,7 +43980,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_WR_TO_RD_DIFF_BG">
    <type>int</type>
-   <value>18</value>
+   <value>9</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44084,7 +43988,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_WR_TO_RD_DIFF_CHIP">
    <type>int</type>
-   <value>17</value>
+   <value>9</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44092,7 +43996,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_WR_TO_WR">
    <type>int</type>
-   <value>4</value>
+   <value>2</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44100,7 +44004,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_WR_TO_WR_DIFF_BG">
    <type>int</type>
-   <value>2</value>
+   <value>1</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44108,7 +44012,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_WR_TO_WR_DIFF_CHIP">
    <type>int</type>
-   <value>3</value>
+   <value>2</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44116,7 +44020,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_ZQCL_TO_VALID">
    <type>int</type>
-   <value>257</value>
+   <value>129</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44124,7 +44028,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PRI_HMC_CFG_ZQCS_TO_VALID">
    <type>int</type>
-   <value>127</value>
+   <value>65</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44340,7 +44244,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_CTRL_ENABLE_RC">
    <type>java.lang.String</type>
-   <value>enable</value>
+   <value>disable</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44348,7 +44252,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_DBC0_ENABLE_RC">
    <type>java.lang.String</type>
-   <value>enable</value>
+   <value>disable</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44356,7 +44260,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_DBC1_ENABLE_RC">
    <type>java.lang.String</type>
-   <value>enable</value>
+   <value>disable</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44364,7 +44268,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_DBC2_ENABLE_RC">
    <type>java.lang.String</type>
-   <value>enable</value>
+   <value>disable</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44372,7 +44276,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_DBC3_ENABLE_RC">
    <type>java.lang.String</type>
-   <value>enable</value>
+   <value>disable</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44476,7 +44380,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_CTRL_SLOT_OFFSET">
    <type>int</type>
-   <value>2</value>
+   <value>3</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44484,7 +44388,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_DBC0_SLOT_OFFSET">
    <type>int</type>
-   <value>2</value>
+   <value>3</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44492,7 +44396,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_DBC1_SLOT_OFFSET">
    <type>int</type>
-   <value>2</value>
+   <value>3</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44500,7 +44404,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_DBC2_SLOT_OFFSET">
    <type>int</type>
-   <value>2</value>
+   <value>3</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44508,7 +44412,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_DBC3_SLOT_OFFSET">
    <type>int</type>
-   <value>2</value>
+   <value>3</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44556,7 +44460,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_COL_CMD_SLOT">
    <type>int</type>
-   <value>2</value>
+   <value>8</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44564,7 +44468,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_ROW_CMD_SLOT">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44572,7 +44476,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_ROW_TO_COL_OFFSET">
    <type>int</type>
-   <value>-1</value>
+   <value>-2</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44604,7 +44508,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_COL_TO_ROW_OFFSET">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44612,7 +44516,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_SIDEBAND_OFFSET">
    <type>int</type>
-   <value>1</value>
+   <value>3</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44692,7 +44596,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_RB_RESERVED_ENTRY">
    <type>int</type>
-   <value>8</value>
+   <value>1</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44700,7 +44604,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_WB_RESERVED_ENTRY">
    <type>int</type>
-   <value>116</value>
+   <value>105</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44732,7 +44636,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_DQSTRK_TO_VALID">
    <type>int</type>
-   <value>4</value>
+   <value>2</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44740,7 +44644,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_DQSTRK_TO_VALID_LAST">
    <type>int</type>
-   <value>28</value>
+   <value>17</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44812,7 +44716,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_MEM_CLK_DISABLE_ENTRY_CYC">
    <type>int</type>
-   <value>16</value>
+   <value>9</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -44844,7 +44748,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_4_ACT_TO_ACT">
    <type>int</type>
-   <value>13</value>
+   <value>6</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45132,7 +45036,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_ACT_TO_ACT">
    <type>int</type>
-   <value>31</value>
+   <value>16</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45140,7 +45044,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_ACT_TO_ACT_DIFF_BANK">
    <type>int</type>
-   <value>4</value>
+   <value>2</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45148,7 +45052,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_ACT_TO_ACT_DIFF_BG">
    <type>int</type>
-   <value>2</value>
+   <value>1</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45156,7 +45060,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_ACT_TO_PCH">
    <type>int</type>
-   <value>22</value>
+   <value>11</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45164,7 +45068,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_ACT_TO_RDWR">
    <type>int</type>
-   <value>9</value>
+   <value>5</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45172,7 +45076,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_ARF_PERIOD">
    <type>int</type>
-   <value>2601</value>
+   <value>1301</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45180,7 +45084,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_ARF_TO_VALID">
    <type>int</type>
-   <value>234</value>
+   <value>118</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45196,7 +45100,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_MPR_TO_VALID">
    <type>int</type>
-   <value>16</value>
+   <value>8</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45212,7 +45116,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_MPS_EXIT_CKE_TO_CS">
    <type>int</type>
-   <value>6</value>
+   <value>3</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45220,7 +45124,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_MPS_EXIT_CS_TO_CKE">
    <type>int</type>
-   <value>5</value>
+   <value>3</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45228,7 +45132,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_MPS_TO_VALID">
    <type>int</type>
-   <value>768</value>
+   <value>384</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45252,7 +45156,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_MRS_TO_VALID">
    <type>int</type>
-   <value>12</value>
+   <value>6</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45260,7 +45164,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_PCH_ALL_TO_VALID">
    <type>int</type>
-   <value>10</value>
+   <value>5</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45268,7 +45172,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_PCH_TO_VALID">
    <type>int</type>
-   <value>10</value>
+   <value>5</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45284,7 +45188,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_PDN_TO_VALID">
    <type>int</type>
-   <value>5</value>
+   <value>3</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45292,7 +45196,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_POWER_SAVING_EXIT_CYC">
    <type>int</type>
-   <value>3</value>
+   <value>2</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45300,7 +45204,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_RD_AP_TO_VALID">
    <type>int</type>
-   <value>15</value>
+   <value>8</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45308,7 +45212,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_RD_TO_PCH">
    <type>int</type>
-   <value>6</value>
+   <value>3</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45316,7 +45220,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_RD_TO_RD">
    <type>int</type>
-   <value>4</value>
+   <value>2</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45324,7 +45228,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_RD_TO_RD_DIFF_BG">
    <type>int</type>
-   <value>2</value>
+   <value>1</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45332,7 +45236,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_RD_TO_RD_DIFF_CHIP">
    <type>int</type>
-   <value>4</value>
+   <value>2</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45340,7 +45244,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_RD_TO_WR">
    <type>int</type>
-   <value>10</value>
+   <value>5</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45348,7 +45252,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_RD_TO_WR_DIFF_BG">
    <type>int</type>
-   <value>10</value>
+   <value>5</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45356,7 +45260,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_RD_TO_WR_DIFF_CHIP">
    <type>int</type>
-   <value>10</value>
+   <value>5</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45468,7 +45372,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_SRF_TO_VALID">
    <type>int</type>
-   <value>513</value>
+   <value>257</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45476,7 +45380,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_SRF_TO_ZQ_CAL">
    <type>int</type>
-   <value>385</value>
+   <value>193</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45540,7 +45444,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_WR_AP_TO_VALID">
    <type>int</type>
-   <value>31</value>
+   <value>16</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45548,7 +45452,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_WR_TO_PCH">
    <type>int</type>
-   <value>22</value>
+   <value>11</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45556,7 +45460,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_WR_TO_RD">
    <type>int</type>
-   <value>20</value>
+   <value>10</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45564,7 +45468,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_WR_TO_RD_DIFF_BG">
    <type>int</type>
-   <value>18</value>
+   <value>9</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45572,7 +45476,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_WR_TO_RD_DIFF_CHIP">
    <type>int</type>
-   <value>17</value>
+   <value>9</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45580,7 +45484,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_WR_TO_WR">
    <type>int</type>
-   <value>4</value>
+   <value>2</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45588,7 +45492,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_WR_TO_WR_DIFF_BG">
    <type>int</type>
-   <value>2</value>
+   <value>1</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45596,7 +45500,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_WR_TO_WR_DIFF_CHIP">
    <type>int</type>
-   <value>3</value>
+   <value>2</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45604,7 +45508,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_ZQCL_TO_VALID">
    <type>int</type>
-   <value>257</value>
+   <value>129</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -45612,7 +45516,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEC_HMC_CFG_ZQCS_TO_VALID">
    <type>int</type>
-   <value>127</value>
+   <value>65</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -51948,7 +51852,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PLL_SIM_PHYCLK_0_FREQ_PS">
    <type>int</type>
-   <value>1504</value>
+   <value>3008</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -52180,7 +52084,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PLL_C_CNT_HIGH_1">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -52188,7 +52092,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PLL_C_CNT_LOW_1">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -52228,7 +52132,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PLL_C_CNT_FREQ_PS_STR_1">
    <type>java.lang.String</type>
-   <value>1500 ps</value>
+   <value>3000 ps</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -52236,7 +52140,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PLL_C_CNT_FREQ_MHZ_STR_1">
    <type>java.lang.String</type>
-   <value>666.6 MHz</value>
+   <value>333.3 MHz</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -52356,7 +52260,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PLL_C_CNT_HIGH_3">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -52364,7 +52268,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PLL_C_CNT_LOW_3">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -52404,7 +52308,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PLL_C_CNT_FREQ_PS_STR_3">
    <type>java.lang.String</type>
-   <value>1500 ps</value>
+   <value>3000 ps</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -52412,7 +52316,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="PLL_C_CNT_FREQ_MHZ_STR_3">
    <type>java.lang.String</type>
-   <value>666.6 MHz</value>
+   <value>333.3 MHz</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -52898,7 +52802,7 @@ the requested settings for a module instance. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <interface name="local_reset_req" kind="conduit_end" version="23.3">
+  <interface name="local_reset_req" kind="conduit_end" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -52951,7 +52855,7 @@ parameters are a RESULT of the module parameters. -->
     <role>local_reset_req</role>
    </port>
   </interface>
-  <interface name="local_reset_status" kind="conduit_end" version="23.3">
+  <interface name="local_reset_status" kind="conduit_end" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -53004,7 +52908,7 @@ parameters are a RESULT of the module parameters. -->
     <role>local_reset_done</role>
    </port>
   </interface>
-  <interface name="pll_ref_clk" kind="clock_sink" version="23.3">
+  <interface name="pll_ref_clk" kind="clock_sink" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -53049,7 +52953,7 @@ parameters are a RESULT of the module parameters. -->
     <role>clk</role>
    </port>
   </interface>
-  <interface name="pll_ref_clk_out" kind="clock_source" version="23.3">
+  <interface name="pll_ref_clk_out" kind="clock_source" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -53118,7 +53022,7 @@ parameters are a RESULT of the module parameters. -->
     <role>clk</role>
    </port>
   </interface>
-  <interface name="pll_locked" kind="conduit_end" version="23.3">
+  <interface name="pll_locked" kind="conduit_end" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -53171,7 +53075,7 @@ parameters are a RESULT of the module parameters. -->
     <role>pll_locked</role>
    </port>
   </interface>
-  <interface name="oct" kind="conduit_end" version="23.3">
+  <interface name="oct" kind="conduit_end" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -53224,7 +53128,7 @@ parameters are a RESULT of the module parameters. -->
     <role>oct_rzqin</role>
    </port>
   </interface>
-  <interface name="mem" kind="conduit_end" version="23.3">
+  <interface name="mem" kind="conduit_end" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -53367,7 +53271,7 @@ parameters are a RESULT of the module parameters. -->
     <role>mem_dbi_n</role>
    </port>
   </interface>
-  <interface name="status" kind="conduit_end" version="23.3">
+  <interface name="status" kind="conduit_end" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -53426,7 +53330,7 @@ parameters are a RESULT of the module parameters. -->
     <role>local_cal_fail</role>
    </port>
   </interface>
-  <interface name="emif_usr_reset_n" kind="reset_source" version="23.3">
+  <interface name="emif_usr_reset_n" kind="reset_source" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -53487,7 +53391,7 @@ parameters are a RESULT of the module parameters. -->
     <role>reset_n</role>
    </port>
   </interface>
-  <interface name="emif_usr_clk" kind="clock_source" version="23.3">
+  <interface name="emif_usr_clk" kind="clock_source" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -53556,7 +53460,7 @@ parameters are a RESULT of the module parameters. -->
     <role>clk</role>
    </port>
   </interface>
-  <interface name="ctrl_amm_0" kind="avalon_slave" version="23.3">
+  <interface name="ctrl_amm_0" kind="avalon_slave" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -53896,86 +53800,6 @@ parameters are a RESULT of the module parameters. -->
     <visible>true</visible>
     <valid>true</valid>
    </parameter>
-   <parameter name="dfhFeatureGuid">
-    <type>java.math.BigInteger</type>
-    <value>0</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="dfhGroupId">
-    <type>int</type>
-    <value>0</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="dfhParameterId">
-    <type>[Ljava.lang.Integer;</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="dfhParameterName">
-    <type>[Ljava.lang.String;</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="dfhParameterVersion">
-    <type>[Ljava.lang.Integer;</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="dfhParameterData">
-    <type>[Ljava.lang.String;</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="dfhParameterDataLength">
-    <type>[Ljava.lang.Integer;</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="dfhFeatureMajorVersion">
-    <type>int</type>
-    <value>0</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="dfhFeatureMinorVersion">
-    <type>int</type>
-    <value>0</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="dfhFeatureId">
-    <type>int</type>
-    <value>35</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
    <parameter name="deviceFamily">
     <type>java.lang.String</type>
     <value>UNKNOWN</value>
@@ -54049,7 +53873,7 @@ parameters are a RESULT of the module parameters. -->
     <role>readdatavalid</role>
    </port>
   </interface>
-  <interface name="emif_calbus" kind="conduit_end" version="23.3">
+  <interface name="emif_calbus" kind="conduit_end" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -54132,7 +53956,7 @@ parameters are a RESULT of the module parameters. -->
     <role>calbus_seq_param_tbl</role>
    </port>
   </interface>
-  <interface name="emif_calbus_clk" kind="clock_sink" version="23.3">
+  <interface name="emif_calbus_clk" kind="clock_sink" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -54183,8 +54007,8 @@ parameters are a RESULT of the module parameters. -->
   <name>altera_emif_fm</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
-  <displayName>External Memory Interfaces (EMIF) IP</displayName>
-  <version>2.7.2</version>
+  <displayName>External Memory Interfaces Intel Agilex FPGA IP</displayName>
+  <version>2.6.1</version>
  </plugin>
  <plugin>
   <instanceCount>14</instanceCount>
@@ -54192,7 +54016,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
   <displayName>Conduit</displayName>
-  <version>23.3</version>
+  <version>22.3</version>
  </plugin>
  <plugin>
   <instanceCount>4</instanceCount>
@@ -54200,7 +54024,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
   <displayName>Clock Input</displayName>
-  <version>23.3</version>
+  <version>22.3</version>
  </plugin>
  <plugin>
   <instanceCount>4</instanceCount>
@@ -54208,7 +54032,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
   <displayName>Clock Output</displayName>
-  <version>23.3</version>
+  <version>22.3</version>
  </plugin>
  <plugin>
   <instanceCount>2</instanceCount>
@@ -54216,7 +54040,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
   <displayName>Reset Output</displayName>
-  <version>23.3</version>
+  <version>22.3</version>
  </plugin>
  <plugin>
   <instanceCount>2</instanceCount>
@@ -54224,16 +54048,16 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
   <displayName>Avalon Memory Mapped Agent</displayName>
-  <version>23.3</version>
+  <version>22.3</version>
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>
   <name>altera_emif_arch_fm</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
-  <displayName>EMIF Architecture Component</displayName>
+  <displayName>EMIF Architecture Component for the Agilex Device Family</displayName>
   <version>19.1</version>
  </plugin>
- <reportVersion>23.3 104</reportVersion>
+ <reportVersion>22.3 104</reportVersion>
  <uniqueIdentifier></uniqueIdentifier>
 </EnsembleReport>

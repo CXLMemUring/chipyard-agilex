@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="rspfifo" kind="rspfifo" version="1.0" fabric="QSYS">
- <!-- Format version 23.3 104 (Future versions may contain additional information.) -->
- <!-- 2024.03.13.17:47:12 -->
+ <!-- Format version 22.3 104 (Future versions may contain additional information.) -->
+ <!-- 2025.04.17.15:46:33 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
@@ -32,7 +32,7 @@
  </parameter>
  <parameter name="AUTO_DEVICE">
   <type>java.lang.String</type>
-  <value>AGIB027R29A1E2VR3</value>
+  <value>AGIB027R29A1E2VR0</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -68,9 +68,9 @@
  <module
    name="fifo_0"
    kind="fifo"
-   version="19.2.3"
-   entity="rspfifo_fifo_1923_h3bzh4a"
-   library="fifo_1923"
+   version="19.1.1"
+   entity="rspfifo_fifo_1911_frih6uy"
+   library="fifo_1911"
    path="fifo_0"
    hpath="fifo_0"
    className="fifo">
@@ -437,7 +437,7 @@ the requested settings for a module instance. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <interface name="fifo_input" kind="conduit_end" version="23.3">
+  <interface name="fifo_input" kind="conduit_end" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -524,7 +524,7 @@ parameters are a RESULT of the module parameters. -->
     <role>aclr</role>
    </port>
   </interface>
-  <interface name="fifo_output" kind="conduit_end" version="23.3">
+  <interface name="fifo_output" kind="conduit_end" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -612,7 +612,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>FIFO Intel FPGA IP</displayName>
-  <version>19.2.3</version>
+  <version>19.1.1</version>
  </plugin>
  <plugin>
   <instanceCount>2</instanceCount>
@@ -620,8 +620,8 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
   <displayName>Conduit</displayName>
-  <version>23.3</version>
+  <version>22.3</version>
  </plugin>
- <reportVersion>23.3 104</reportVersion>
+ <reportVersion>22.3 104</reportVersion>
  <uniqueIdentifier></uniqueIdentifier>
 </EnsembleReport>

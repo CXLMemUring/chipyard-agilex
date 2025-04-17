@@ -1,4 +1,4 @@
-// (C) 2001-2023 Intel Corporation. All rights reserved.
+// (C) 2001-2022 Intel Corporation. All rights reserved.
 // Your use of Intel Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files from any of the foregoing (including device programming or simulation 
@@ -49,19 +49,18 @@ module cust_afu_wrapper
   /*
     AXI-MM interface - write address channel
   */
-  output logic [11:0]               awid,
-  output logic [63:0]               awaddr, 
+  output logic [15:0]               awid,
+  output logic [51:0]               awaddr, 
   output logic [9:0]                awlen,
   output logic [2:0]                awsize,
   output logic [1:0]                awburst,
   output logic [2:0]                awprot,
   output logic [3:0]                awqos,
-  output logic [5:0]                awuser,
+  output logic [3:0]                awuser,
   output logic                      awvalid,
   output logic [3:0]                awcache,
   output logic [1:0]                awlock,
   output logic [3:0]                awregion,
-  output logic [5:0]                awatop,
    input                            awready,
   
   /*
@@ -70,7 +69,7 @@ module cust_afu_wrapper
   output logic [511:0]              wdata,
   output logic [(512/8)-1:0]        wstrb,
   output logic                      wlast,
-  output logic                      wuser,
+  output logic [3:0]                wuser,
   output logic                      wvalid,
  // output logic [7:0]                wid,
    input                            wready,
@@ -78,8 +77,8 @@ module cust_afu_wrapper
   /*
     AXI-MM interface - write response channel
   */ 
-   input [11:0]                     bid,
-   input [1:0]                      bresp,
+   input [15:0]                     bid,
+   input [3:0]                      bresp,
    input [3:0]                      buser,
    input                            bvalid,
   output logic                      bready,
@@ -87,14 +86,14 @@ module cust_afu_wrapper
   /*
     AXI-MM interface - read address channel
   */
-  output logic [11:0]               arid,
-  output logic [63:0]               araddr,
+  output logic [15:0]               arid,
+  output logic [51:0]               araddr,
   output logic [9:0]                arlen,
   output logic [2:0]                arsize,
   output logic [1:0]                arburst,
   output logic [2:0]                arprot,
   output logic [3:0]                arqos,
-  output logic [4:0]                aruser,
+  output logic [3:0]                aruser,
   output logic                      arvalid,
   output logic [3:0]                arcache,
   output logic [1:0]                arlock,
@@ -104,11 +103,11 @@ module cust_afu_wrapper
   /*
     AXI-MM interface - read response channel
   */ 
-   input [11:0]                     rid,
+   input [15:0]                     rid,
    input [511:0]                    rdata,
-   input [1:0]                      rresp,
+   input [3:0]                      rresp,
    input                            rlast,
-   input                            ruser,
+   input [3:0]                      ruser,
    input                            rvalid,
    output logic                     rready
   
@@ -146,7 +145,6 @@ module cust_afu_wrapper
   assign  awcache      = '0   ;
   assign  awlock       = '0   ;
   assign  awregion     = '0   ;
-  assign  awatop       = '0   ;
   assign  wdata        = '0   ;
   assign  wstrb        = '0   ;
   assign  wlast        = '0   ;

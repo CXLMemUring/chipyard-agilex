@@ -1,4 +1,4 @@
-// (C) 2001-2023 Intel Corporation. All rights reserved.
+// (C) 2001-2022 Intel Corporation. All rights reserved.
 // Your use of Intel Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files from any of the foregoing (including device programming or simulation 
@@ -11,7 +11,7 @@
 // agreement for further details.
 
 
-// (C) 2001-2023 Intel Corporation. All rights reserved.
+// (C) 2001-2022 Intel Corporation. All rights reserved.
 // Your use of Intel Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files from any of the foregoing (including device programming or simulation 
@@ -132,7 +132,7 @@ module intel_pcie_bam_fifos
     defparam
       rx_hdr_fifo.add_ram_output_register  = "ON",
       rx_hdr_fifo.enable_ecc  = "FALSE",
-      rx_hdr_fifo.intended_device_family  = "Agilex",
+      rx_hdr_fifo.intended_device_family  = "Stratix 10",
       rx_hdr_fifo.lpm_hint  = "RAM_BLOCK_TYPE=MLAB",
       rx_hdr_fifo.lpm_numwords  = 16,
       rx_hdr_fifo.lpm_showahead  = "ON",
@@ -161,7 +161,7 @@ module intel_pcie_bam_fifos
     defparam
       rx_data_fifo.add_ram_output_register  = "ON",
       rx_data_fifo.enable_ecc  = "FALSE",
-      rx_data_fifo.intended_device_family  = "Agilex",
+      rx_data_fifo.intended_device_family  = "Stratix 10",
       rx_data_fifo.lpm_hint  = "RAM_BLOCK_TYPE=MLAB",
       rx_data_fifo.lpm_numwords  = 16,
       rx_data_fifo.lpm_showahead  = "ON",
@@ -192,7 +192,7 @@ module intel_pcie_bam_fifos
     defparam
       avmm_cmd_fifo.add_ram_output_register  = "ON",
       avmm_cmd_fifo.enable_ecc  = "FALSE",
-      avmm_cmd_fifo.intended_device_family  = "Agilex",
+      avmm_cmd_fifo.intended_device_family  = "Stratix 10",
       avmm_cmd_fifo.lpm_hint  = "RAM_BLOCK_TYPE=MLAB",
       avmm_cmd_fifo.lpm_numwords  = 16,
       avmm_cmd_fifo.lpm_showahead  = "ON",
@@ -226,7 +226,7 @@ module intel_pcie_bam_fifos
     defparam
       avmm_data_fifo.add_ram_output_register  = "ON",
       avmm_data_fifo.enable_ecc  = "FALSE",
-      avmm_data_fifo.intended_device_family  = "Agilex",
+      avmm_data_fifo.intended_device_family  = "Stratix 10",
       avmm_data_fifo.lpm_hint  = "RAM_BLOCK_TYPE=M20K",
       avmm_data_fifo.lpm_numwords  = 64,
       avmm_data_fifo.lpm_showahead  = "ON",
@@ -257,7 +257,7 @@ module intel_pcie_bam_fifos
     defparam
       rd_scbd_fifo.add_ram_output_register  = "ON",
       rd_scbd_fifo.enable_ecc  = "FALSE",
-      rd_scbd_fifo.intended_device_family  = "Agilex",
+      rd_scbd_fifo.intended_device_family  = "Stratix 10",
       rd_scbd_fifo.lpm_hint  = "RAM_BLOCK_TYPE=MLAB",
       rd_scbd_fifo.lpm_numwords  = 32,
       rd_scbd_fifo.lpm_showahead  = "ON",
@@ -271,7 +271,7 @@ module intel_pcie_bam_fifos
     /*------ RAM (M20K) to store completion data ---------*/
     altsyncram   //dual-port RAM
       #(
-        .intended_device_family("Agilex"),
+        .intended_device_family("Stratix 10"),
         .operation_mode("DUAL_PORT"),
         .width_a(513),
         .widthad_a(8),
@@ -333,7 +333,7 @@ module intel_pcie_bam_fifos
     defparam
       tx_hdr_fifo.add_ram_output_register  = "ON",
       tx_hdr_fifo.enable_ecc  = "FALSE",
-      tx_hdr_fifo.intended_device_family  = "Agilex",
+      tx_hdr_fifo.intended_device_family  = "Stratix 10",
       tx_hdr_fifo.lpm_hint  = "RAM_BLOCK_TYPE=MLAB",
       tx_hdr_fifo.lpm_numwords  = 32,
       tx_hdr_fifo.lpm_showahead  = "ON",
@@ -362,7 +362,7 @@ module intel_pcie_bam_fifos
     defparam
       tx_data_fifo.add_ram_output_register  = "ON",
       tx_data_fifo.enable_ecc  = "FALSE",
-      tx_data_fifo.intended_device_family  = "Agilex",
+      tx_data_fifo.intended_device_family  = "Stratix 10",
       tx_data_fifo.lpm_hint  = "RAM_BLOCK_TYPE=MLAB",
       tx_data_fifo.lpm_numwords  = 32,
       tx_data_fifo.lpm_showahead  = "ON",

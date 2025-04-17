@@ -1,4 +1,4 @@
-// (C) 2001-2023 Intel Corporation. All rights reserved.
+// (C) 2001-2022 Intel Corporation. All rights reserved.
 // Your use of Intel Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files from any of the foregoing (including device programming or simulation 
@@ -49,10 +49,7 @@ module altera_std_synchronizer_nocut (
                                 );
 
    parameter depth = 3; // This value must be >= 2 !
-   parameter rst_value = 0;
-
-  //when enabled, this will allow retiming for the sync depth >3.
-   parameter retiming_reg_en = 0;
+   parameter rst_value = 0;     
      
    input   clk;
    input   reset_n;    
@@ -69,20 +66,13 @@ module altera_std_synchronizer_nocut (
    (* altera_attribute = {"-name ADV_NETLIST_OPT_ALLOWED NEVER_ALLOW; -name SYNCHRONIZER_IDENTIFICATION FORCED; -name DONT_MERGE_REGISTER ON; -name PRESERVE_REGISTER ON  "} *) reg din_s1;
 
    (* altera_attribute = {"-name ADV_NETLIST_OPT_ALLOWED NEVER_ALLOW; -name DONT_MERGE_REGISTER ON; -name PRESERVE_REGISTER ON"} *) reg [depth-2:0] dreg;    
-
+   
    //synthesis translate_off
    `ifndef QUARTUS_CDC
    initial begin
-     if (retiming_reg_en == 0 ) begin
-       if (depth <2) begin 
+      if (depth <2) begin
          $display("%m: Error: synchronizer length: %0d less than 2.", depth);
-       end
       end
-     else begin
-       if (depth <4) begin 
-         $display("%m: Error: synchronizer length: %0d less than 4 with retiming enabled.", depth);
-       end
-     end
    end
    `endif 
 
@@ -164,101 +154,45 @@ module altera_std_synchronizer_nocut (
 
    // the remaining synchronizer registers form a simple shift register
    // of length depth-1
-   generate if (rst_value == 0) begin
-      if (retiming_reg_en == 0) begin
-         if (depth < 3) begin
-            always @(posedge clk or negedge reset_n) begin
-               if (reset_n == 0) 
-                 dreg <= {depth-1{1'b0}};            
-               else
-                 dreg <= din_s1;
-            end         
-         end else begin
-            always @(posedge clk or negedge reset_n) begin
-               if (reset_n == 0) 
-                 dreg <= {depth-1{1'b0}};
-               else
-                 dreg <= {dreg[depth-3:0], din_s1};
-            end
+   generate if (rst_value == 0)
+      if (depth < 3) begin
+         always @(posedge clk or negedge reset_n) begin
+            if (reset_n == 0) 
+              dreg <= {depth-1{1'b0}};            
+            else
+              dreg <= din_s1;
+         end         
+      end else begin
+         always @(posedge clk or negedge reset_n) begin
+            if (reset_n == 0) 
+              dreg <= {depth-1{1'b0}};
+            else
+              dreg <= {dreg[depth-3:0], din_s1};
          end
-
-         assign dout = dreg[depth-2];
-       end
-
-       else begin //This part is enabled when we set retiming_reg_en =1
-          (* altera_attribute = {"-name ADV_NETLIST_OPT_ALLOWED NEVER_ALLOW; -name DONT_MERGE_REGISTER ON; -name PRESERVE_REGISTER ON"} *) reg [1:0] dreg1;
-          reg [depth-4:0] dreg2;
-          wire [depth-2:0] dreg3;
-
-          assign dreg3 = {dreg2,dreg1};
-
-          if (depth <= 3) begin
-             always @(posedge clk or negedge reset_n) begin
-                if (reset_n == 0)
-                  dreg1 <= {depth-1{1'b0}};
-                else
-                  dreg1 <= din_s1;
-               end
-           end
-           else begin
-              always @(posedge clk or negedge reset_n) begin
-                if (reset_n == 0)
-                  {dreg2,dreg1} <= {depth-1{1'b0}};
-                else
-                  {dreg2,dreg1} <= {dreg3[depth-3:0], din_s1};
-              end
-           end
-           assign dout = dreg3[depth-2];
-       end
-    end
-
+      end
+   endgenerate
    
-   else begin
-      if (retiming_reg_en == 0) begin
-         if (depth < 3) begin
-            always @(posedge clk or negedge reset_n) begin
-               if (reset_n == 0) 
-                 dreg <= {depth-1{1'b1}};            
-               else
-                 dreg <= din_s1;
-             end         
-         end else begin
-            always @(posedge clk or negedge reset_n) begin
-               if (reset_n == 0) 
-                 dreg <= {depth-1{1'b1}};
-               else
-                 dreg <= {dreg[depth-3:0], din_s1};
-            end
+   generate if (rst_value == 1)
+      if (depth < 3) begin
+         always @(posedge clk or negedge reset_n) begin
+            if (reset_n == 0) 
+              dreg <= {depth-1{1'b1}};            
+            else
+              dreg <= din_s1;
+         end         
+      end else begin
+         always @(posedge clk or negedge reset_n) begin
+            if (reset_n == 0) 
+              dreg <= {depth-1{1'b1}};
+            else
+              dreg <= {dreg[depth-3:0], din_s1};
          end
-       assign dout = dreg[depth-2];
-    end
-
-      else begin
-         (* altera_attribute = {"-name ADV_NETLIST_OPT_ALLOWED NEVER_ALLOW; -name DONT_MERGE_REGISTER ON; -name PRESERVE_REGISTER ON"} *) reg [1:0] dreg1;
-         reg [depth-4:0] dreg2;
-         wire [depth-2:0] dreg3;
-
-         assign dreg3 = {dreg2,dreg1};
-
-           if (depth <= 3) begin
-               always @(posedge clk or negedge reset_n) begin
-                  if (reset_n == 0)
-                    dreg1 <= {depth-1{1'b1}};
-                  else
-                    dreg1 <= din_s1;
-               end
-           end
-           else begin
-               always @(posedge clk or negedge reset_n) begin
-                  if (reset_n == 0)
-                    {dreg2,dreg1} <= {depth-1{1'b1}};
-                  else
-                    {dreg2,dreg1} <= {dreg3[depth-3:0], din_s1};
-               end
-            end  
-          assign dout = dreg3[depth-2];
-        end
-     end
+      end
    endgenerate
 
+   assign dout = dreg[depth-2];
+   
 endmodule 
+
+
+                        

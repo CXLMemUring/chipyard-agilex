@@ -1,4 +1,4 @@
-// (C) 2001-2023 Intel Corporation. All rights reserved.
+// (C) 2001-2022 Intel Corporation. All rights reserved.
 // Your use of Intel Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files from any of the foregoing (including device programming or simulation 
@@ -152,9 +152,7 @@ output logic [MC_SR_STAT_WIDTH-1:0]     mc_sr_status_eclk          ,
   input  logic                             rspfifo_empty_eclk    ,
 
   output logic [RST_REG_NUM-1:0]           emif_usr_reset_n_reg
-    );
-    
-  logic [6:0]   rd_cntr;
+);
 
   typedef struct packed {
     logic                            write;
@@ -307,9 +305,9 @@ generate
       always_ff @(posedge emif_usr_clk) begin
          if (mem_ready_mclk) begin
             if (ram_init_done_mclk) begin
-               mem_write_partial_mclk <= ~reqfifo_empty_mclk & ~rd_cntr[6] & req_data_out_mclk.partial_write;
-               mem_write_mclk         <= ~reqfifo_empty_mclk & ~rd_cntr[6] & req_data_out_mclk.write;
-               mem_read_mclk          <= ~reqfifo_empty_mclk & ~rd_cntr[6] & req_data_out_mclk.read;
+               mem_write_partial_mclk <= ~reqfifo_empty_mclk & req_data_out_mclk.partial_write;
+               mem_write_mclk         <= ~reqfifo_empty_mclk & req_data_out_mclk.write;
+               mem_read_mclk          <= ~reqfifo_empty_mclk & req_data_out_mclk.read;
                mem_write_ras_sbe_mclk <= ~reqfifo_empty_mclk & req_data_out_mclk.write_ras_sbe;
                mem_write_ras_dbe_mclk <= ~reqfifo_empty_mclk & req_data_out_mclk.write_ras_dbe;               
                                          
@@ -395,7 +393,7 @@ generate
 endgenerate
 
 assign reqfifo_wen_eclk = mc2iafu_ready_eclk & iafu2mc_write_or_read_active;
-assign reqfifo_ren_mclk = mem_ready_mclk & ~reqfifo_empty_mclk & emif_usr_reset_n_reg[RST_REG_NUM-1] & ~rd_cntr[6];
+assign reqfifo_ren_mclk = mem_ready_mclk & ~reqfifo_empty_mclk & emif_usr_reset_n_reg[RST_REG_NUM-1];
 
 altera_std_synchronizer_nocut #(
         .depth(3)
@@ -560,7 +558,6 @@ mc_rmw_shim #(
 mc_rmw_shim_inst (
   .mem_clk                       ( emif_usr_clk                   ),
   .mem_reset_n                   ( emif_usr_reset_n_reg[RST_REG_NUM-1] ),
-  .rd_cntr                       ( rd_cntr                        ),
   .mem_ready_ha_mclk             ( mem_ready_mclk                 ),
   .mem_read_ha_mclk              ( mem_read_mclk                  ),
   .mem_write_ha_mclk             ( mem_write_mclk                 ),

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <deploy
- date="2024.03.13.17:46:46"
- outputDirectory="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/">
+ date="2025.04.17.15:46:14"
+ outputDirectory="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/">
  <perimeter>
   <parameter
      name="AUTO_GENERATION_ID"
@@ -24,7 +24,7 @@
   <parameter
      name="AUTO_DEVICE"
      type="String"
-     defaultValue="AGIB027R29A1E2VR3"
+     defaultValue="AGIB027R29A1E2VR0"
      onHdl="0"
      affectsHdl="1" />
   <parameter
@@ -208,16 +208,6 @@
    <property name="writeLatency" value="0" />
    <property name="writeWaitStates" value="0" />
    <property name="writeWaitTime" value="0" />
-   <property name="dfhFeatureGuid" value="0" />
-   <property name="dfhGroupId" value="0" />
-   <property name="dfhParameterId" value="" />
-   <property name="dfhParameterName" value="" />
-   <property name="dfhParameterVersion" value="" />
-   <property name="dfhParameterData" value="" />
-   <property name="dfhParameterDataLength" value="" />
-   <property name="dfhFeatureMajorVersion" value="0" />
-   <property name="dfhFeatureMinorVersion" value="0" />
-   <property name="dfhFeatureId" value="35" />
    <port name="amm_ready_0" direction="output" role="waitrequest_n" width="1" />
    <port name="amm_read_0" direction="input" role="read" width="1" />
    <port name="amm_write_0" direction="input" role="write" width="1" />
@@ -264,7 +254,7 @@
  </perimeter>
  <entity kind="emif" version="1.0" name="emif">
   <parameter name="AUTO_GENERATION_ID" value="0" />
-  <parameter name="AUTO_DEVICE" value="AGIB027R29A1E2VR3" />
+  <parameter name="AUTO_DEVICE" value="AGIB027R29A1E2VR0" />
   <parameter name="AUTO_EMIF_CALBUS_CLK_CLOCK_DOMAIN" value="-1" />
   <parameter name="AUTO_EMIF_CALBUS_CLK_RESET_DOMAIN" value="-1" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Agilex" />
@@ -276,34 +266,34 @@
   <parameter name="AUTO_PLL_REF_CLK_CLOCK_DOMAIN" value="-1" />
   <generatedFiles>
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/synth/emif.v"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/synth/emif.v"
        attributes="CONTAINS_INLINE_CONFIGURATION" />
   </generatedFiles>
   <childGeneratedFiles>
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/synth/emif.v"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/synth/emif.v"
        attributes="CONTAINS_INLINE_CONFIGURATION" />
   </childGeneratedFiles>
   <sourceFiles>
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif.ip" />
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif.ip" />
   </sourceFiles>
   <childSourceFiles>
    <file
-       path="/research/quartus/v23.3/ip/altera/emif/hwtcl/altera_emif_fm/altera_emif_fm_hw.tcl" />
+       path="/mnt/intelFPGA_pro/22.3/ip/altera/emif/hwtcl/altera_emif_fm/altera_emif_fm_hw.tcl" />
    <file
-       path="/research/quartus/v23.3/ip/altera/emif/ip_arch_fm/altera_emif_arch_fm_hw.tcl" />
+       path="/mnt/intelFPGA_pro/22.3/ip/altera/emif/ip_arch_fm/altera_emif_arch_fm_hw.tcl" />
   </childSourceFiles>
   <messages>
    <message level="Info" culprit="emif">"Generating: emif"</message>
-   <message level="Info" culprit="emif">"Generating: emif_altera_emif_fm_272_dlxuzwy"</message>
-   <message level="Info" culprit="emif">"Generating: emif_altera_emif_arch_fm_191_ws7gkca"</message>
+   <message level="Info" culprit="emif">"Generating: emif_altera_emif_fm_261_l3i6zza"</message>
+   <message level="Info" culprit="emif">"Generating: emif_altera_emif_arch_fm_191_uenu7qa"</message>
   </messages>
  </entity>
  <entity
    kind="altera_emif_fm"
-   version="2.7.2"
-   name="emif_altera_emif_fm_272_dlxuzwy">
+   version="2.6.1"
+   name="emif_altera_emif_fm_261_l3i6zza">
   <parameter name="PHY_DDRT_IO_VOLTAGE" value="1.2" />
   <parameter name="BOARD_QDR4_USE_DEFAULT_SLEW_RATES" value="true" />
   <parameter name="CTRL_QDR4_WAR_TURNAROUND_DELAY_CYC" value="11" />
@@ -418,10 +408,10 @@
   <parameter name="MEM_QDR4_TCKQK_MAX_PS" value="225" />
   <parameter name="CTRL_DDRT_USER_PRIORITY_EN" value="false" />
   <parameter name="DIAG_RLD2_EXPORT_SEQ_AVALON_HEAD_OF_CHAIN" value="true" />
-  <parameter name="PHY_TARGET_IS_ES3" value="true" />
+  <parameter name="PHY_TARGET_IS_ES3" value="false" />
   <parameter name="MEM_LPDDR3_W_ODT3_4X4" value="off,off,off,off" />
   <parameter name="MEM_DDRT_TRFC_CYC" value="171" />
-  <parameter name="PHY_TARGET_IS_ES2" value="false" />
+  <parameter name="PHY_TARGET_IS_ES2" value="true" />
   <parameter name="PHY_DDR4_MEM_CLK_FREQ_MHZ" value="1333.2" />
   <parameter name="PHY_LPDDR3_USER_CK_IO_STD_ENUM" value="unset" />
   <parameter name="MEM_DDRT_TWR_CYC" value="18" />
@@ -1017,7 +1007,7 @@
   <parameter name="DIAG_RLD2_SIM_VERBOSE" value="true" />
   <parameter
      name="PHY_FPGA_SPEEDGRADE_GUI"
-     value="E2V (ES3) - change device under &apos;View&apos;-&gt;&apos;Device Family&apos;" />
+     value="E2V (ES2) - change device under &apos;View&apos;-&gt;&apos;Device Family&apos;" />
   <parameter name="DIAG_QDR2_SIM_CAL_MODE_ENUM" value="SIM_CAL_MODE_SKIP" />
   <parameter
      name="MEM_DDR4_USER_VREFDQ_TRAINING_RANGE"
@@ -1181,7 +1171,7 @@
   <parameter name="PHY_DDRT_USER_CK_MODE_ENUM" value="unset" />
   <parameter name="MEM_DDR4_RCD_ODT_IBT_ENUM" value="DDR4_RCD_ODT_IBT_100" />
   <parameter name="PHY_DDRT_CORE_CLKS_SHARING_EXPOSE_SLAVE_OUT" value="false" />
-  <parameter name="PHY_DDR4_USER_CK_SLEW_RATE_ENUM" value="unset" />
+  <parameter name="PHY_DDR4_USER_CK_SLEW_RATE_ENUM" value="SLEW_RATE_FM_FAST" />
   <parameter name="DIAG_HMC_HRC" value="auto" />
   <parameter name="CTRL_DDRT_ZQ_INTERVAL_MS" value="3" />
   <parameter name="MEM_RLD2_DM_WIDTH" value="1" />
@@ -1225,7 +1215,7 @@
   <parameter name="CTRL_DDR3_ECC_STATUS_EN" value="false" />
   <parameter name="PHY_QDR4_AC_DEEMPHASIS_ENUM" value="unset" />
   <parameter name="BOARD_RLD3_USE_DEFAULT_SLEW_RATES" value="true" />
-  <parameter name="SYS_INFO_DEVICE" value="AGIB027R29A1E2VR3" />
+  <parameter name="SYS_INFO_DEVICE" value="AGIB027R29A1E2VR0" />
   <parameter name="PHY_QDR4_USER_DLL_CORE_UPDN_EN" value="true" />
   <parameter name="PHY_RLD3_AC_SLEW_RATE_ENUM" value="unset" />
   <parameter name="MEM_DDR3_TDQSCKDS" value="450" />
@@ -1843,7 +1833,7 @@
   <parameter name="DIAG_QDR2_USER_USE_SIM_MEMORY_VALIDATION_TG" value="true" />
   <parameter
      name="SYS_INFO_DEVICE_DIE_REVISIONS"
-     value="HSSI_GDR_REVB,HSSI_RNR_REVB,MAIN_FM8_REVA" />
+     value="HSSI_GDR_REVA,HSSI_RNR_REVA,MAIN_FM8_REVA" />
   <parameter name="PHY_QDR2_USER_STARTING_VREFIN" value="70.0" />
   <parameter name="MEM_DDR3_CFG_GEN_DBE" value="false" />
   <parameter name="MEM_DDR4_RCD_COMMAND_LATENCY" value="1" />
@@ -1860,7 +1850,7 @@
   <parameter name="BOARD_DDRT_USER_CK_SLEW_RATE" value="4.0" />
   <parameter name="MEM_DDRT_BL_ENUM" value="DDRT_BL_BL8" />
   <parameter name="PHY_QDR2_AUTO_STARTING_VREFIN_EN" value="true" />
-  <parameter name="TRAIT_IOBANK_REVISION" value="IO96A_REVB2" />
+  <parameter name="TRAIT_IOBANK_REVISION" value="IO96A_REVB0" />
   <parameter name="MEM_RLD2_TQKQ_MIN_NS" value="-0.12" />
   <parameter name="PHY_DDRT_HPS_ENABLE_EARLY_RELEASE" value="false" />
   <parameter name="CTRL_LPDDR3_WR_TO_WR_DIFF_CHIP_DELTA_CYCS" value="0" />
@@ -1894,7 +1884,9 @@
      name="DIAG_QDR2_EXPORT_TG_CFG_AVALON_SLAVE"
      value="TG_CFG_AMM_EXPORT_MODE_EXPORT" />
   <parameter name="DIAG_QDR2_EXPORT_SEQ_AVALON_MASTER" value="false" />
-  <parameter name="PHY_DDR4_USER_DATA_OUT_SLEW_RATE_ENUM" value="unset" />
+  <parameter
+     name="PHY_DDR4_USER_DATA_OUT_SLEW_RATE_ENUM"
+     value="SLEW_RATE_FM_FAST" />
   <parameter name="BOARD_QDR2_USER_WDATA_ISI_NS" value="0.0" />
   <parameter name="MEM_DDR3_USE_DEFAULT_ODT" value="true" />
   <parameter name="SYS_INFO_DEVICE_POWER_MODEL" value="STANDARD_POWER" />
@@ -2028,7 +2020,7 @@
   <parameter name="CTRL_DDRT_ERR_REPLAY_EN" value="false" />
   <parameter name="PHY_DDRT_USER_REF_CLK_FREQ_MHZ" value="-1.0" />
   <parameter name="MEM_LPDDR3_TRFC_NS" value="210.0" />
-  <parameter name="PHY_DDR4_USER_AC_SLEW_RATE_ENUM" value="unset" />
+  <parameter name="PHY_DDR4_USER_AC_SLEW_RATE_ENUM" value="SLEW_RATE_FM_FAST" />
   <parameter
      name="DIAG_QDR4_EXPORT_SEQ_AVALON_SLAVE"
      value="CAL_DEBUG_EXPORT_MODE_DISABLED" />
@@ -2036,7 +2028,6 @@
   <parameter name="DIAG_QDR4_SEPARATE_READ_WRITE_ITFS" value="false" />
   <parameter name="MEM_DDR4_CK_WIDTH" value="1" />
   <parameter name="SYS_INFO_DEVICE_TEMPERATURE_GRADE" value="EXTENDED" />
-  <parameter name="PHY_DDR4_ALLOW_72_DQ_WIDTH" value="false" />
   <parameter name="PHY_QDR2_DEFAULT_REF_CLK_FREQ" value="true" />
   <parameter name="PHY_QDR4_DATA_IN_MODE_ENUM" value="unset" />
   <parameter name="MEM_DDR4_SPD_148_DRAM_DRV" value="0" />
@@ -2855,34 +2846,34 @@
   <parameter name="MEM_DDRT_W_ODT0_4X4" value="on,on,off,off" />
   <generatedFiles>
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_fm_272/synth/emif_altera_emif_fm_272_dlxuzwy.v"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_fm_261/synth/emif_altera_emif_fm_261_l3i6zza.v"
        attributes="CONTAINS_INLINE_CONFIGURATION" />
   </generatedFiles>
   <childGeneratedFiles>
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_fm_272/synth/emif_altera_emif_fm_272_dlxuzwy.v"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_fm_261/synth/emif_altera_emif_fm_261_l3i6zza.v"
        attributes="CONTAINS_INLINE_CONFIGURATION" />
   </childGeneratedFiles>
   <sourceFiles>
    <file
-       path="/research/quartus/v23.3/ip/altera/emif/hwtcl/altera_emif_fm/altera_emif_fm_hw.tcl" />
+       path="/mnt/intelFPGA_pro/22.3/ip/altera/emif/hwtcl/altera_emif_fm/altera_emif_fm_hw.tcl" />
   </sourceFiles>
   <childSourceFiles>
    <file
-       path="/research/quartus/v23.3/ip/altera/emif/ip_arch_fm/altera_emif_arch_fm_hw.tcl" />
+       path="/mnt/intelFPGA_pro/22.3/ip/altera/emif/ip_arch_fm/altera_emif_arch_fm_hw.tcl" />
   </childSourceFiles>
   <instantiator instantiator="emif" as="emif" />
   <messages>
-   <message level="Info" culprit="emif">"Generating: emif_altera_emif_fm_272_dlxuzwy"</message>
-   <message level="Info" culprit="emif">"Generating: emif_altera_emif_arch_fm_191_ws7gkca"</message>
+   <message level="Info" culprit="emif">"Generating: emif_altera_emif_fm_261_l3i6zza"</message>
+   <message level="Info" culprit="emif">"Generating: emif_altera_emif_arch_fm_191_uenu7qa"</message>
   </messages>
  </entity>
  <entity
    kind="altera_emif_arch_fm"
    version="19.1"
-   name="emif_altera_emif_arch_fm_191_ws7gkca">
+   name="emif_altera_emif_arch_fm_191_uenu7qa">
   <parameter name="SEC_HMC_CFG_DBC1_REORDER_RDATA" value="enable" />
-  <parameter name="SEC_HMC_CFG_WR_TO_WR_DIFF_CHIP" value="3" />
+  <parameter name="SEC_HMC_CFG_WR_TO_WR_DIFF_CHIP" value="2" />
   <parameter name="CTRL_QDR4_WAR_TURNAROUND_DELAY_CYC" value="11" />
   <parameter name="DIAG_QDR2_EX_DESIGN_ISSP_EN" value="true" />
   <parameter name="PHY_QDR2_STARTING_VREFIN" value="70.0" />
@@ -2941,7 +2932,7 @@
   <parameter
      name="PHY_DDR4_PLL_REF_CLK_IO_STD_ENUM"
      value="IO_STD_TRUE_DIFF_SIGNALING" />
-  <parameter name="PRI_HMC_CFG_ACT_TO_ACT" value="31" />
+  <parameter name="PRI_HMC_CFG_ACT_TO_ACT" value="16" />
   <parameter name="BOARD_DDR4_TIS_DERATING_PS" value="0" />
   <parameter name="PHY_DDRT_DATA_OUT_MODE_ENUM" value="unset" />
   <parameter name="MEM_DDR4_TWTR_L_CYC" value="10" />
@@ -2963,8 +2954,8 @@
   <parameter name="PORT_MEM_CFG_N_WIDTH" value="1" />
   <parameter name="CTRL_DDRT_USER_PRIORITY_EN" value="false" />
   <parameter name="DIAG_RLD2_EXPORT_SEQ_AVALON_HEAD_OF_CHAIN" value="true" />
-  <parameter name="PHY_TARGET_IS_ES3" value="true" />
-  <parameter name="PHY_TARGET_IS_ES2" value="false" />
+  <parameter name="PHY_TARGET_IS_ES3" value="false" />
+  <parameter name="PHY_TARGET_IS_ES2" value="true" />
   <parameter name="PHY_LPDDR3_USER_CK_IO_STD_ENUM" value="unset" />
   <parameter name="BOARD_QDR2_USER_RCLK_ISI_NS" value="0.0" />
   <parameter name="PORT_AFI_RDATA_DBI_N_WIDTH" value="1" />
@@ -2976,19 +2967,19 @@
   <parameter name="BOARD_LPDDR3_IS_SKEW_WITHIN_DQS_DESKEWED" value="false" />
   <parameter name="MEM_RLD2_TCKDK_MIN_NS" value="-0.3" />
   <parameter name="MEM_QDR2_DATA_PER_DEVICE" value="36" />
-  <parameter name="SEC_HMC_CFG_ZQCS_TO_VALID" value="127" />
+  <parameter name="SEC_HMC_CFG_ZQCS_TO_VALID" value="65" />
   <parameter name="BOARD_QDR4_USER_WDATA_ISI_NS" value="0.0" />
   <parameter name="MEM_DDR3_R_ODTN_2X2" value="Rank 0,Rank 1" />
   <parameter name="DIAG_DDR3_EXPORT_SEQ_AVALON_HEAD_OF_CHAIN" value="true" />
   <parameter name="DIAG_RLD2_ENABLE_DEFAULT_MODE" value="false" />
   <parameter name="EX_DESIGN_GUI_RLD2_GEN_SYNTH" value="true" />
   <parameter name="C2P_P2C_CLK_RATIO" value="4" />
-  <parameter name="SEC_HMC_CFG_WR_TO_RD_DIFF_BG" value="18" />
+  <parameter name="SEC_HMC_CFG_WR_TO_RD_DIFF_BG" value="9" />
   <parameter name="DIAG_DDR4_SKIP_VREF_CAL" value="false" />
   <parameter name="MEM_LPDDR3_TDQSCK_PS" value="5500" />
   <parameter name="BOARD_QDR4_AC_TO_CK_SKEW_NS" value="0.0" />
   <parameter name="NUM_OF_HMC_PORTS" value="1" />
-  <parameter name="PRI_HMC_CFG_RD_TO_RD_DIFF_BG" value="2" />
+  <parameter name="PRI_HMC_CFG_RD_TO_RD_DIFF_BG" value="1" />
   <parameter name="PHY_QDR4_MIMIC_HPS_EMIF" value="false" />
   <parameter name="PHY_LPDDR3_CORE_CLKS_SHARING_EXPOSE_SLAVE_OUT" value="false" />
   <parameter name="SEC_HMC_CFG_DBC1_ENABLE_ECC" value="disable" />
@@ -2998,7 +2989,7 @@
   <parameter name="DIAG_QDR2_SIM_VERBOSE" value="true" />
   <parameter name="PHY_CORE_CLKS_SHARING_EXPOSE_SLAVE_OUT" value="false" />
   <parameter name="PORT_CTRL_DATA_OE_WIDTH" value="1" />
-  <parameter name="SEC_HMC_CFG_MRS_TO_VALID" value="12" />
+  <parameter name="SEC_HMC_CFG_MRS_TO_VALID" value="6" />
   <parameter name="MEM_DDR4_TWLH_PS" value="0.0" />
   <parameter name="MEM_DDRT_TTL_NUM_OF_DIMMS" value="1" />
   <parameter name="MEM_DDRT_READ_PREAMBLE" value="1" />
@@ -3029,7 +3020,7 @@
      name="CTRL_DDR3_ADDR_ORDER_ENUM"
      value="DDR3_CTRL_ADDR_ORDER_CS_R_B_C" />
   <parameter name="EX_DESIGN_GUI_DDR3_GEN_SIM" value="true" />
-  <parameter name="SEC_HMC_CFG_DQSTRK_TO_VALID" value="4" />
+  <parameter name="SEC_HMC_CFG_DQSTRK_TO_VALID" value="2" />
   <parameter name="MEM_DDR4_TWLS_PS" value="0.0" />
   <parameter name="EX_DESIGN_GUI_RLD2_GEN_SIM" value="true" />
   <parameter name="PRI_RDATA_TILE_INDEX" value="1" />
@@ -3045,8 +3036,8 @@
   <parameter name="PRI_HMC_MEM_IF_TRAS" value="0" />
   <parameter name="MEM_DDRT_TIS_AC_MV" value="100" />
   <parameter name="MEM_DDR3_SPEEDBIN_ENUM" value="DDR3_SPEEDBIN_2133" />
-  <parameter name="SEC_HMC_CFG_DBC3_ENABLE_RC" value="enable" />
-  <parameter name="PRI_HMC_CFG_PCH_TO_VALID" value="10" />
+  <parameter name="SEC_HMC_CFG_DBC3_ENABLE_RC" value="disable" />
+  <parameter name="PRI_HMC_CFG_PCH_TO_VALID" value="5" />
   <parameter name="LANES_USAGE_1" value="45" />
   <parameter name="LANES_USAGE_0" value="765762413" />
   <parameter name="MEM_DDR4_DISCRETE_CS_WIDTH" value="1" />
@@ -3076,7 +3067,7 @@
   <parameter name="CENTER_TIDS_1" value="0" />
   <parameter name="MEM_DDR4_DISCRETE_MIRROR_ADDRESSING_EN" value="false" />
   <parameter name="CENTER_TIDS_2" value="0" />
-  <parameter name="PRI_HMC_CFG_CTRL_ENABLE_RC" value="enable" />
+  <parameter name="PRI_HMC_CFG_CTRL_ENABLE_RC" value="disable" />
   <parameter name="PHY_QDR4_USER_DATA_OUT_SLEW_RATE_ENUM" value="unset" />
   <parameter name="BOARD_QDR4_MAX_DK_DELAY_NS" value="0.6" />
   <parameter name="MEM_DDR3_TTL_CS_WIDTH" value="1" />
@@ -3153,7 +3144,7 @@
   <parameter name="EX_DESIGN_GUI_DDR3_GEN_BSI" value="false" />
   <parameter name="PLL_C_CNT_PRST_8" value="1" />
   <parameter name="PHY_LPDDR3_AC_MODE_ENUM" value="unset" />
-  <parameter name="PRI_HMC_CFG_ACT_TO_ACT_DIFF_BG" value="2" />
+  <parameter name="PRI_HMC_CFG_ACT_TO_ACT_DIFF_BG" value="1" />
   <parameter name="MEM_NUM_OF_DATA_ENDPOINTS" value="1" />
   <parameter name="PHY_DDR3_USER_RZQ_IO_STD_ENUM" value="unset" />
   <parameter name="PORT_MEM_DK_N_PINLOC_4" value="0" />
@@ -3175,7 +3166,7 @@
   <parameter name="UNUSED_MEM_PINS_PINLOC_104" value="0" />
   <parameter name="PHY_QDR2_CONFIG_ENUM" value="CONFIG_PHY_AND_SOFT_CTRL" />
   <parameter name="PHY_DDR3_USER_CK_MODE_ENUM" value="unset" />
-  <parameter name="PRI_HMC_CFG_SRF_TO_VALID" value="513" />
+  <parameter name="PRI_HMC_CFG_SRF_TO_VALID" value="257" />
   <parameter name="MEM_LPDDR3_CTRL_CFG_READ_ODT_RANK" value="0" />
   <parameter name="DIAG_BOARD_DELAY_CONFIG_STR" value="" />
   <parameter name="UNUSED_MEM_PINS_PINLOC_105" value="0" />
@@ -3202,11 +3193,11 @@
      name="DIAG_DDR4_USER_SIM_MEMORY_PRELOAD_PRI_EMIF_FILE"
      value="EMIF_PRI_PRELOAD.txt" />
   <parameter name="BOARD_DDR3_BRD_SKEW_WITHIN_DQS_NS" value="0.02" />
-  <parameter name="PRI_HMC_CFG_MRS_TO_VALID" value="12" />
+  <parameter name="PRI_HMC_CFG_MRS_TO_VALID" value="6" />
   <parameter name="PHY_DDR4_DATA_IO_STD_ENUM" value="IO_STD_POD_12" />
   <parameter name="PHY_RLD2_AC_SLEW_RATE_ENUM" value="unset" />
   <parameter name="EX_DESIGN_GUI_DDRT_PREV_PRESET" value="TARGET_DEV_KIT_NONE" />
-  <parameter name="SEC_HMC_CFG_DBC1_SLOT_OFFSET" value="2" />
+  <parameter name="SEC_HMC_CFG_DBC1_SLOT_OFFSET" value="3" />
   <parameter name="BOARD_RLD3_WDATA_SLEW_RATE" value="2.0" />
   <parameter name="EX_DESIGN_GUI_QDR2_TARGET_DEV_KIT" value="TARGET_DEV_KIT_NONE" />
   <parameter name="PHY_RLD2_DATA_OUT_MODE_ENUM" value="unset" />
@@ -3220,7 +3211,7 @@
   <parameter name="PORT_AFI_CFG_N_WIDTH" value="1" />
   <parameter name="DIAG_RLD3_EXPORT_SEQ_AVALON_HEAD_OF_CHAIN" value="true" />
   <parameter name="PHY_QDR2_RATE_ENUM" value="RATE_HALF" />
-  <parameter name="PRI_HMC_CFG_DBC3_SLOT_OFFSET" value="2" />
+  <parameter name="PRI_HMC_CFG_DBC3_SLOT_OFFSET" value="3" />
   <parameter name="PHY_LPDDR3_USER_DLL_CORE_UPDN_EN" value="false" />
   <parameter name="PHY_RLD3_USER_DATA_OUT_DEEMPHASIS_ENUM" value="unset" />
   <parameter name="EX_DESIGN_GUI_RLD3_GEN_CDC" value="false" />
@@ -3263,13 +3254,13 @@
   <parameter name="PORT_CTRL_ECC_RDATA_ID_WIDTH" value="13" />
   <parameter name="DIAG_DDRT_SIM_VERBOSE" value="true" />
   <parameter name="PORT_AFI_DM_WIDTH" value="1" />
-  <parameter name="PLL_C_CNT_LOW_3" value="1" />
+  <parameter name="PLL_C_CNT_LOW_3" value="2" />
   <parameter name="PLL_C_CNT_LOW_2" value="2" />
   <parameter name="PHY_RLD3_REF_CLK_FREQ_MHZ" value="-1.0" />
   <parameter
      name="MEM_DDR4_INTEL_DEFAULT_DB_RTT_PARK_ENUM_DISP"
      value="RTT_PARK disabled" />
-  <parameter name="PLL_C_CNT_LOW_1" value="1" />
+  <parameter name="PLL_C_CNT_LOW_1" value="2" />
   <parameter name="PLL_C_CNT_LOW_0" value="2" />
   <parameter name="PHY_RLD3_PLL_REF_CLK_IO_STD_ENUM" value="unset" />
   <parameter name="PLL_C_CNT_LOW_8" value="256" />
@@ -3290,7 +3281,7 @@
   <parameter name="PHY_QDR2_CK_DEEMPHASIS_ENUM" value="unset" />
   <parameter name="PORT_MEM_QKB_PINLOC_AUTOGEN_WCNT" value="6" />
   <parameter name="PHY_QDR2_HPS_ENABLE_EARLY_RELEASE" value="false" />
-  <parameter name="PRI_HMC_CFG_RD_TO_RD_DIFF_CHIP" value="4" />
+  <parameter name="PRI_HMC_CFG_RD_TO_RD_DIFF_CHIP" value="2" />
   <parameter name="PORT_CALBUS_RDATA_WIDTH" value="32" />
   <parameter name="SEC_HMC_MEM_IF_TMOD" value="0" />
   <parameter name="PLL_C_CNT_EVEN_DUTY_EN_8" value="false" />
@@ -3375,7 +3366,7 @@
   <parameter name="DIAG_DDR3_CA_DESKEW_EN" value="true" />
   <parameter name="PLL_C_CNT_PHASE_PS_STR_5" value="0 ps" />
   <parameter name="PLL_C_CNT_PHASE_PS_STR_6" value="0 ps" />
-  <parameter name="SEC_HMC_CFG_ARF_TO_VALID" value="234" />
+  <parameter name="SEC_HMC_CFG_ARF_TO_VALID" value="118" />
   <parameter name="PORT_MEM_RWB_N_PINLOC_AUTOGEN_WCNT" value="1" />
   <parameter name="SEC_WDATA_TILE_INDEX" value="1" />
   <parameter name="MEM_DDR4_TCCD_L_CYC" value="7" />
@@ -3419,7 +3410,7 @@
   <parameter name="PORT_MEM_A_PINLOC_AUTOGEN_WCNT" value="17" />
   <parameter
      name="PHY_FPGA_SPEEDGRADE_GUI"
-     value="E2V (ES3) - change device under &apos;View&apos;-&gt;&apos;Device Family&apos;" />
+     value="E2V (ES2) - change device under &apos;View&apos;-&gt;&apos;Device Family&apos;" />
   <parameter
      name="MEM_DDR4_USER_VREFDQ_TRAINING_RANGE"
      value="DDR4_VREFDQ_TRAINING_RANGE_1" />
@@ -3431,7 +3422,7 @@
   <parameter name="PHY_DDR4_USER_REF_CLK_FREQ_MHZ" value="33.33" />
   <parameter name="MEM_LPDDR3_CS_WIDTH" value="1" />
   <parameter name="MEM_DDRT_W_ODT0_2X2" value="on,off" />
-  <parameter name="SEC_HMC_CFG_WR_AP_TO_VALID" value="31" />
+  <parameter name="SEC_HMC_CFG_WR_AP_TO_VALID" value="16" />
   <parameter name="BOARD_DDR4_USER_WCLK_ISI_NS" value="0.0" />
   <parameter name="MEM_RLD2_BANK_ADDR_WIDTH" value="3" />
   <parameter name="MEM_RLD3_DM_EN" value="true" />
@@ -3461,7 +3452,7 @@
   <parameter name="DIAG_DDRT_SIM_MEMORY_PRELOAD_PRI_EMIF_FILE" value="" />
   <parameter name="PORT_MEM_ACT_N_PINLOC_AUTOGEN_WCNT" value="2" />
   <parameter name="MEM_LPDDR3_TFAW_NS" value="50.0" />
-  <parameter name="PRI_HMC_CFG_SRF_TO_ZQ_CAL" value="385" />
+  <parameter name="PRI_HMC_CFG_SRF_TO_ZQ_CAL" value="193" />
   <parameter name="PHY_DDRT_DATA_OUT_DEEMPHASIS_ENUM" value="unset" />
   <parameter name="PORT_AFI_RPS_N_WIDTH" value="1" />
   <parameter name="MEM_LPDDR3_TDH_PS" value="100" />
@@ -3471,23 +3462,23 @@
   <parameter name="PHY_DDRT_I2C_USE_SMC" value="false" />
   <parameter name="EX_DESIGN_GUI_RLD3_GEN_BSI" value="false" />
   <parameter name="PHY_RLD2_USER_DLL_CORE_UPDN_EN" value="false" />
-  <parameter name="SEC_HMC_CFG_ACT_TO_RDWR" value="9" />
+  <parameter name="SEC_HMC_CFG_ACT_TO_RDWR" value="5" />
   <parameter name="DIAG_EX_DESIGN_NUM_OF_SLAVES" value="1" />
   <parameter name="MEM_DDRT_TIS_PS" value="60" />
   <parameter name="MEM_DDR4_RANKS_PER_DIMM" value="1" />
   <parameter name="BOARD_DDR4_SKEW_BETWEEN_DIMMS_NS" value="0.05" />
   <parameter name="PORT_MEM_CA_PINLOC_AUTOGEN_WCNT" value="17" />
-  <parameter name="PRI_HMC_CFG_MPS_EXIT_CKE_TO_CS" value="6" />
+  <parameter name="PRI_HMC_CFG_MPS_EXIT_CKE_TO_CS" value="3" />
   <parameter name="MEM_DDRT_R_ODT0_4X2" value="off,off,on,on" />
   <parameter name="MEM_DDRT_R_DERIVED_BODTN" value="" />
   <parameter name="MEM_DDRT_R_ODT0_4X4" value="off,off,off,off" />
   <parameter name="CTRL_DDR4_WR_TO_RD_DIFF_CHIP_DELTA_CYCS" value="0" />
-  <parameter name="SEC_HMC_CFG_CTRL_SLOT_OFFSET" value="2" />
+  <parameter name="SEC_HMC_CFG_CTRL_SLOT_OFFSET" value="3" />
   <parameter name="PHY_DDRT_AC_MODE_ENUM" value="unset" />
   <parameter name="SEC_HMC_CFG_MAJOR_MODE_EN" value="disable" />
   <parameter name="MEM_LPDDR3_TDS_PS" value="75" />
   <parameter name="MEM_DDRT_TIH_PS" value="95" />
-  <parameter name="SEC_HMC_CFG_MPS_TO_VALID" value="768" />
+  <parameter name="SEC_HMC_CFG_MPS_TO_VALID" value="384" />
   <parameter name="PHY_QDR4_USER_REF_CLK_FREQ_MHZ" value="-1.0" />
   <parameter name="BOARD_RLD3_AC_SLEW_RATE" value="2.0" />
   <parameter name="MEM_DDR4_TDQSQ_PS" value="66" />
@@ -3536,7 +3527,7 @@
   <parameter name="PHY_DDRT_CORE_CLKS_SHARING_EXPOSE_SLAVE_OUT" value="false" />
   <parameter name="PINS_DCC_SPLIT_7" value="0" />
   <parameter name="PINS_DCC_SPLIT_8" value="0" />
-  <parameter name="PHY_DDR4_USER_CK_SLEW_RATE_ENUM" value="unset" />
+  <parameter name="PHY_DDR4_USER_CK_SLEW_RATE_ENUM" value="SLEW_RATE_FM_FAST" />
   <parameter name="PINS_DCC_SPLIT_1" value="201329664" />
   <parameter name="PINS_DCC_SPLIT_2" value="805306368" />
   <parameter name="PINS_DCC_SPLIT_3" value="12585984" />
@@ -3577,7 +3568,7 @@
   <parameter name="HPRX_CTLE_EN" value="on" />
   <parameter name="MEM_FORMAT_ENUM" value="MEM_FORMAT_DISCRETE" />
   <parameter name="DIAG_DDR3_SEPARATE_READ_WRITE_ITFS" value="false" />
-  <parameter name="SEC_HMC_CFG_DBC0_SLOT_OFFSET" value="2" />
+  <parameter name="SEC_HMC_CFG_DBC0_SLOT_OFFSET" value="3" />
   <parameter name="BOARD_RLD3_USE_DEFAULT_SLEW_RATES" value="true" />
   <parameter name="PORT_MEM_RESET_N_PINLOC_0" value="50177" />
   <parameter name="PRI_HMC_CFG_POST_REFRESH_EN" value="disable" />
@@ -3591,10 +3582,10 @@
   <parameter name="PHY_DATA_CALIBRATED_OCT" value="true" />
   <parameter name="PHY_QDR4_STARTING_VREFIN" value="70.0" />
   <parameter name="PHY_RLD2_REF_CLK_FREQ_MHZ" value="-1.0" />
-  <parameter name="SEC_HMC_CFG_ROW_CMD_SLOT" value="1" />
+  <parameter name="SEC_HMC_CFG_ROW_CMD_SLOT" value="2" />
   <parameter name="PHY_RATE_ENUM" value="RATE_QUARTER" />
   <parameter name="MEM_DDRT_SPD_139_DB_REV" value="0" />
-  <parameter name="SEC_HMC_CFG_RD_AP_TO_VALID" value="15" />
+  <parameter name="SEC_HMC_CFG_RD_AP_TO_VALID" value="8" />
   <parameter name="PHY_LPDDR3_USER_AC_DEEMPHASIS_ENUM" value="unset" />
   <parameter name="MEM_LPDDR3_DQS_WIDTH" value="1" />
   <parameter name="PRI_HMC_CFG_CTRL_REORDER_RDATA" value="enable" />
@@ -3617,7 +3608,7 @@
   <parameter name="PHY_QDR4_USER_RZQ_IO_STD_ENUM" value="unset" />
   <parameter name="DIAG_QDR4_USER_SIM_MEMORY_PRELOAD" value="false" />
   <parameter name="CTRL_DDR4_ECC_AUTO_CORRECTION_EN" value="false" />
-  <parameter name="PRI_HMC_CFG_WR_TO_WR_DIFF_BG" value="2" />
+  <parameter name="PRI_HMC_CFG_WR_TO_WR_DIFF_BG" value="1" />
   <parameter name="MEM_DDR4_TDQSQ_UI" value="0.18" />
   <parameter name="EX_DESIGN_GUI_DDR4_GEN_BSI" value="false" />
   <parameter name="MEM_DDRT_DEFAULT_VREFOUT" value="true" />
@@ -3634,13 +3625,13 @@
   <parameter name="PHY_RLD3_PING_PONG_EN" value="false" />
   <parameter name="BOARD_QDR2_IS_SKEW_WITHIN_Q_DESKEWED" value="false" />
   <parameter name="MEM_RLD3_DATA_LATENCY_MODE_ENUM" value="RLD3_DL_RL16_WL17" />
-  <parameter name="SEC_HMC_CFG_RD_TO_WR" value="10" />
+  <parameter name="SEC_HMC_CFG_RD_TO_WR" value="5" />
   <parameter name="MEM_DDR4_TDQSCK_DERV_PS" value="2" />
   <parameter name="MEM_DDRT_READ_DBI" value="false" />
   <parameter name="MEM_DDR4_CKE_PER_DIMM" value="1" />
   <parameter name="PHY_QDR4_PLL_REF_CLK_IO_STD_ENUM" value="unset" />
   <parameter name="PHY_MEM_CLK_FREQ_MHZ" value="1333.2" />
-  <parameter name="PRI_HMC_CFG_WR_TO_RD" value="20" />
+  <parameter name="PRI_HMC_CFG_WR_TO_RD" value="10" />
   <parameter name="MEM_DDR3_TDQSCK_DERV_PS" value="2" />
   <parameter name="DIAG_LPDDR3_TG2_TEST_DURATION" value="SHORT" />
   <parameter name="CTRL_DDR3_USER_REFRESH_EN" value="false" />
@@ -3676,7 +3667,7 @@
   <parameter name="BOARD_DDR3_USER_WDATA_ISI_NS" value="0.0" />
   <parameter name="SEC_HMC_MEM_IF_TXPDLL" value="0" />
   <parameter name="DIAG_DDR3_ENABLE_DEFAULT_MODE" value="false" />
-  <parameter name="PRI_HMC_CFG_WR_TO_WR" value="4" />
+  <parameter name="PRI_HMC_CFG_WR_TO_WR" value="2" />
   <parameter name="DIAG_QDR2_AC_PARITY_ERR" value="false" />
   <parameter name="DIAG_FAST_SIM_OVERRIDE" value="FAST_SIM_OVERRIDE_DEFAULT" />
   <parameter name="CTRL_DDRT_PARITY_CMD_EN" value="false" />
@@ -3692,7 +3683,7 @@
   <parameter name="MEM_RLD2_CS_WIDTH" value="1" />
   <parameter name="SEC_HMC_CFG_CS_TO_CHIP_MAPPING" value="33825" />
   <parameter name="PHY_QDR4_REF_CLK_FREQ_MHZ" value="-1.0" />
-  <parameter name="SEC_HMC_CFG_DBC1_ENABLE_RC" value="enable" />
+  <parameter name="SEC_HMC_CFG_DBC1_ENABLE_RC" value="disable" />
   <parameter name="PORT_MEM_DM_PINLOC_12" value="0" />
   <parameter
      name="MEM_DDR4_AC_PARITY_LATENCY"
@@ -3718,7 +3709,7 @@
   <parameter name="PORT_AFI_WLAT_WIDTH" value="6" />
   <parameter name="PRI_HMC_CFG_RFSH_WARN_THRESHOLD" value="0" />
   <parameter name="MEM_DDR4_BANK_ADDR_WIDTH" value="2" />
-  <parameter name="PRI_HMC_CFG_ROW_CMD_SLOT" value="1" />
+  <parameter name="PRI_HMC_CFG_ROW_CMD_SLOT" value="2" />
   <parameter name="MEM_DDR4_TINIT_CK" value="666600" />
   <parameter name="PLL_NUM_OF_EXTRA_CLKS" value="0" />
   <parameter name="MEM_DDR3_TRFC_NS" value="160.0" />
@@ -3809,7 +3800,7 @@
   <parameter name="PORT_MEM_DQ_PINLOC_42" value="0" />
   <parameter name="PORT_MEM_DQ_PINLOC_43" value="0" />
   <parameter name="SEC_HMC_CFG_POST_REFRESH_UPPER_LIMIT" value="2" />
-  <parameter name="SEC_HMC_CFG_RD_TO_RD" value="4" />
+  <parameter name="SEC_HMC_CFG_RD_TO_RD" value="2" />
   <parameter name="PORT_AFI_WDATA_VALID_WIDTH" value="1" />
   <parameter name="PORT_MEM_K_PINLOC_5" value="0" />
   <parameter name="PORT_MEM_K_PINLOC_4" value="0" />
@@ -3830,7 +3821,7 @@
   <parameter name="BOARD_DDR4_MAX_CK_DELAY_NS" value="0.6" />
   <parameter name="PORT_MEM_Q_PINLOC_3" value="0" />
   <parameter name="PORT_MEM_Q_PINLOC_2" value="0" />
-  <parameter name="PRI_HMC_CFG_DQSTRK_TO_VALID_LAST" value="28" />
+  <parameter name="PRI_HMC_CFG_DQSTRK_TO_VALID_LAST" value="17" />
   <parameter name="PORT_MEM_Q_PINLOC_5" value="0" />
   <parameter name="PORT_MEM_Q_PINLOC_4" value="0" />
   <parameter name="BOARD_QDR4_RDATA_ISI_NS" value="0.0" />
@@ -3838,7 +3829,7 @@
   <parameter name="PORT_MEM_Q_PINLOC_1" value="0" />
   <parameter name="PORT_MEM_Q_PINLOC_0" value="0" />
   <parameter name="DIAG_QDR4_USE_NEW_EFFMON_S10" value="false" />
-  <parameter name="SEC_HMC_CFG_ROW_TO_COL_OFFSET" value="-1" />
+  <parameter name="SEC_HMC_CFG_ROW_TO_COL_OFFSET" value="-2" />
   <parameter name="DIAG_QDR4_SIM_CAL_MODE_ENUM" value="SIM_CAL_MODE_SKIP" />
   <parameter name="DIAG_EXPORT_PLL_REF_CLK_OUT" value="true" />
   <parameter name="DB_SEQ_RD_EN_FULL_PIPELINES_AUTOGEN_WCNT" value="5" />
@@ -3865,7 +3856,7 @@
   <parameter name="MEM_DDR4_SPD_144_DB_VREFDQ" value="37" />
   <parameter name="MEM_DDR4_ALERT_PAR_EN" value="true" />
   <parameter name="DIAG_DDR4_EX_DESIGN_ISSP_EN" value="false" />
-  <parameter name="PRI_HMC_CFG_POWER_SAVING_EXIT_CYC" value="3" />
+  <parameter name="PRI_HMC_CFG_POWER_SAVING_EXIT_CYC" value="2" />
   <parameter name="PORT_MEM_DQ_PINLOC_30" value="0" />
   <parameter name="PORT_AFI_LBK0_N_WIDTH" value="1" />
   <parameter name="BOARD_RLD3_PKG_BRD_SKEW_WITHIN_AC_NS" value="0.02" />
@@ -3889,7 +3880,7 @@
   <parameter name="BOARD_DDR4_WCLK_ISI_NS" value="0.038" />
   <parameter name="DIAG_DDR4_AC_PARITY_ERR" value="false" />
   <parameter name="PRI_HMC_CFG_DBC1_REORDER_RDATA" value="enable" />
-  <parameter name="PRI_HMC_CFG_WR_TO_WR_DIFF_CHIP" value="3" />
+  <parameter name="PRI_HMC_CFG_WR_TO_WR_DIFF_CHIP" value="2" />
   <parameter name="MEM_DDRT_LRDIMM_VREFDQ_VALUE" value="" />
   <parameter name="PHY_DATA_OUT_SLEW_RATE_ENUM" value="" />
   <parameter name="MEM_DDRT_TDQSCK_PS" value="165" />
@@ -3917,7 +3908,7 @@
   <parameter
      name="PHY_RLD3_USER_PERIODIC_OCT_RECAL_ENUM"
      value="PERIODIC_OCT_RECAL_AUTO" />
-  <parameter name="PRI_HMC_CFG_DBC0_ENABLE_RC" value="enable" />
+  <parameter name="PRI_HMC_CFG_DBC0_ENABLE_RC" value="disable" />
   <parameter name="PHY_DDR4_DATA_OUT_MODE_ENUM" value="OUT_OCT_40_CAL" />
   <parameter name="PORT_MEM_REF_N_WIDTH" value="1" />
   <parameter name="PHY_QDR4_AUTO_STARTING_VREFIN_EN" value="true" />
@@ -3930,7 +3921,7 @@
   <parameter name="SEC_HMC_CFG_SB_DDR4_MR4" value="264192" />
   <parameter name="MEM_DDRT_TTL_NUM_OF_PHYSICAL_RANKS" value="1" />
   <parameter name="BOARD_LPDDR3_USER_RCLK_SLEW_RATE" value="4.0" />
-  <parameter name="SEC_HMC_CFG_SRF_TO_ZQ_CAL" value="385" />
+  <parameter name="SEC_HMC_CFG_SRF_TO_ZQ_CAL" value="193" />
   <parameter name="PHY_QDR4_PING_PONG_EN" value="false" />
   <parameter name="PORT_MEM_DKB_WIDTH" value="1" />
   <parameter name="PORT_MEM_CQ_N_PINLOC_1" value="0" />
@@ -3939,7 +3930,7 @@
   <parameter name="MEM_LPDDR3_ODT_WIDTH" value="1" />
   <parameter name="LANE_PIN_USAGE_AUTOGEN_WCNT" value="52" />
   <parameter name="MEM_DDR4_TTL_CS_WIDTH" value="1" />
-  <parameter name="SEC_HMC_CFG_DBC0_ENABLE_RC" value="enable" />
+  <parameter name="SEC_HMC_CFG_DBC0_ENABLE_RC" value="disable" />
   <parameter name="MEM_DDRT_READ_PREAMBLE_TRAINING" value="false" />
   <parameter name="MEM_DDR4_TDVWP_UI" value="0.72" />
   <parameter name="PHY_LPDDR3_REF_CLK_FREQ_MHZ" value="-1.0" />
@@ -3948,7 +3939,7 @@
   <parameter name="CTRL_RLD2_AVL_PROTOCOL_ENUM" value="CTRL_AVL_PROTOCOL_MM" />
   <parameter name="MEM_DDR4_TRCD_CYC" value="19" />
   <parameter name="PHY_RLD3_USER_STARTING_VREFIN" value="70.0" />
-  <parameter name="PRI_HMC_CFG_RD_TO_WR_DIFF_BG" value="10" />
+  <parameter name="PRI_HMC_CFG_RD_TO_WR_DIFF_BG" value="5" />
   <parameter name="PORT_CTRL_STROBE_OE_WIDTH" value="1" />
   <parameter name="PORT_MEM_DQS_PINLOC_12" value="0" />
   <parameter name="PORT_MEM_DQS_PINLOC_11" value="0" />
@@ -3962,7 +3953,7 @@
   <parameter name="DIAG_DDRT_ENABLE_DEFAULT_MODE" value="false" />
   <parameter name="EMIF_5_STORED_PARAM" value="" />
   <parameter name="BOARD_DDR3_CK_SLEW_RATE" value="4.0" />
-  <parameter name="PRI_HMC_CFG_RB_RESERVED_ENTRY" value="8" />
+  <parameter name="PRI_HMC_CFG_RB_RESERVED_ENTRY" value="1" />
   <parameter name="UNUSED_MEM_PINS_PINLOC_1" value="95526003" />
   <parameter name="UNUSED_MEM_PINS_PINLOC_0" value="133311503" />
   <parameter name="UNUSED_MEM_PINS_PINLOC_3" value="55630906" />
@@ -4027,7 +4018,7 @@
      value="RTT_NOM disabled" />
   <parameter name="SEC_HMC_CFG_SRF_ENTRY_EXIT_BLOCK" value="0" />
   <parameter name="MEM_QDR4_DQ_PER_RD_GROUP" value="18" />
-  <parameter name="PRI_HMC_CFG_ROW_TO_COL_OFFSET" value="-1" />
+  <parameter name="PRI_HMC_CFG_ROW_TO_COL_OFFSET" value="-2" />
   <parameter name="PHY_DDR4_CORE_CLKS_SHARING_EXPOSE_SLAVE_OUT" value="false" />
   <parameter name="MEM_LPDDR3_R_ODT1_2X2" value="off,off" />
   <parameter name="SEC_HMC_CFG_USER_RFSH_EN" value="disable" />
@@ -4057,7 +4048,7 @@
   <parameter name="BOARD_DDRT_USER_CK_SLEW_RATE" value="4.0" />
   <parameter name="PRI_HMC_CFG_ARBITER_TYPE" value="arbiter_type_2t" />
   <parameter name="PHY_QDR2_AUTO_STARTING_VREFIN_EN" value="true" />
-  <parameter name="TRAIT_IOBANK_REVISION" value="IO96A_REVB2" />
+  <parameter name="TRAIT_IOBANK_REVISION" value="IO96A_REVB0" />
   <parameter name="MEM_RLD2_TQKQ_MIN_NS" value="-0.12" />
   <parameter name="CTRL_LPDDR3_WR_TO_WR_DIFF_CHIP_DELTA_CYCS" value="0" />
   <parameter name="PRI_HMC_CFG_DBC0_REORDER_RDATA" value="enable" />
@@ -4121,7 +4112,7 @@
   <parameter name="PORT_MEM_QKA_PINLOC_4" value="0" />
   <parameter name="PORT_MEM_QKA_PINLOC_5" value="0" />
   <parameter name="MEM_DDR3_LRDIMM_EXTENDED_CONFIG" value="000000000000000000" />
-  <parameter name="PRI_HMC_CFG_MPS_TO_VALID" value="768" />
+  <parameter name="PRI_HMC_CFG_MPS_TO_VALID" value="384" />
   <parameter name="PHY_RLD3_USER_AC_SLEW_RATE_ENUM" value="unset" />
   <parameter name="BOARD_RLD3_SKEW_WITHIN_QK_NS" value="0.0" />
   <parameter name="PRI_HMC_CFG_DBC2_REORDER_RDATA" value="enable" />
@@ -4135,7 +4126,7 @@
   <parameter name="MEM_QDR4_TQH_CYC" value="0.4" />
   <parameter name="MEM_RLD2_REFRESH_INTERVAL_US" value="0.24" />
   <parameter name="PRI_HMC_CFG_READ_ODT_CHIP" value="0" />
-  <parameter name="SEC_HMC_CFG_SRF_TO_VALID" value="513" />
+  <parameter name="SEC_HMC_CFG_SRF_TO_VALID" value="257" />
   <parameter name="MEM_DDR4_SPD_141_DRAM_VREFDQ_R1" value="29" />
   <parameter name="MEM_DDR4_MR5" value="332896" />
   <parameter name="MEM_DDR4_MR4" value="264192" />
@@ -4174,10 +4165,10 @@
   <parameter
      name="MEM_DDR4_INTEL_DEFAULT_DB_DQ_DRV_ENUM_DISP"
      value="RZQ/7 (34 Ohm)" />
-  <parameter name="SEC_HMC_CFG_MPR_TO_VALID" value="16" />
+  <parameter name="SEC_HMC_CFG_MPR_TO_VALID" value="8" />
   <parameter name="BOARD_DDR3_RDATA_ISI_NS" value="0.0" />
   <parameter name="MEM_DDR4_R_ODTN_1X1" value="Rank 0" />
-  <parameter name="SEC_HMC_CFG_PDN_TO_VALID" value="5" />
+  <parameter name="SEC_HMC_CFG_PDN_TO_VALID" value="3" />
   <parameter
      name="PHY_DDRT_CORE_CLKS_SHARING_ENUM"
      value="CORE_CLKS_SHARING_DISABLED" />
@@ -4233,7 +4224,7 @@
   <parameter name="DIAG_DDRT_USE_NEW_EFFMON_S10" value="false" />
   <parameter name="MEM_QDR2_TCCQO_NS" value="0.45" />
   <parameter name="IS_HPS" value="false" />
-  <parameter name="SEC_HMC_CFG_ZQCL_TO_VALID" value="257" />
+  <parameter name="SEC_HMC_CFG_ZQCL_TO_VALID" value="129" />
   <parameter
      name="MEM_DDRT_VREFDQ_TRAINING_RANGE"
      value="DDRT_VREFDQ_TRAINING_RANGE_1" />
@@ -4241,8 +4232,8 @@
   <parameter name="CTRL_LPDDR3_AUTO_POWER_DOWN_CYCS" value="32" />
   <parameter name="PORT_MEM_DKA_N_PINLOC_AUTOGEN_WCNT" value="6" />
   <parameter name="BOARD_DDR4_IS_SKEW_WITHIN_AC_DESKEWED" value="false" />
-  <parameter name="SEC_HMC_CFG_RD_TO_RD_DIFF_CHIP" value="4" />
-  <parameter name="SEC_HMC_CFG_ACT_TO_ACT_DIFF_BANK" value="4" />
+  <parameter name="SEC_HMC_CFG_RD_TO_RD_DIFF_CHIP" value="2" />
+  <parameter name="SEC_HMC_CFG_ACT_TO_ACT_DIFF_BANK" value="2" />
   <parameter name="MEM_DDRT_MIRROR_ADDRESSING_EN" value="true" />
   <parameter name="PORT_AFI_REF_N_WIDTH" value="1" />
   <parameter name="MEM_DDR3_DQ_PER_DQS" value="8" />
@@ -4366,7 +4357,7 @@
   <parameter name="PORT_MEM_DQB_PINLOC_41" value="0" />
   <parameter name="PORT_MEM_DQB_PINLOC_40" value="0" />
   <parameter name="MEM_DDRT_R_ODT0_2X2" value="off,off" />
-  <parameter name="PRI_HMC_CFG_RD_TO_RD" value="4" />
+  <parameter name="PRI_HMC_CFG_RD_TO_RD" value="2" />
   <parameter name="PORT_MEM_DQB_PINLOC_38" value="0" />
   <parameter name="PORT_MEM_DQB_PINLOC_37" value="0" />
   <parameter name="PORT_MEM_DQB_PINLOC_36" value="0" />
@@ -4377,7 +4368,7 @@
   <parameter name="PORT_MEM_DQB_PINLOC_32" value="0" />
   <parameter name="PORT_MEM_DQB_PINLOC_31" value="0" />
   <parameter name="CTRL_DDRT_REORDER_EN" value="true" />
-  <parameter name="PRI_HMC_CFG_4_ACT_TO_ACT" value="13" />
+  <parameter name="PRI_HMC_CFG_4_ACT_TO_ACT" value="6" />
   <parameter name="PRI_HMC_MEM_IF_TRTP" value="0" />
   <parameter name="CTRL_MMR_EN" value="false" />
   <parameter name="PORT_MEM_DQB_PINLOC_39" value="0" />
@@ -4402,7 +4393,7 @@
   <parameter name="PHY_QDR4_USER_PING_PONG_EN" value="false" />
   <parameter name="PHY_AC_IO_STD_ENUM" value="IO_STD_SSTL_12" />
   <parameter name="PHY_DDRT_MIMIC_HPS_EMIF" value="false" />
-  <parameter name="PRI_HMC_CFG_RD_TO_WR" value="10" />
+  <parameter name="PRI_HMC_CFG_RD_TO_WR" value="5" />
   <parameter name="DIAG_DDR4_USE_TG_HBM" value="false" />
   <parameter name="PORT_MEM_DQS_N_WIDTH" value="9" />
   <parameter name="MEM_DDR3_TWLS_PS" value="125.0" />
@@ -4434,7 +4425,7 @@
   <parameter name="MEM_DDRT_SELF_RFSH_ABORT" value="false" />
   <parameter name="BOARD_DDR3_SKEW_WITHIN_AC_NS" value="0.0" />
   <parameter name="PHY_RLD2_DATA_OUT_SLEW_RATE_ENUM" value="unset" />
-  <parameter name="SEC_HMC_CFG_ARF_PERIOD" value="2601" />
+  <parameter name="SEC_HMC_CFG_ARF_PERIOD" value="1301" />
   <parameter name="PHY_RZQ" value="240" />
   <parameter name="MEM_DDRT_DISCRETE_CS_WIDTH" value="1" />
   <parameter name="PHY_QDR2_USER_DLL_CORE_UPDN_EN" value="false" />
@@ -4532,7 +4523,7 @@
   <parameter name="BOARD_RLD3_IS_SKEW_WITHIN_QK_DESKEWED" value="false" />
   <parameter name="DIAG_DDRT_CAL_ADDR1" value="8" />
   <parameter name="DIAG_DDRT_CAL_ADDR0" value="0" />
-  <parameter name="SEC_HMC_CFG_RD_TO_RD_DIFF_BG" value="2" />
+  <parameter name="SEC_HMC_CFG_RD_TO_RD_DIFF_BG" value="1" />
   <parameter name="MEM_DDR4_ODT_IN_POWERDOWN" value="true" />
   <parameter
      name="MEM_DDR4_ALERT_N_PLACEMENT_ENUM"
@@ -4550,14 +4541,14 @@
      value="RZQ/4 (60 Ohm)" />
   <parameter name="PLL_REF_CLK_FREQ_PS" value="30000" />
   <parameter name="BOARD_DDR3_USE_DEFAULT_SLEW_RATES" value="true" />
-  <parameter name="PRI_HMC_CFG_WR_TO_PCH" value="22" />
+  <parameter name="PRI_HMC_CFG_WR_TO_PCH" value="11" />
   <parameter name="PHY_QDR2_USER_PING_PONG_EN" value="false" />
   <parameter name="MEM_DDRT_TRP_NS" value="15.0" />
   <parameter name="PLL_EXTRA_CLK_DESIRED_FREQ_MHZ_GUI_5" value="0.0" />
   <parameter name="MEM_LPDDR3_NUM_OF_PHYSICAL_RANKS" value="1" />
   <parameter name="PLL_EXTRA_CLK_DESIRED_FREQ_MHZ_GUI_6" value="0.0" />
   <parameter name="PLL_EXTRA_CLK_DESIRED_FREQ_MHZ_GUI_3" value="0.0" />
-  <parameter name="PRI_HMC_CFG_DBC0_SLOT_OFFSET" value="2" />
+  <parameter name="PRI_HMC_CFG_DBC0_SLOT_OFFSET" value="3" />
   <parameter name="PLL_EXTRA_CLK_DESIRED_FREQ_MHZ_GUI_4" value="0.0" />
   <parameter name="MEM_DDR4_W_ODT0_4X4" value="on,off,on,off" />
   <parameter name="MEM_DDR4_W_ODT0_4X2" value="off,off,on,on" />
@@ -4593,7 +4584,7 @@
      value="EMIF_PRI_PRELOAD.txt" />
   <parameter name="MEM_DDR4_MAX_POWERDOWN" value="false" />
   <parameter name="DIAG_DDR4_SKIP_CA_DESKEW" value="false" />
-  <parameter name="SEC_HMC_CFG_WR_TO_WR_DIFF_BG" value="2" />
+  <parameter name="SEC_HMC_CFG_WR_TO_WR_DIFF_BG" value="1" />
   <parameter name="PHY_DDRT_USER_PING_PONG_EN" value="false" />
   <parameter name="DIAG_DDR4_ENABLE_USER_MODE" value="true" />
   <parameter name="PRI_HMC_MEM_IF_TRFC" value="0" />
@@ -4734,7 +4725,7 @@
   <parameter name="PINS_DATA_IN_MODE_11" value="153362377" />
   <parameter name="PINS_DATA_IN_MODE_12" value="151515721" />
   <parameter name="PHY_RLD3_USER_CK_SLEW_RATE_ENUM" value="unset" />
-  <parameter name="PRI_HMC_CFG_CTRL_SLOT_OFFSET" value="2" />
+  <parameter name="PRI_HMC_CFG_CTRL_SLOT_OFFSET" value="3" />
   <parameter name="MEM_DDRT_W_DERIVED_ODT2" value="," />
   <parameter name="MEM_DDRT_W_DERIVED_ODT3" value="," />
   <parameter name="BOARD_DDRT_IS_SKEW_WITHIN_AC_DESKEWED" value="false" />
@@ -4747,7 +4738,7 @@
   <parameter name="MEM_DDRT_W_DERIVED_ODT0" value="," />
   <parameter name="MEM_DDRT_W_DERIVED_ODT1" value="," />
   <parameter name="PHY_QDR2_AC_MODE_ENUM" value="unset" />
-  <parameter name="SEC_HMC_CFG_MEM_CLK_DISABLE_ENTRY_CYC" value="16" />
+  <parameter name="SEC_HMC_CFG_MEM_CLK_DISABLE_ENTRY_CYC" value="9" />
   <parameter name="BOARD_DDR3_WDATA_ISI_NS" value="0.0" />
   <parameter name="BOARD_DDR4_USER_AC_SLEW_RATE" value="2.0" />
   <parameter name="PINS_DATA_IN_MODE_35" value="0" />
@@ -4779,7 +4770,7 @@
   <parameter name="PHY_CALIBRATED_OCT" value="true" />
   <parameter name="PORT_MEM_C_WIDTH" value="1" />
   <parameter name="PORT_CALBUS_SEQ_PARAM_TBL_WIDTH" value="4096" />
-  <parameter name="SEC_HMC_CFG_WB_RESERVED_ENTRY" value="116" />
+  <parameter name="SEC_HMC_CFG_WB_RESERVED_ENTRY" value="105" />
   <parameter name="MEM_DDR4_AC_PERSISTENT_ERROR" value="false" />
   <parameter
      name="MEM_DDR4_INTEL_DEFAULT_DRV_STR_ENUM_DISP"
@@ -4915,7 +4906,7 @@
   <parameter name="MEM_RLD2_DQ_PER_RD_GROUP" value="9" />
   <parameter name="PRI_HMC_CFG_DBC1_ENABLE_ECC" value="disable" />
   <parameter name="BOARD_DDR4_SKEW_WITHIN_AC_NS" value="0.18" />
-  <parameter name="SILICON_REV" value="14nm5" />
+  <parameter name="SILICON_REV" value="14nm5es2" />
   <parameter name="EMIF_4_STORED_PARAM" value="" />
   <parameter name="PHY_DATA_IO_STD_ENUM" value="IO_STD_POD_12" />
   <parameter name="PHY_LPDDR3_CK_SLEW_RATE_ENUM" value="unset" />
@@ -4933,7 +4924,7 @@
   <parameter name="PINS_C2L_DRIVEN_6" value="0" />
   <parameter name="PINS_C2L_DRIVEN_7" value="0" />
   <parameter name="DQSB_LGC_MODE" value="dqs_constant_b" />
-  <parameter name="PLL_SIM_PHYCLK_0_FREQ_PS" value="1504" />
+  <parameter name="PLL_SIM_PHYCLK_0_FREQ_PS" value="3008" />
   <parameter name="MEM_DDR4_MPR_READ_FORMAT" value="DDR4_MPR_READ_FORMAT_SERIAL" />
   <parameter name="PHY_QDR4_IO_VOLTAGE" value="1.2" />
   <parameter name="MEM_DDR4_VREFDQ_TRAINING_VALUE" value="70.0" />
@@ -4953,7 +4944,7 @@
   <parameter name="MEM_QDR4_TCKQK_MAX_PS" value="225" />
   <parameter
      name="SEQ_PT_SIM_CONTENT"
-     value="00024c400000000000000001000a2be801121608480909010102110902000101001401000903033400000000000000000d20e08100b0000000000000000000004077d58000c40707016c00d40000012300000f3c0000015e00000000000000080814040c000b0a091003020100131211000000060000000400020301000000002b2a290012111000161514131a1918172524231b0000272600280b0000000908000000004434241474645404352515846555054526168575560646361086766618131211201b1a1928232221302b2a2938333231403b3a3948434241004b4a4908030201500b0a0958535251605b5a5968636261706b6a6978737271807b7a7988838281008b8a8900000a50000100010002003000030400000408000005146000060c0f" />
+     value="00024c400000000000000001000515f401121608480909010102110902000101001401000903033400000000000000000d20e08100b0000000000000000000004077d58000c40707016c00d40000012300000f3c0000015e00000000000000080814040c000b0a091003020100131211000000060000000400020301000000002b2a290012111000161514131a1918172524231b0000272600280b0000000908000000004434241474645404352515846555054526168575560646361086766618131211201b1a1928232221302b2a2938333231403b3a3948434241004b4a4908030201500b0a0958535251605b5a5968636261706b6a6978737271807b7a7988838281008b8a8900000a50000100010002003000030400000408000005146000060c0f" />
   <parameter name="PORT_MEM_RM_PINLOC_4" value="0" />
   <parameter name="PORT_MEM_DQS_PINLOC_0" value="16781321" />
   <parameter name="PORT_AFI_CS_N_WIDTH" value="1" />
@@ -4980,9 +4971,9 @@
   <parameter name="BOARD_DDR4_MAX_DQS_DELAY_NS" value="0.6" />
   <parameter name="BOARD_RLD3_SKEW_BETWEEN_DK_NS" value="0.02" />
   <parameter name="BOARD_DDR3_AC_TO_CK_SKEW_NS" value="0.0" />
-  <parameter name="SEC_HMC_CFG_ACT_TO_ACT" value="31" />
+  <parameter name="SEC_HMC_CFG_ACT_TO_ACT" value="16" />
   <parameter name="PORT_CTRL_MMR_SLAVE_RDATA_WIDTH" value="32" />
-  <parameter name="PHY_HMC_CLK_RATIO" value="2" />
+  <parameter name="PHY_HMC_CLK_RATIO" value="4" />
   <parameter name="BOARD_LPDDR3_RDATA_ISI_NS" value="0.0" />
   <parameter name="CTRL_DDR4_USER_REFRESH_EN" value="false" />
   <parameter name="PORT_MEM_CAS_N_WIDTH" value="1" />
@@ -5047,7 +5038,7 @@
   <parameter name="PORT_MEM_DM_PINLOC_4" value="0" />
   <parameter name="CTRL_DDR3_MMR_EN" value="false" />
   <parameter name="MEM_DDR4_TRFC_DLR_NS" value="90.0" />
-  <parameter name="PRI_HMC_CFG_ACT_TO_RDWR" value="9" />
+  <parameter name="PRI_HMC_CFG_ACT_TO_RDWR" value="5" />
   <parameter name="PORT_AFI_CA_WIDTH" value="1" />
   <parameter name="PHY_DDR4_CK_SLEW_RATE_ENUM" value="SLEW_RATE_FM_FAST" />
   <parameter name="SEC_HMC_CFG_DBC2_REORDER_RDATA" value="enable" />
@@ -5074,7 +5065,7 @@
   <parameter name="MEM_LPDDR3_CTRL_CFG_WRITE_ODT_RANK" value="0" />
   <parameter name="PORT_MEM_D_PINLOC_5" value="0" />
   <parameter name="MEM_RLD2_DEVICE_DEPTH" value="1" />
-  <parameter name="PRI_HMC_CFG_COL_TO_ROW_OFFSET" value="1" />
+  <parameter name="PRI_HMC_CFG_COL_TO_ROW_OFFSET" value="2" />
   <parameter name="PORT_MEM_D_PINLOC_9" value="0" />
   <parameter name="PRI_HMC_CFG_COL_TO_DIFF_COL_OFFSET" value="0" />
   <parameter name="PHY_LPDDR3_AUTO_STARTING_VREFIN_EN" value="true" />
@@ -5136,7 +5127,7 @@
   <parameter name="CTRL_DDRT_GNT_TO_GNT_DIFF_CHIP_DELTA_CYCS" value="0" />
   <parameter name="MEM_DDR4_ATCL_ENUM" value="DDR4_ATCL_DISABLED" />
   <parameter name="BOARD_DDR3_USER_AC_ISI_NS" value="0.0" />
-  <parameter name="SEC_HMC_CFG_POWER_SAVING_EXIT_CYC" value="3" />
+  <parameter name="SEC_HMC_CFG_POWER_SAVING_EXIT_CYC" value="2" />
   <parameter name="PORT_CTRL_DATA_OUT_WIDTH" value="1" />
   <parameter name="MEM_LPDDR3_R_ODT0_1X1" value="off" />
   <parameter name="PHY_DDR3_CK_MODE_ENUM" value="unset" />
@@ -5204,14 +5195,14 @@
   <parameter name="PORT_MEM_QK_WIDTH" value="1" />
   <parameter name="BOARD_DDR3_USER_RDATA_SLEW_RATE" value="2.5" />
   <parameter name="PHY_RLD2_USER_DATA_IN_MODE_ENUM" value="unset" />
-  <parameter name="SEC_HMC_CFG_DBC3_SLOT_OFFSET" value="2" />
+  <parameter name="SEC_HMC_CFG_DBC3_SLOT_OFFSET" value="3" />
   <parameter name="PORT_MEM_Q_PINLOC_AUTOGEN_WCNT" value="49" />
   <parameter name="HMC_READY_LATENCY" value="2" />
-  <parameter name="PRI_HMC_CFG_PCH_ALL_TO_VALID" value="10" />
+  <parameter name="PRI_HMC_CFG_PCH_ALL_TO_VALID" value="5" />
   <parameter name="PHY_RLD2_PING_PONG_EN" value="false" />
   <parameter name="SEC_HMC_CFG_COL_TO_DIFF_COL_OFFSET" value="0" />
   <parameter name="PHY_QDR2_USER_CK_SLEW_RATE_ENUM" value="unset" />
-  <parameter name="PRI_HMC_CFG_WR_TO_RD_DIFF_CHIP" value="17" />
+  <parameter name="PRI_HMC_CFG_WR_TO_RD_DIFF_CHIP" value="9" />
   <parameter name="PHY_RLD2_IO_VOLTAGE" value="1.8" />
   <parameter name="MEM_LPDDR3_TQSH_CYC" value="0.38" />
   <parameter name="MEM_DDRT_DQ_PER_DQS" value="4" />
@@ -5245,12 +5236,12 @@
   <parameter
      name="PHY_DDR4_USER_DATA_OUT_DEEMPHASIS_ENUM"
      value="DEEMPHASIS_MODE_HIGH" />
-  <parameter name="PRI_HMC_CFG_DBC1_SLOT_OFFSET" value="2" />
+  <parameter name="PRI_HMC_CFG_DBC1_SLOT_OFFSET" value="3" />
   <parameter name="PHY_QDR2_AC_SLEW_RATE_ENUM" value="unset" />
   <parameter name="MEM_DDRT_RCD_CKE_IBT_ENUM" value="DDRT_RCD_CKE_IBT_100" />
   <parameter name="MEM_DDR4_HIDE_ADV_MR_SETTINGS" value="true" />
   <parameter name="PORT_MEM_ODT_WIDTH" value="1" />
-  <parameter name="SEC_HMC_CFG_RD_TO_WR_DIFF_BG" value="10" />
+  <parameter name="SEC_HMC_CFG_RD_TO_WR_DIFF_BG" value="5" />
   <parameter
      name="PHY_DDR4_USER_PERIODIC_OCT_RECAL_ENUM"
      value="PERIODIC_OCT_RECAL_AUTO" />
@@ -5334,7 +5325,7 @@
   <parameter name="EX_DESIGN_GUI_GEN_CDC" value="false" />
   <parameter name="PORT_MEM_DK_N_WIDTH" value="1" />
   <parameter name="LANE_HIPI_DELAY" value="350" />
-  <parameter name="SEC_HMC_CFG_COL_TO_ROW_OFFSET" value="1" />
+  <parameter name="SEC_HMC_CFG_COL_TO_ROW_OFFSET" value="2" />
   <parameter name="PLL_C_CNT_FREQ_PS_STR_6" value="0 ps" />
   <parameter name="PLL_C_CNT_FREQ_PS_STR_7" value="0 ps" />
   <parameter name="PRI_WDATA_TILE_INDEX" value="1" />
@@ -5363,10 +5354,10 @@
   <parameter name="PLL_EXTRA_CLK_DESIRED_DUTY_CYCLE_GUI_1" value="50.0" />
   <parameter name="PLL_C_CNT_FREQ_PS_STR_2" value="3000 ps" />
   <parameter name="PLL_EXTRA_CLK_DESIRED_DUTY_CYCLE_GUI_0" value="50.0" />
-  <parameter name="PLL_C_CNT_FREQ_PS_STR_3" value="1500 ps" />
+  <parameter name="PLL_C_CNT_FREQ_PS_STR_3" value="3000 ps" />
   <parameter name="DIAG_DDR3_EX_DESIGN_NUM_OF_SLAVES" value="1" />
   <parameter name="PLL_C_CNT_FREQ_PS_STR_0" value="3000 ps" />
-  <parameter name="PLL_C_CNT_FREQ_PS_STR_1" value="1500 ps" />
+  <parameter name="PLL_C_CNT_FREQ_PS_STR_1" value="3000 ps" />
   <parameter name="PORT_AFI_PAR_WIDTH" value="1" />
   <parameter name="PHY_RLD2_DEFAULT_IO" value="true" />
   <parameter name="PRI_HMC_MEM_IF_TWTR_S_CRC_DM" value="0" />
@@ -5440,7 +5431,7 @@
   <parameter name="MEM_LPDDR3_DQ_PER_DQS" value="8" />
   <parameter name="PORT_MEM_QKB_N_WIDTH" value="1" />
   <parameter name="MEM_DDR4_MIRROR_ADDRESSING_EN" value="true" />
-  <parameter name="PRI_HMC_CFG_SIDEBAND_OFFSET" value="1" />
+  <parameter name="PRI_HMC_CFG_SIDEBAND_OFFSET" value="3" />
   <parameter name="PHY_QDR4_DATA_OUT_MODE_ENUM" value="unset" />
   <parameter name="PLL_M_CNT_HIGH" value="20" />
   <parameter name="PORT_MEM_QKB_PINLOC_5" value="0" />
@@ -5453,13 +5444,13 @@
   <parameter name="CTRL_LPDDR3_WR_TO_RD_DIFF_CHIP_DELTA_CYCS" value="0" />
   <parameter name="PORT_AFI_ODT_WIDTH" value="1" />
   <parameter name="PLL_EXTRA_CLK_ACTUAL_DUTY_CYCLE_8" value="50.0" />
-  <parameter name="PRI_HMC_CFG_ZQCS_TO_VALID" value="127" />
+  <parameter name="PRI_HMC_CFG_ZQCS_TO_VALID" value="65" />
   <parameter name="MEM_DDR3_TRCD_CYC" value="14" />
   <parameter name="MEM_DDR4_READ_PREAMBLE" value="2" />
   <parameter name="PLL_EXTRA_CLK_ACTUAL_DUTY_CYCLE_3" value="50.0" />
   <parameter name="PORT_MEM_DQS_N_PINLOC_11" value="0" />
   <parameter name="PLL_EXTRA_CLK_ACTUAL_DUTY_CYCLE_2" value="50.0" />
-  <parameter name="PRI_HMC_CFG_WR_AP_TO_VALID" value="31" />
+  <parameter name="PRI_HMC_CFG_WR_AP_TO_VALID" value="16" />
   <parameter name="PORT_MEM_DQS_N_PINLOC_12" value="0" />
   <parameter name="PLL_EXTRA_CLK_ACTUAL_DUTY_CYCLE_1" value="50.0" />
   <parameter name="BOARD_QDR2_RDATA_SLEW_RATE" value="2.0" />
@@ -5548,7 +5539,7 @@
   <parameter name="DB_PINS_PROC_MODE_39" value="0" />
   <parameter name="MEM_DDRT_TTL_ODT_WIDTH" value="1" />
   <parameter name="PHY_DDRT_USER_CK_IO_STD_ENUM" value="unset" />
-  <parameter name="SEC_HMC_CFG_MPS_EXIT_CKE_TO_CS" value="6" />
+  <parameter name="SEC_HMC_CFG_MPS_EXIT_CKE_TO_CS" value="3" />
   <parameter name="PHY_QDR2_RZQ_IO_STD_ENUM" value="unset" />
   <parameter name="BOARD_QDR4_WDATA_ISI_NS" value="0.0" />
   <parameter
@@ -5606,7 +5597,7 @@
   <parameter name="MEM_DDR4_W_ODT1_4X4" value="off,on,off,on" />
   <parameter name="DIAG_LPDDR3_USER_SIM_MEMORY_PRELOAD" value="false" />
   <parameter name="PRI_HMC_MEM_IF_TZQCS" value="0" />
-  <parameter name="PRI_HMC_CFG_MPS_EXIT_CS_TO_CKE" value="5" />
+  <parameter name="PRI_HMC_CFG_MPS_EXIT_CS_TO_CKE" value="3" />
   <parameter name="BOARD_QDR2_RCLK_SLEW_RATE" value="4.0" />
   <parameter name="MEM_DDR4_TFAW_DLR_CYC" value="16" />
   <parameter name="BOARD_QDR4_BRD_SKEW_WITHIN_AC_NS" value="0.02" />
@@ -5616,13 +5607,13 @@
   <parameter name="MEM_DDR3_W_ODT0_1X1" value="on" />
   <parameter name="DIAG_DDR4_DISABLE_AFI_P2C_REGISTERS" value="false" />
   <parameter name="PRI_HMC_3DS_EN" value="disable" />
-  <parameter name="PRI_HMC_CFG_COL_CMD_SLOT" value="2" />
+  <parameter name="PRI_HMC_CFG_COL_CMD_SLOT" value="8" />
   <parameter
      name="EX_DESIGN_GUI_DDR3_SEL_DESIGN"
      value="AVAIL_EX_DESIGNS_GEN_DESIGN" />
   <parameter name="MEM_DDR4_READ_PREAMBLE_TRAINING" value="false" />
   <parameter name="BOARD_QDR4_RCLK_ISI_NS" value="0.0" />
-  <parameter name="SEC_HMC_CFG_MPS_EXIT_CS_TO_CKE" value="5" />
+  <parameter name="SEC_HMC_CFG_MPS_EXIT_CS_TO_CKE" value="3" />
   <parameter name="PHY_REF_CLK_FREQ_MHZ" value="33.33" />
   <parameter name="PLL_SIM_PHYCLK_FB_FREQ_PS" value="3008" />
   <parameter name="PRI_HMC_CFG_CTRL_ENABLE_ECC" value="disable" />
@@ -5642,7 +5633,7 @@
   <parameter name="PHY_RLD2_PLL_REF_CLK_IO_STD_ENUM" value="unset" />
   <parameter name="CTRL_DDR3_ECC_STATUS_EN" value="false" />
   <parameter name="PHY_QDR4_AC_DEEMPHASIS_ENUM" value="unset" />
-  <parameter name="SYS_INFO_DEVICE" value="AGIB027R29A1E2VR3" />
+  <parameter name="SYS_INFO_DEVICE" value="AGIB027R29A1E2VR0" />
   <parameter name="PHY_QDR4_USER_DLL_CORE_UPDN_EN" value="true" />
   <parameter name="PHY_RLD3_AC_SLEW_RATE_ENUM" value="unset" />
   <parameter name="MEM_DDR3_TDQSCKDS" value="450" />
@@ -5664,7 +5655,7 @@
   <parameter name="SEC_HMC_MEM_IF_TPL" value="0" />
   <parameter name="BOARD_QDR2_IS_SKEW_WITHIN_AC_DESKEWED" value="true" />
   <parameter name="SEC_HMC_CFG_RD_ODT_PERIOD" value="7" />
-  <parameter name="SEC_HMC_CFG_WR_TO_PCH" value="22" />
+  <parameter name="SEC_HMC_CFG_WR_TO_PCH" value="11" />
   <parameter name="BOARD_RLD3_USER_RDATA_SLEW_RATE" value="3.5" />
   <parameter name="PLL_EXTRA_CLK_PHASE_SHIFT_UNIT_GUI_8" value="ps" />
   <parameter name="PLL_EXTRA_CLK_PHASE_SHIFT_UNIT_GUI_7" value="ps" />
@@ -5688,7 +5679,7 @@
   <parameter name="BOARD_DDR3_MAX_CK_DELAY_NS" value="0.6" />
   <parameter name="CTRL_REORDER_EN" value="true" />
   <parameter name="BOARD_DDR4_RDATA_ISI_NS" value="0.075" />
-  <parameter name="PRI_HMC_CFG_MPR_TO_VALID" value="16" />
+  <parameter name="PRI_HMC_CFG_MPR_TO_VALID" value="8" />
   <parameter name="PORT_MEM_DINVB_WIDTH" value="1" />
   <parameter name="CTRL_DDR3_WR_TO_WR_DIFF_CHIP_DELTA_CYCS" value="0" />
   <parameter
@@ -5760,7 +5751,7 @@
   <parameter name="PORT_MEM_QKA_N_PINLOC_1" value="0" />
   <parameter name="PORT_MEM_QKA_N_PINLOC_0" value="0" />
   <parameter name="MEM_DDRT_TDSH_CYC" value="0.18" />
-  <parameter name="DIAG_ABSTRACT_PHY_RLAT" value="20" />
+  <parameter name="DIAG_ABSTRACT_PHY_RLAT" value="13" />
   <parameter name="PRI_HMC_CFG_PHY_DELAY_MISMATCH" value="0" />
   <parameter name="SHORT_QSYS_INTERFACE_NAMES" value="true" />
   <parameter name="PLL_M_CNT_BYPASS_EN" value="false" />
@@ -5769,7 +5760,7 @@
   <parameter name="PHY_LPDDR3_CK_DEEMPHASIS_ENUM" value="unset" />
   <parameter name="MEM_LPDDR3_CK_WIDTH" value="1" />
   <parameter name="MEM_DDRT_LRDIMM_ODT_LESS_BS_PARK_OHM" value="240" />
-  <parameter name="PRI_HMC_CFG_MEM_CLK_DISABLE_ENTRY_CYC" value="16" />
+  <parameter name="PRI_HMC_CFG_MEM_CLK_DISABLE_ENTRY_CYC" value="9" />
   <parameter name="PORT_MEM_QKA_N_PINLOC_5" value="0" />
   <parameter name="PORT_MEM_QKA_N_PINLOC_4" value="0" />
   <parameter name="PORT_MEM_QKA_N_PINLOC_3" value="0" />
@@ -5780,14 +5771,14 @@
   <parameter name="AMM_HIPI_DELAY" value="350" />
   <parameter name="SEC_HMC_CFG_16_ACT_TO_ACT" value="0" />
   <parameter name="PHY_DDR4_USER_CK_DEEMPHASIS_ENUM" value="DEEMPHASIS_MODE_OFF" />
-  <parameter name="PRI_HMC_CFG_DQSTRK_TO_VALID" value="4" />
+  <parameter name="PRI_HMC_CFG_DQSTRK_TO_VALID" value="2" />
   <parameter name="PHY_DDR3_CAL_ENABLE_NON_DES" value="false" />
   <parameter name="MEM_DDR4_CFG_GEN_SBE" value="false" />
-  <parameter name="PRI_HMC_CFG_DBC1_ENABLE_RC" value="enable" />
+  <parameter name="PRI_HMC_CFG_DBC1_ENABLE_RC" value="disable" />
   <parameter name="PHY_RLD3_DATA_OUT_DEEMPHASIS_ENUM" value="unset" />
-  <parameter name="PLL_C_CNT_FREQ_MHZ_STR_3" value="666.6 MHz" />
+  <parameter name="PLL_C_CNT_FREQ_MHZ_STR_3" value="333.3 MHz" />
   <parameter name="PLL_C_CNT_FREQ_MHZ_STR_2" value="333.3 MHz" />
-  <parameter name="PLL_C_CNT_FREQ_MHZ_STR_1" value="666.6 MHz" />
+  <parameter name="PLL_C_CNT_FREQ_MHZ_STR_1" value="333.3 MHz" />
   <parameter name="PLL_C_CNT_FREQ_MHZ_STR_0" value="333.3 MHz" />
   <parameter name="CTRL_DDR4_MAJOR_MODE_EN" value="false" />
   <parameter name="BOARD_RLD3_BRD_SKEW_WITHIN_AC_NS" value="0.02" />
@@ -5854,7 +5845,7 @@
   <parameter name="MEM_DDRT_NUM_OF_DIMMS" value="1" />
   <parameter name="DIAG_SIM_MEMORY_PRELOAD_PRI_ECC_FILE" value="" />
   <parameter name="PHY_LPDDR3_USER_CK_MODE_ENUM" value="unset" />
-  <parameter name="SEC_HMC_CFG_CTRL_ENABLE_RC" value="enable" />
+  <parameter name="SEC_HMC_CFG_CTRL_ENABLE_RC" value="disable" />
   <parameter name="MEM_DDR4_R_DERIVED_ODT0" value="(Drive) RZQ/7 (34 Ohm),-,-,-" />
   <parameter name="MEM_QDR4_TWL_CYC" value="5" />
   <parameter name="PHY_DDR4_AC_MODE_ENUM" value="OUT_OCT_40_CAL" />
@@ -5917,7 +5908,7 @@
   <parameter name="MEM_LPDDR3_TDQSCKDM" value="511" />
   <parameter name="MEM_LPDDR3_TDQSCKDS" value="220" />
   <parameter name="MEM_DDR4_R_DERIVED_ODTN" value="Rank 0,-,-,-" />
-  <parameter name="PRI_HMC_CFG_DBC3_ENABLE_RC" value="enable" />
+  <parameter name="PRI_HMC_CFG_DBC3_ENABLE_RC" value="disable" />
   <parameter
      name="DIAG_LPDDR3_EXPORT_SEQ_AVALON_SLAVE"
      value="CAL_DEBUG_EXPORT_MODE_DISABLED" />
@@ -5941,7 +5932,7 @@
   <parameter name="PORT_MEM_DQA_PINLOC_25" value="0" />
   <parameter name="PORT_MEM_DQA_PINLOC_26" value="0" />
   <parameter name="SEC_HMC_CFG_MPS_DQSTRK_DISABLE" value="disable" />
-  <parameter name="PRI_HMC_CFG_DBC2_SLOT_OFFSET" value="2" />
+  <parameter name="PRI_HMC_CFG_DBC2_SLOT_OFFSET" value="3" />
   <parameter name="PORT_MEM_DQA_PINLOC_29" value="0" />
   <parameter name="PHY_CLAMSHELL_EN" value="false" />
   <parameter name="CTRL_DDR3_WR_TO_RD_DIFF_CHIP_DELTA_CYCS" value="0" />
@@ -5996,8 +5987,8 @@
   <parameter name="PLL_EXTRA_CLK_ACTUAL_FREQ_MHZ_GUI_7" value="0.0" />
   <parameter name="PLL_EXTRA_CLK_ACTUAL_FREQ_MHZ_GUI_8" value="0.0" />
   <parameter name="PHY_DDR3_RATE_ENUM" value="RATE_QUARTER" />
-  <parameter name="SEC_HMC_CFG_ACT_TO_PCH" value="22" />
-  <parameter name="SEC_HMC_CFG_4_ACT_TO_ACT" value="13" />
+  <parameter name="SEC_HMC_CFG_ACT_TO_PCH" value="11" />
+  <parameter name="SEC_HMC_CFG_4_ACT_TO_ACT" value="6" />
   <parameter name="DIAG_QDR2_SIM_MEMORY_PRELOAD_SEC_EMIF_FILE" value="" />
   <parameter name="MEM_DDRT_USER_TCL_ADDED" value="0" />
   <parameter name="MEM_DDRT_MR0" value="0" />
@@ -6044,7 +6035,7 @@
      value="DDRT_AC_PARITY_LATENCY_DISABLE" />
   <parameter
      name="SEQ_PT_SYN_CONTENT"
-     value="00024c400000000000000001000a2be801121608480909010102110902000101001401000903033400000000000000000d00c08100b0000000000000000000004066008000c40707016c00d40000012300000f3c0000015e00000000000000080814040c000b0a091003020100131211000000060000000400020301000000002b2a290012111000161514131a1918172524231b0000272600280b0000000908000000004434241474645404352515846555054526168575560646361086766618131211201b1a1928232221302b2a2938333231403b3a3948434241004b4a4908030201500b0a0958535251605b5a5968636261706b6a6978737271807b7a7988838281008b8a8900000a50000100010002003000030400000408000005146000060c0f" />
+     value="00024c400000000000000001000515f401121608480909010102110902000101001401000903033400000000000000000d00c08100b0000000000000000000004066008000c40707016c00d40000012300000f3c0000015e00000000000000080814040c000b0a091003020100131211000000060000000400020301000000002b2a290012111000161514131a1918172524231b0000272600280b0000000908000000004434241474645404352515846555054526168575560646361086766618131211201b1a1928232221302b2a2938333231403b3a3948434241004b4a4908030201500b0a0958535251605b5a5968636261706b6a6978737271807b7a7988838281008b8a8900000a50000100010002003000030400000408000005146000060c0f" />
   <parameter name="PORT_MEM_RPS_N_PINLOC_0" value="0" />
   <parameter
      name="DIAG_QDR2_USER_SIM_MEMORY_PRELOAD_PRI_EMIF_FILE"
@@ -6078,12 +6069,12 @@
   <parameter name="DIAG_DDRT_CAL_ENABLE_NON_DES" value="false" />
   <parameter name="PHY_QDR4_USER_CK_MODE_ENUM" value="unset" />
   <parameter name="PHY_RLD3_AC_DEEMPHASIS_ENUM" value="unset" />
-  <parameter name="SEC_HMC_CFG_DQSTRK_TO_VALID_LAST" value="28" />
+  <parameter name="SEC_HMC_CFG_DQSTRK_TO_VALID_LAST" value="17" />
   <parameter name="DIAG_LPDDR3_ENABLE_DEFAULT_MODE" value="false" />
   <parameter name="PORT_MEM_DK_PINLOC_AUTOGEN_WCNT" value="6" />
   <parameter name="PORT_DFT_ND_PA_DPRIO_WRITEDATA_WIDTH" value="8" />
   <parameter name="PLL_FBCLK_MUX_1" value="pll_fbclk_mux_1_glb" />
-  <parameter name="PRI_HMC_CFG_ACT_TO_PCH" value="22" />
+  <parameter name="PRI_HMC_CFG_ACT_TO_PCH" value="11" />
   <parameter name="PLL_FBCLK_MUX_2" value="pll_fbclk_mux_2_m_cnt" />
   <parameter name="MEM_DDR4_TRRD_L_CYC" value="7" />
   <parameter name="MEM_DDRT_SPD_148_DRAM_DRV" value="0" />
@@ -6174,7 +6165,7 @@
   <parameter name="DIAG_LPDDR3_EX_DESIGN_SEPARATE_RZQS" value="true" />
   <parameter name="MEM_DDR4_TINIT_US" value="500" />
   <parameter name="MEM_DDR4_TRP_CYC" value="19" />
-  <parameter name="SEC_HMC_CFG_COL_CMD_SLOT" value="2" />
+  <parameter name="SEC_HMC_CFG_COL_CMD_SLOT" value="8" />
   <parameter name="MEM_DDRT_CS_PER_DIMM" value="1" />
   <parameter name="DIAG_QDR4_ABSTRACT_PHY" value="false" />
   <parameter name="MEM_DDR4_CKE_WIDTH" value="1" />
@@ -6188,9 +6179,9 @@
   <parameter name="PORT_MEM_BA_PINLOC_0" value="86066178" />
   <parameter
      name="SYS_INFO_DEVICE_DIE_REVISIONS"
-     value="HSSI_GDR_REVB,HSSI_RNR_REVB,MAIN_FM8_REVA" />
+     value="HSSI_GDR_REVA,HSSI_RNR_REVA,MAIN_FM8_REVA" />
   <parameter name="PINS_DCC_SPLIT_AUTOGEN_WCNT" value="13" />
-  <parameter name="PRI_HMC_CFG_PDN_TO_VALID" value="5" />
+  <parameter name="PRI_HMC_CFG_PDN_TO_VALID" value="3" />
   <parameter name="MEM_DDR3_CFG_GEN_DBE" value="false" />
   <parameter name="BOARD_DDR4_RDATA_SLEW_RATE" value="4.0" />
   <parameter
@@ -6215,13 +6206,15 @@
   <parameter name="CTRL_DDRT_WR_TO_RD_DIFF_CHIP_DELTA_CYCS" value="0" />
   <parameter name="MEM_DDR4_IDEAL_VREF_OUT_PCT" value="70.0" />
   <parameter name="MEM_LPDDR3_BANK_ADDR_WIDTH" value="3" />
-  <parameter name="PRI_HMC_CFG_ARF_TO_VALID" value="234" />
+  <parameter name="PRI_HMC_CFG_ARF_TO_VALID" value="118" />
   <parameter name="PHY_QDR4_AC_MODE_ENUM" value="unset" />
   <parameter
      name="DIAG_QDR2_EXPORT_TG_CFG_AVALON_SLAVE"
      value="TG_CFG_AMM_EXPORT_MODE_EXPORT" />
   <parameter name="PORT_MEM_QK_N_WIDTH" value="1" />
-  <parameter name="PHY_DDR4_USER_DATA_OUT_SLEW_RATE_ENUM" value="unset" />
+  <parameter
+     name="PHY_DDR4_USER_DATA_OUT_SLEW_RATE_ENUM"
+     value="SLEW_RATE_FM_FAST" />
   <parameter name="SEC_HMC_CFG_MEM_AUTO_PD_CYCLES" value="0" />
   <parameter name="SYS_INFO_DEVICE_POWER_MODEL" value="STANDARD_POWER" />
   <parameter name="BOARD_LPDDR3_IS_SKEW_WITHIN_AC_DESKEWED" value="true" />
@@ -6234,12 +6227,12 @@
   <parameter name="PLL_C_CNT_HIGH_0" value="2" />
   <parameter name="PINS_OCT_MODE_3" value="1040179197" />
   <parameter name="PORT_MEM_DINVB_PINLOC_0" value="0" />
-  <parameter name="PLL_C_CNT_HIGH_1" value="1" />
+  <parameter name="PLL_C_CNT_HIGH_1" value="2" />
   <parameter name="PINS_OCT_MODE_0" value="1073217407" />
   <parameter name="PLL_C_CNT_HIGH_2" value="2" />
   <parameter name="PINS_OCT_MODE_1" value="253949" />
-  <parameter name="SEC_HMC_CFG_RB_RESERVED_ENTRY" value="8" />
-  <parameter name="PLL_C_CNT_HIGH_3" value="1" />
+  <parameter name="SEC_HMC_CFG_RB_RESERVED_ENTRY" value="1" />
+  <parameter name="PLL_C_CNT_HIGH_3" value="2" />
   <parameter name="MEM_QDR2_TWL_CYC" value="1" />
   <parameter name="PLL_C_CNT_HIGH_8" value="256" />
   <parameter name="PINS_OCT_MODE_8" value="0" />
@@ -6325,12 +6318,12 @@
   <parameter name="PORT_MEM_QK_N_PINLOC_5" value="0" />
   <parameter name="MEM_QDR2_TCQH_NS" value="0.71" />
   <parameter name="PORT_MEM_QK_N_PINLOC_0" value="0" />
-  <parameter name="SEC_HMC_CFG_ACT_TO_ACT_DIFF_BG" value="2" />
+  <parameter name="SEC_HMC_CFG_ACT_TO_ACT_DIFF_BG" value="1" />
   <parameter name="PORT_MEM_QK_N_PINLOC_1" value="0" />
   <parameter name="SEC_HMC_CFG_DBC1_SLOT_ROTATE_EN" value="dbc1_disable" />
   <parameter name="PRI_HMC_CFG_BANK_GROUP_ADDR_WIDTH" value="bank_group_width_2" />
   <parameter name="BOARD_DDR4_WDATA_ISI_NS" value="0.09" />
-  <parameter name="SEC_HMC_CFG_WR_TO_RD_DIFF_CHIP" value="17" />
+  <parameter name="SEC_HMC_CFG_WR_TO_RD_DIFF_CHIP" value="9" />
   <parameter name="PRI_HMC_MEM_IF_AL" value="0" />
   <parameter name="PRI_HMC_CFG_DDR4_MPS_ADDRMIRROR" value="disable" />
   <parameter name="EMIF_12_REF_CLK_SHARING" value="EXPORTED" />
@@ -6359,7 +6352,7 @@
      name="DIAG_DDRT_USER_SIM_MEMORY_PRELOAD_PRI_EMIF_FILE"
      value="EMIF_PRI_PRELOAD.txt" />
   <parameter name="CTRL_DDRT_ERR_REPLAY_EN" value="false" />
-  <parameter name="PHY_DDR4_USER_AC_SLEW_RATE_ENUM" value="unset" />
+  <parameter name="PHY_DDR4_USER_AC_SLEW_RATE_ENUM" value="SLEW_RATE_FM_FAST" />
   <parameter
      name="DIAG_QDR4_EXPORT_SEQ_AVALON_SLAVE"
      value="CAL_DEBUG_EXPORT_MODE_DISABLED" />
@@ -6368,7 +6361,6 @@
   <parameter name="SYS_INFO_DEVICE_TEMPERATURE_GRADE" value="EXTENDED" />
   <parameter name="SEC_HMC_CFG_SRF_AUTOEXIT_EN" value="disable" />
   <parameter name="SEC_HMC_MEM_IF_TWTR_L_CRC_DM" value="0" />
-  <parameter name="PHY_DDR4_ALLOW_72_DQ_WIDTH" value="false" />
   <parameter name="BOARD_DDRT_TIS_DERATING_PS" value="0" />
   <parameter name="PORT_CTRL_AMM_ADDRESS_WIDTH" value="27" />
   <parameter name="MEM_RLD3_SPEEDBIN_ENUM" value="RLD3_SPEEDBIN_093E" />
@@ -6392,7 +6384,7 @@
   <parameter name="PORT_MEM_CA_PINLOC_8" value="0" />
   <parameter name="MEM_QDR4_CR2" value="0" />
   <parameter name="PORT_MEM_CA_PINLOC_7" value="0" />
-  <parameter name="SEC_HMC_CFG_RD_TO_PCH" value="6" />
+  <parameter name="SEC_HMC_CFG_RD_TO_PCH" value="3" />
   <parameter name="MEM_DDR4_WRITE_DBI" value="false" />
   <parameter name="PHY_DDR4_USER_DLL_CORE_UPDN_EN" value="true" />
   <parameter name="PHY_DDR4_CK_IO_STD_ENUM" value="IO_STD_SSTL_12" />
@@ -6417,11 +6409,11 @@
   <parameter name="PHY_DDRT_USER_RZQ_IO_STD_ENUM" value="unset" />
   <parameter name="DIAG_SIM_MEMORY_PRELOAD_PRI_EMIF_FILE" value="" />
   <parameter name="DIAG_LPDDR3_DISABLE_AFI_P2C_REGISTERS" value="false" />
-  <parameter name="PRI_HMC_CFG_WB_RESERVED_ENTRY" value="116" />
+  <parameter name="PRI_HMC_CFG_WB_RESERVED_ENTRY" value="105" />
   <parameter name="MEM_DDR4_SPD_139_DB_REV" value="0" />
   <parameter name="MEM_DDR4_LRDIMM_EXTENDED_CONFIG" value="" />
   <parameter name="SEC_AC_TILE_INDEX" value="1" />
-  <parameter name="SEC_HMC_CFG_PCH_ALL_TO_VALID" value="10" />
+  <parameter name="SEC_HMC_CFG_PCH_ALL_TO_VALID" value="5" />
   <parameter name="MEM_LPDDR3_TINIT_CK" value="499" />
   <parameter name="DIAG_DDR4_SIM_MEMORY_PRELOAD_PRI_EMIF_FILE" value="" />
   <parameter name="PORT_MEM_CK_PINLOC_5" value="0" />
@@ -6441,7 +6433,7 @@
   <parameter name="MEM_DDRT_TTL_DQS_WIDTH" value="8" />
   <parameter name="MEM_DDR4_CAL_MODE" value="0" />
   <parameter name="MEM_DDR3_TRFC_CYC" value="171" />
-  <parameter name="SEC_HMC_CFG_PCH_TO_VALID" value="10" />
+  <parameter name="SEC_HMC_CFG_PCH_TO_VALID" value="5" />
   <parameter name="BOARD_QDR4_RDATA_SLEW_RATE" value="2.5" />
   <parameter name="PORT_MEM_CK_PINLOC_0" value="57345" />
   <parameter name="DIAG_RLD2_USE_TG_HBM" value="false" />
@@ -6509,7 +6501,7 @@
   <parameter
      name="DIAG_DDR3_USER_SIM_MEMORY_PRELOAD_SEC_EMIF_FILE"
      value="EMIF_SEC_PRELOAD.txt" />
-  <parameter name="PRI_HMC_CFG_RD_AP_TO_VALID" value="15" />
+  <parameter name="PRI_HMC_CFG_RD_AP_TO_VALID" value="8" />
   <parameter name="PHY_RLD3_HPS_ENABLE_EARLY_RELEASE" value="false" />
   <parameter name="MEM_DDRT_TDSS_CYC" value="0.18" />
   <parameter name="MEM_RLD3_CS_WIDTH" value="1" />
@@ -6589,7 +6581,7 @@
   <parameter name="LANE_PIN_USAGE_23" value="0" />
   <parameter name="MEM_DDR3_W_DERIVED_ODTN" value="," />
   <parameter name="LANE_PIN_USAGE_24" value="0" />
-  <parameter name="PRI_HMC_CFG_WR_TO_RD_DIFF_BG" value="18" />
+  <parameter name="PRI_HMC_CFG_WR_TO_RD_DIFF_BG" value="9" />
   <parameter name="LANE_PIN_USAGE_21" value="0" />
   <parameter name="LANE_PIN_USAGE_22" value="0" />
   <parameter name="MEM_DDR3_R_ODTN_1X1" value="Rank 0" />
@@ -6634,7 +6626,7 @@
   <parameter name="MEM_DDR3_W_DERIVED_ODT2" value="," />
   <parameter name="LANE_PIN_USAGE_28" value="0" />
   <parameter name="PRI_HMC_CFG_COL_ADDR_WIDTH" value="col_width_10" />
-  <parameter name="SEC_HMC_CFG_WR_TO_WR" value="4" />
+  <parameter name="SEC_HMC_CFG_WR_TO_WR" value="2" />
   <parameter name="BOARD_LPDDR3_SKEW_BETWEEN_DQS_NS" value="0.02" />
   <parameter name="CTRL_DDR3_ECC_EN" value="false" />
   <parameter name="LANE_PIN_USAGE_40" value="0" />
@@ -6653,7 +6645,7 @@
   <parameter name="LANE_PIN_USAGE_42" value="0" />
   <parameter name="BOARD_RLD3_TIS_DERATING_PS" value="0" />
   <parameter name="UNUSED_MEM_PINS_PINLOC_14" value="0" />
-  <parameter name="PRI_HMC_CFG_DBC2_ENABLE_RC" value="enable" />
+  <parameter name="PRI_HMC_CFG_DBC2_ENABLE_RC" value="disable" />
   <parameter name="UNUSED_MEM_PINS_PINLOC_13" value="0" />
   <parameter name="UNUSED_MEM_PINS_PINLOC_16" value="0" />
   <parameter name="UNUSED_MEM_PINS_PINLOC_15" value="0" />
@@ -6699,9 +6691,9 @@
   <parameter name="PINS_USAGE_8" value="0" />
   <parameter name="PINS_USAGE_7" value="0" />
   <parameter name="MEM_DDR4_TTL_DQS_WIDTH" value="9" />
-  <parameter name="DIAG_ABSTRACT_PHY_WLAT" value="9" />
+  <parameter name="DIAG_ABSTRACT_PHY_WLAT" value="4" />
   <parameter name="MEM_DDR4_USER_VREFDQ_TRAINING_VALUE" value="56.0" />
-  <parameter name="SEC_HMC_CFG_DBC2_ENABLE_RC" value="enable" />
+  <parameter name="SEC_HMC_CFG_DBC2_ENABLE_RC" value="disable" />
   <parameter name="MEM_DDRT_RM_WIDTH" value="0" />
   <parameter name="PORT_AFI_GNT_N_WIDTH" value="1" />
   <parameter name="PORT_MEM_AINV_WIDTH" value="1" />
@@ -6736,7 +6728,7 @@
   <parameter name="DIAG_QDR4_EXPORT_SEQ_AVALON_HEAD_OF_CHAIN" value="true" />
   <parameter name="PORT_MEM_PE_N_PINLOC_1" value="0" />
   <parameter name="PORT_MEM_PE_N_PINLOC_0" value="0" />
-  <parameter name="PRI_HMC_CFG_ARF_PERIOD" value="2601" />
+  <parameter name="PRI_HMC_CFG_ARF_PERIOD" value="1301" />
   <parameter name="MEM_DDR4_W_ODT2_4X4" value="on,off,on,off" />
   <parameter name="MEM_LPDDR3_DQ_WIDTH" value="32" />
   <parameter name="PLL_N_CNT_LOW" value="256" />
@@ -6816,11 +6808,11 @@
   <parameter name="UNUSED_MEM_PINS_PINLOC_97" value="0" />
   <parameter name="UNUSED_MEM_PINS_PINLOC_99" value="0" />
   <parameter name="LANE_PIN_USAGE_50" value="0" />
-  <parameter name="PRI_HMC_CFG_ZQCL_TO_VALID" value="257" />
+  <parameter name="PRI_HMC_CFG_ZQCL_TO_VALID" value="129" />
   <parameter name="PORT_MEM_Q_PINLOC_35" value="0" />
   <parameter name="LANE_PIN_USAGE_51" value="0" />
   <parameter name="PORT_MEM_Q_PINLOC_36" value="0" />
-  <parameter name="SEC_HMC_CFG_WR_TO_RD" value="20" />
+  <parameter name="SEC_HMC_CFG_WR_TO_RD" value="10" />
   <parameter name="PORT_MEM_Q_PINLOC_37" value="0" />
   <parameter name="PORT_MEM_Q_PINLOC_38" value="0" />
   <parameter name="PORT_MEM_Q_PINLOC_39" value="0" />
@@ -6919,7 +6911,7 @@
   <parameter name="MEM_DDRT_TDIVW_DJ_CYC" value="0.1" />
   <parameter name="PORT_MEM_BG_PINLOC_0" value="50416642" />
   <parameter name="MEM_DDR4_CS_WIDTH" value="1" />
-  <parameter name="DBC_WB_RESERVED_ENTRY" value="116" />
+  <parameter name="DBC_WB_RESERVED_ENTRY" value="105" />
   <parameter name="UNUSED_MEM_PINS_PINLOC_58" value="0" />
   <parameter name="UNUSED_MEM_PINS_PINLOC_57" value="0" />
   <parameter name="UNUSED_MEM_PINS_PINLOC_59" value="0" />
@@ -6987,7 +6979,7 @@
   <parameter name="MEM_RLD2_DQ_PER_DEVICE" value="9" />
   <parameter name="MEM_DDR3_TIH_DC_MV" value="100" />
   <parameter name="MEM_DDR3_TQH_CYC" value="0.38" />
-  <parameter name="SEC_HMC_CFG_RD_TO_WR_DIFF_CHIP" value="10" />
+  <parameter name="SEC_HMC_CFG_RD_TO_WR_DIFF_CHIP" value="5" />
   <parameter name="PHY_LPDDR3_CONFIG_ENUM" value="CONFIG_PHY_AND_HARD_CTRL" />
   <parameter name="BOARD_DDR3_USER_RCLK_ISI_NS" value="0.0" />
   <parameter name="CTRL_DDR4_RD_TO_WR_DIFF_CHIP_DELTA_CYCS" value="0" />
@@ -6995,7 +6987,7 @@
   <parameter name="EX_DESIGN_GUI_DDRT_HDL_FORMAT" value="HDL_FORMAT_VERILOG" />
   <parameter name="MEM_DDRT_SPD_133_RCD_DB_VENDOR_LSB" value="0" />
   <parameter name="PORT_MEM_DK_WIDTH" value="1" />
-  <parameter name="PRI_HMC_CFG_RD_TO_WR_DIFF_CHIP" value="10" />
+  <parameter name="PRI_HMC_CFG_RD_TO_WR_DIFF_CHIP" value="5" />
   <parameter name="CTRL_DDRT_WR_TO_RD_SAME_CHIP_DELTA_CYCS" value="0" />
   <parameter name="MEM_RLD2_TQKQ_MAX_NS" value="0.12" />
   <parameter name="BOARD_LPDDR3_USE_DEFAULT_SLEW_RATES" value="true" />
@@ -7041,7 +7033,7 @@
   <parameter name="PORT_MEM_D_PINLOC_37" value="0" />
   <parameter name="PORT_MEM_D_PINLOC_36" value="0" />
   <parameter name="SEC_HMC_CFG_MPS_ZQCAL_DISABLE" value="disable" />
-  <parameter name="PRI_HMC_CFG_ACT_TO_ACT_DIFF_BANK" value="4" />
+  <parameter name="PRI_HMC_CFG_ACT_TO_ACT_DIFF_BANK" value="2" />
   <parameter name="CTRL_DDRT_UPI_EN" value="false" />
   <parameter name="PHY_QDR2_USER_CK_DEEMPHASIS_ENUM" value="unset" />
   <parameter name="PORT_AFI_LD_N_WIDTH" value="1" />
@@ -7106,7 +7098,7 @@
   <parameter name="PRI_HMC_CFG_BANK_ADDR_WIDTH" value="bank_width_2" />
   <parameter name="MEM_TTL_NUM_OF_WRITE_GROUPS" value="9" />
   <parameter name="PHY_DDR3_IO_VOLTAGE" value="1.5" />
-  <parameter name="PRI_HMC_CFG_RD_TO_PCH" value="6" />
+  <parameter name="PRI_HMC_CFG_RD_TO_PCH" value="3" />
   <parameter name="PRI_HMC_3DS_PR_STAG_ENABLE" value="disable" />
   <parameter name="MEM_LPDDR3_W_ODT0_4X4" value="on,on,on,on" />
   <parameter name="MEM_DDRT_DQ_WIDTH" value="72" />
@@ -7131,12 +7123,12 @@
   <parameter name="PHY_RLD3_DATA_OUT_SLEW_RATE_ENUM" value="unset" />
   <parameter name="PRI_HMC_CFG_DBC0_SLOT_ROTATE_EN" value="dbc0_disable" />
   <parameter name="MEM_DDR3_TRTP_CYC" value="8" />
-  <parameter name="SEC_HMC_CFG_SIDEBAND_OFFSET" value="1" />
+  <parameter name="SEC_HMC_CFG_SIDEBAND_OFFSET" value="3" />
   <parameter name="CTRL_ECC_EN" value="false" />
   <parameter
      name="DIAG_EXPORT_TG_CFG_AVALON_SLAVE"
      value="TG_CFG_AMM_EXPORT_MODE_EXPORT" />
-  <parameter name="SEC_HMC_CFG_DBC2_SLOT_OFFSET" value="2" />
+  <parameter name="SEC_HMC_CFG_DBC2_SLOT_OFFSET" value="3" />
   <parameter name="CTRL_DDRT_DIMM_VIRAL_FLOW_EN" value="false" />
   <parameter name="DIAG_RLD3_SEPARATE_READ_WRITE_ITFS" value="false" />
   <parameter name="DIAG_LPDDR3_AC_PARITY_ERR" value="false" />
@@ -7181,304 +7173,304 @@
   <parameter name="SEC_HMC_MEM_IF_RD_PREAMBLE" value="0" />
   <generatedFiles>
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_top.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_top.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_bufs.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_bufs.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_ufis.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_ufis.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_ufi_wrapper.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_ufi_wrapper.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_udir_se_i.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_udir_se_i.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_udir_se_o.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_udir_se_o.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_udir_df_i.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_udir_df_i.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_udir_df_o.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_udir_df_o.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_udir_cp_i.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_udir_cp_i.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_bdir_df.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_bdir_df.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_bdir_se.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_bdir_se.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_unused.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_unused.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_cal_counter.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_cal_counter.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_pll.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_pll.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_pll_fast_sim.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_pll_fast_sim.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_pll_extra_clks.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_pll_extra_clks.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_oct.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_oct.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_core_clks_rsts.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_core_clks_rsts.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_hps_clks_rsts.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_hps_clks_rsts.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_local_reset.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_local_reset.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_io_tiles_wrap.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_io_tiles_wrap.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_io_tiles.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_io_tiles.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_io_lane_remap.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_io_lane_remap.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_hmc_avl_if.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_hmc_avl_if.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_hmc_sideband_if.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_hmc_sideband_if.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_hmc_mmr_if.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_hmc_mmr_if.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_hmc_amm_data_if.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_hmc_amm_data_if.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_phylite_if.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_phylite_if.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_hmc_ast_data_if.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_hmc_ast_data_if.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_afi_if.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_afi_if.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_seq_if.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_seq_if.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_regs.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_regs.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_std_synchronizer_nocut.v"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_std_synchronizer_nocut.v"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_ip_parameters.dat"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_ip_parameters.dat"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_spice_files.zip"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_spice_files.zip"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_ip_parameters.tcl"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_ip_parameters.tcl"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_utils.tcl"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_utils.tcl"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_parameters.tcl"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_parameters.tcl"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_pin_map.tcl"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_pin_map.tcl"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_report_io_timing.tcl"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_report_io_timing.tcl"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_report_timing.tcl"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_report_timing.tcl"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_report_timing_core.tcl"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_report_timing_core.tcl"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca.sdc"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa.sdc"
        attributes="NO_AUTO_INSTANCE_DISCOVERY NO_SDC_PROMOTION" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_seq_params_synth.hex"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_seq_params_synth.hex"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_seq_params_synth.txt"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_seq_params_synth.txt"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_seq_params_sim.txt"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_seq_params_sim.txt"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_readme.txt"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_readme.txt"
        attributes="" />
   </generatedFiles>
   <childGeneratedFiles>
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_top.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_top.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_bufs.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_bufs.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_ufis.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_ufis.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_ufi_wrapper.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_ufi_wrapper.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_udir_se_i.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_udir_se_i.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_udir_se_o.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_udir_se_o.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_udir_df_i.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_udir_df_i.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_udir_df_o.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_udir_df_o.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_udir_cp_i.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_udir_cp_i.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_bdir_df.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_bdir_df.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_bdir_se.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_bdir_se.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_unused.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_buf_unused.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_cal_counter.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_cal_counter.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_pll.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_pll.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_pll_fast_sim.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_pll_fast_sim.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_pll_extra_clks.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_pll_extra_clks.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_oct.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_oct.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_core_clks_rsts.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_core_clks_rsts.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_hps_clks_rsts.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_hps_clks_rsts.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_local_reset.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_local_reset.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_io_tiles_wrap.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_io_tiles_wrap.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_io_tiles.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_io_tiles.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_io_lane_remap.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_io_lane_remap.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_hmc_avl_if.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_hmc_avl_if.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_hmc_sideband_if.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_hmc_sideband_if.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_hmc_mmr_if.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_hmc_mmr_if.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_hmc_amm_data_if.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_hmc_amm_data_if.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_phylite_if.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_phylite_if.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_hmc_ast_data_if.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_hmc_ast_data_if.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_afi_if.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_afi_if.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_seq_if.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_seq_if.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_regs.sv"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_emif_arch_fm_regs.sv"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_std_synchronizer_nocut.v"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/altera_std_synchronizer_nocut.v"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_ip_parameters.dat"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_ip_parameters.dat"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_spice_files.zip"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_spice_files.zip"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_ip_parameters.tcl"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_ip_parameters.tcl"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_utils.tcl"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_utils.tcl"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_parameters.tcl"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_parameters.tcl"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_pin_map.tcl"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_pin_map.tcl"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_report_io_timing.tcl"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_report_io_timing.tcl"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_report_timing.tcl"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_report_timing.tcl"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_report_timing_core.tcl"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_report_timing_core.tcl"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca.sdc"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa.sdc"
        attributes="NO_AUTO_INSTANCE_DISCOVERY NO_SDC_PROMOTION" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_seq_params_synth.hex"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_seq_params_synth.hex"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_seq_params_synth.txt"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_seq_params_synth.txt"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_seq_params_sim.txt"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_seq_params_sim.txt"
        attributes="" />
    <file
-       path="/tmp/alt9795_3934506111737966660.dir/0006_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_ws7gkca_readme.txt"
+       path="/tmp/alt0195_1216200961750319430.dir/0001_intel_rtile_cxl_top_0_gen/hardware_test_design/common/emif/altera_emif_arch_fm_191/synth/emif_altera_emif_arch_fm_191_uenu7qa_readme.txt"
        attributes="" />
   </childGeneratedFiles>
   <sourceFiles>
    <file
-       path="/research/quartus/v23.3/ip/altera/emif/ip_arch_fm/altera_emif_arch_fm_hw.tcl" />
+       path="/mnt/intelFPGA_pro/22.3/ip/altera/emif/ip_arch_fm/altera_emif_arch_fm_hw.tcl" />
   </sourceFiles>
   <childSourceFiles/>
-  <instantiator instantiator="emif_altera_emif_fm_272_dlxuzwy" as="arch" />
+  <instantiator instantiator="emif_altera_emif_fm_261_l3i6zza" as="arch" />
   <messages>
-   <message level="Info" culprit="emif">"Generating: emif_altera_emif_arch_fm_191_ws7gkca"</message>
+   <message level="Info" culprit="emif">"Generating: emif_altera_emif_arch_fm_191_uenu7qa"</message>
   </messages>
  </entity>
 </deploy>

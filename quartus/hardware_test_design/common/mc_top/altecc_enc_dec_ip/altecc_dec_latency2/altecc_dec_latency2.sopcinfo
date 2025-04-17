@@ -4,8 +4,8 @@
  kind="altecc_dec_latency2"
  version="1.0"
  fabric="QSYS">
- <!-- Format version 23.3 104 (Future versions may contain additional information.) -->
- <!-- 2024.03.13.17:46:20 -->
+ <!-- Format version 22.3 104 (Future versions may contain additional information.) -->
+ <!-- 2025.04.17.15:45:57 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
@@ -36,7 +36,7 @@
  </parameter>
  <parameter name="AUTO_DEVICE">
   <type>java.lang.String</type>
-  <value>AGIB027R29A1E2VR3</value>
+  <value>AGIB027R29A1E2VR0</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -72,9 +72,9 @@
  <module
    name="altecc_0"
    kind="altecc"
-   version="19.1.2"
-   entity="altecc_dec_latency2_altecc_1912_dp5dtly"
-   library="altecc_1912"
+   version="19.1.0"
+   entity="altecc_dec_latency2_altecc_1910_v36jjva"
+   library="altecc_1910"
    path="altecc_0"
    hpath="altecc_0"
    className="altecc">
@@ -129,14 +129,6 @@ the requested settings for a module instance. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <parameter name="ERR_BYPASS">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>false</visible>
-   <valid>true</valid>
-  </parameter>
   <parameter name="LPM_PIPELINE">
    <type>int</type>
    <value>2</value>
@@ -177,7 +169,7 @@ the requested settings for a module instance. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <interface name="data" kind="conduit_end" version="23.3">
+  <interface name="data" kind="conduit_end" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -230,7 +222,7 @@ parameters are a RESULT of the module parameters. -->
     <role>data</role>
    </port>
   </interface>
-  <interface name="q" kind="conduit_end" version="23.3">
+  <interface name="q" kind="conduit_end" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -287,7 +279,7 @@ parameters are a RESULT of the module parameters. -->
     <role>q</role>
    </port>
   </interface>
-  <interface name="err_corrected" kind="conduit_end" version="23.3">
+  <interface name="err_corrected" kind="conduit_end" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -344,7 +336,7 @@ parameters are a RESULT of the module parameters. -->
     <role>err_corrected</role>
    </port>
   </interface>
-  <interface name="err_detected" kind="conduit_end" version="23.3">
+  <interface name="err_detected" kind="conduit_end" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -401,7 +393,7 @@ parameters are a RESULT of the module parameters. -->
     <role>err_detected</role>
    </port>
   </interface>
-  <interface name="err_fatal" kind="conduit_end" version="23.3">
+  <interface name="err_fatal" kind="conduit_end" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -458,7 +450,7 @@ parameters are a RESULT of the module parameters. -->
     <role>err_fatal</role>
    </port>
   </interface>
-  <interface name="syn_e" kind="conduit_end" version="23.3">
+  <interface name="syn_e" kind="conduit_end" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -515,7 +507,7 @@ parameters are a RESULT of the module parameters. -->
     <role>syn_e</role>
    </port>
   </interface>
-  <interface name="clock" kind="conduit_end" version="23.3">
+  <interface name="clock" kind="conduit_end" version="22.3">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -575,7 +567,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>ALTECC Intel FPGA IP</displayName>
-  <version>19.1.2</version>
+  <version>19.1.0</version>
  </plugin>
  <plugin>
   <instanceCount>7</instanceCount>
@@ -583,8 +575,8 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
   <displayName>Conduit</displayName>
-  <version>23.3</version>
+  <version>22.3</version>
  </plugin>
- <reportVersion>23.3 104</reportVersion>
+ <reportVersion>22.3 104</reportVersion>
  <uniqueIdentifier></uniqueIdentifier>
 </EnsembleReport>

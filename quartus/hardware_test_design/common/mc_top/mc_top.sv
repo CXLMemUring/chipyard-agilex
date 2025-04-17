@@ -1,4 +1,4 @@
-// (C) 2001-2023 Intel Corporation. All rights reserved.
+// (C) 2001-2022 Intel Corporation. All rights reserved.
 // Your use of Intel Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files from any of the foregoing (including device programming or simulation 
@@ -11,7 +11,7 @@
 // agreement for further details.
 
 
-// Copyright 2023 Intel Corporation.
+// Copyright 2022 Intel Corporation.
 //
 // THIS SOFTWARE MAY CONTAIN PREPRODUCTION CODE AND IS PROVIDED BY THE
 // COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
@@ -28,28 +28,7 @@
 //
 ///////////////////////////////////////////////////////////////////////
 
-// 定义EXCLUDE_EMIF_CAL_TWO_CH宏，以便使用存根实现
-`define EXCLUDE_EMIF_CAL_TWO_CH
-
-// 定义SKIP_IP_PARAMS宏，跳过ip_params.vh包含
-`define SKIP_IP_PARAMS
-
-// 条件包含ip_params.vh
-`ifndef SKIP_IP_PARAMS
-`include "ip_params.vh"
-`endif
-
-// 删除此行，允许包含CXL定义
-// `define SKIP_CXL_DEFINES
-
-// 条件包含cxl_ed_defines.svh.iv
-`ifndef SKIP_CXL_DEFINES
-`include "cxl_ed_defines.svh.iv"
-`endif
-
 module mc_top
-  import mc_axi_if_pkg::*;
-  import mc_ecc_pkg::*;
 #(
    parameter MC_CHANNEL               = 2, // valid options are 1 and 2
 
@@ -103,15 +82,7 @@ module mc_top
    //   March 2022 - brining upt from mc_ecc.sv
    localparam ALTECC_CODEWORD_WIDTH   = 72,
    localparam AVMM_S_DATA_WIDTH       = 512,
-   localparam AVMM_M_DATA_WIDTH       = ALTECC_INST_NUMBER * ALTECC_CODEWORD_WIDTH,
-  
-   // Apirl 2023 - for axi2avmm bridge
-   parameter FULL_ADDR_MSB = 51,
-   parameter FULL_ADDR_LSB =  6,
-  
-   // June 2023 - Change for address aliasing for Zsc7
-   parameter CHAN_ADDR_MSB = 51,
-   parameter CHAN_ADDR_LSB =  6
+   localparam AVMM_M_DATA_WIDTH       = ALTECC_INST_NUMBER * ALTECC_CODEWORD_WIDTH
 )
 (
   input logic 				  eclk ,
@@ -119,38 +90,74 @@ module mc_top
 
   output logic [MEMSIZE_WIDTH-1:0] 	  mc2ha_memsize , // Size (in bytes) of memory exposed to BIOS (assigned constant value)
   output logic [MC_SR_STAT_WIDTH-1:0] 	  mc_sr_status_eclk [MC_CHANNEL-1:0], // Memory Controller Status
-  output  mc_ecc_pkg::mc_err_cnt_t  [MC_CHANNEL-1:0]                mc_err_cnt ,
- 
-  // April 2023 - Supporting out of order responses with AXI4
-   input mc_axi_if_pkg::t_to_mc_axi4   [MC_CHANNEL-1:0] iafu2mc_to_mc_axi4,
-  output mc_axi_if_pkg::t_from_mc_axi4 [MC_CHANNEL-1:0] mc2iafu_from_mc_axi4,
- 
-`ifdef HDM_SIM_CFG_USE_BASIC_MEM
-   output logic [EMIF_AMM_ADDR_WIDTH-1:0]    mem_address_rmw_mclk           [MC_CHANNEL-1:0];
- 
+
+      // == MC <--> iAFU signals ==
+  input  logic [MC_CHANNEL-1:0] 	  iafu2mc_read_eclk , // AVMM read request from iAFU
+  input  logic [MC_CHANNEL-1:0] 	  iafu2mc_write_eclk , // AVMM write request from iAFU
+  input  logic [MC_CHANNEL-1:0] 	  iafu2mc_write_poison_eclk , // AVMM write poison from iAFU
+  input  logic [MC_CHANNEL-1:0] 	  iafu2mc_write_ras_sbe_eclk , // AVMM write poison from iAFU
+  input  logic [MC_CHANNEL-1:0] 	  iafu2mc_write_ras_dbe_eclk , // AVMM write poison from iAFU
+  input  logic [MC_HA_DP_ADDR_WIDTH-1:0]  iafu2mc_address_eclk [MC_CHANNEL-1:0], // AVMM address from iAFU
+  input  logic [MC_MDATA_WIDTH-1:0] 	  iafu2mc_req_mdata_eclk [MC_CHANNEL-1:0], // AVMM reqeust MDATA  from iAFU
+  input  logic [MC_HA_DP_DATA_WIDTH-1:0]  iafu2mc_writedata_eclk [MC_CHANNEL-1:0], // AVMM write data from iAFU
+  input  logic [MC_HA_DP_BE_WIDTH-1:0] 	  iafu2mc_byteenable_eclk [MC_CHANNEL-1:0], // AVMM byte enable from iAFU
+
+  output logic [MC_CHANNEL-1:0]           mc2iafu_ready_eclk , // AVMM ready to iAFU
+  output logic [MC_HA_DP_DATA_WIDTH-1:0]  mc2iafu_readdata_eclk [MC_CHANNEL-1:0], // AVMM read data to iAFU
+  output logic [MC_MDATA_WIDTH-1:0] 	  mc2iafu_rsp_mdata_eclk [MC_CHANNEL-1:0], // AVMM response MDATA to iAFU
+  output logic [MC_CHANNEL-1:0] 	  mc2iafu_read_poison_eclk , //  width = 1,
+  output logic [MC_CHANNEL-1:0] 	  mc2iafu_readdatavalid_eclk , // AVMM read data valid to iAFU
+
+    // Error Correction Code (ECC)
+    // Note *ecc_err_* are valid when mc2iafu_ecc_err_valid_eclk == 1
+    // If both mc2iafu_readdatavalid_eclk == 1 and mc2iafu_ecc_err_valid_eclk == 1
+    //   then *ecc_err_* are related to mc2iafu_readdata_eclk
+    // If mc2iafu_readdatavalid_eclk == 0 and mc2iafu_ecc_err_valid_eclk == 1
+    //   then *ecc_err_* are related to partial write. "Partial write" functionality is realised as read-modify-write function.
+    //   Readdata for this read is kept internal (not visible on mc_top output), but ECC statuses are provided.
+  output logic [ALTECC_INST_NUMBER-1:0]    mc2iafu_ecc_err_corrected_eclk [MC_CHANNEL-1:0],
+  output logic [ALTECC_INST_NUMBER-1:0]    mc2iafu_ecc_err_detected_eclk [MC_CHANNEL-1:0],
+  output logic [ALTECC_INST_NUMBER-1:0]    mc2iafu_ecc_err_fatal_eclk [MC_CHANNEL-1:0],
+  output logic [ALTECC_INST_NUMBER-1:0]    mc2iafu_ecc_err_syn_e_eclk [MC_CHANNEL-1:0],
+  output logic [MC_CHANNEL-1:0] 	   mc2iafu_ecc_err_valid_eclk ,
+
+    // reqfifo
+  output logic [MC_CHANNEL-1:0] 	   reqfifo_full_eclk ,
+  output logic [MC_CHANNEL-1:0] 	   reqfifo_empty_eclk ,
+  output logic [REQFIFO_DEPTH_WIDTH-1:0]   reqfifo_fill_level_eclk [MC_CHANNEL-1:0],
+   
+`ifdef INCLUDE_CXLMEM_READY
+  output logic [MC_CHANNEL-1:0] 	   cxlmem_ready,
 `endif
 
-    // == DDR4 Interface ==
-   input logic [MC_CHANNEL-1:0] mem_refclk, // EMIF PLL reference clock	
-  output logic [MC_CHANNEL-1:0] mem_act_n,	
-  output logic [MC_CHANNEL-1:0] mem_reset_n,
-  output logic [MC_CHANNEL-1:0] mem_par,
-   input logic [MC_CHANNEL-1:0] mem_oct_rzqin,
-   input logic [MC_CHANNEL-1:0] mem_alert_n,	
-	
-  output logic [MC_CHANNEL-1:0][MC_HA_DDR4_CK_WIDTH-1:0]   mem_ck, // DDR4 interface signals
-  output logic [MC_CHANNEL-1:0][MC_HA_DDR4_CK_WIDTH-1:0]   mem_ck_n,
-  output logic [MC_CHANNEL-1:0][MC_HA_DDR4_ADDR_WIDTH-1:0] mem_a,
-  output logic [MC_CHANNEL-1:0][MC_HA_DDR4_BA_WIDTH-1:0]   mem_ba,
-  output logic [MC_CHANNEL-1:0][MC_HA_DDR4_BG_WIDTH-1:0]   mem_bg,
-  output logic [MC_CHANNEL-1:0][MC_HA_DDR4_CKE_WIDTH-1:0]  mem_cke,
-  output logic [MC_CHANNEL-1:0][MC_HA_DDR4_CS_WIDTH-1:0]   mem_cs_n,
-  output logic [MC_CHANNEL-1:0][MC_HA_DDR4_ODT_WIDTH-1:0]  mem_odt,
+    // rspfifo
+  output logic [MC_CHANNEL-1:0] 	   rspfifo_full_eclk ,
+  output logic [MC_CHANNEL-1:0] 	   rspfifo_empty_eclk ,
+  output logic [RSPFIFO_DEPTH_WIDTH-1:0]   rspfifo_fill_level_eclk [MC_CHANNEL-1:0],
 
-  inout wire [MC_CHANNEL-1:0][MC_HA_DDR4_DQS_WIDTH-1:0] mem_dqs,
-  inout wire [MC_CHANNEL-1:0][MC_HA_DDR4_DQS_WIDTH-1:0] mem_dqs_n,
-  inout wire [MC_CHANNEL-1:0][MC_HA_DDR4_DQ_WIDTH-1:0]  mem_dq,
-  inout wire [MC_CHANNEL-1:0][MC_HA_DDR4_DBI_WIDTH-1:0] mem_dbi_n
+    // == DDR4 Interface ==
+  input  logic [MC_CHANNEL-1:0] 	    mem_refclk , // EMIF PLL reference clock
+  output logic [MC_HA_DDR4_CK_WIDTH-1:0]    mem_ck [MC_CHANNEL-1:0], // DDR4 interface signals
+  output logic [MC_HA_DDR4_CK_WIDTH-1:0]    mem_ck_n [MC_CHANNEL-1:0],
+  output logic [MC_HA_DDR4_ADDR_WIDTH-1:0]  mem_a [MC_CHANNEL-1:0],
+  output logic [MC_CHANNEL-1:0] 	    mem_act_n ,
+  output logic [MC_HA_DDR4_BA_WIDTH-1:0]    mem_ba [MC_CHANNEL-1:0],
+  output logic [MC_HA_DDR4_BG_WIDTH-1:0]    mem_bg [MC_CHANNEL-1:0],
+  output logic [MC_HA_DDR4_CKE_WIDTH-1:0]   mem_cke [MC_CHANNEL-1:0],
+  output logic [MC_HA_DDR4_CS_WIDTH-1:0]    mem_cs_n [MC_CHANNEL-1:0],
+  output logic [MC_HA_DDR4_ODT_WIDTH-1:0]   mem_odt [MC_CHANNEL-1:0],
+  output logic [MC_CHANNEL-1:0] 	    mem_reset_n ,
+  output logic [MC_CHANNEL-1:0] 	    mem_par ,
+  input  logic [MC_CHANNEL-1:0] 	    mem_oct_rzqin ,
+  input  logic [MC_CHANNEL-1:0] 	    mem_alert_n ,
+
+  inout wire [MC_HA_DDR4_DQS_WIDTH-1:0]     mem_dqs [MC_CHANNEL-1:0],
+  inout wire [MC_HA_DDR4_DQS_WIDTH-1:0]     mem_dqs_n [MC_CHANNEL-1:0],
+  inout wire [MC_HA_DDR4_DQ_WIDTH-1:0] 	    mem_dq [MC_CHANNEL-1:0]
+`ifdef ENABLE_DDR_DBI_PINS
+ ,inout  wire  [MC_HA_DDR4_DBI_WIDTH-1:0]       mem_dbi_n      [MC_CHANNEL-1:0]
+`endif
+
 );
 
   /*  March 2022 -> signals added when moving Quartus IP modules up from mc_emif.sv
@@ -225,181 +232,6 @@ module mc_top
   logic [MC_CHANNEL-1:0]            rspfifo_full_mclk;
 
   logic [RST_REG_NUM-1:0]           emif_usr_reset_n_reg [MC_CHANNEL-1:0];
-  
-
-  // reqfifo
-  logic [MC_CHANNEL-1:0] 	        reqfifo_full_eclk;
-  logic [MC_CHANNEL-1:0] 	        reqfifo_empty_eclk;
-  logic [REQFIFO_DEPTH_WIDTH-1:0] reqfifo_fill_level_eclk [MC_CHANNEL-1:0];
- 
-  // rspfifo
-  logic [MC_CHANNEL-1:0] 	        rspfifo_full_eclk;
-  logic [MC_CHANNEL-1:0] 	        rspfifo_empty_eclk;
-  logic [RSPFIFO_DEPTH_WIDTH-1:0] rspfifo_fill_level_eclk [MC_CHANNEL-1:0];
-	
-`ifdef INCLUDE_CXLMEM_READY
-    logic [MC_CHANNEL-1:0] cxlmem_ready;
-`endif
-
-  mc_ecc_pkg::mc_devmem_if_t  [MC_CHANNEL-1:0]  mc_devmem_if, mc_devmem_if_tmgstg1_in, mc_devmem_if_tmgstg1_q;
-// ====================================================================================================================
-
-  // Add base signal declarations that are needed regardless of configuration
-  logic [MC_CHANNEL-1:0] mc2iafu_ready_eclk;
-  logic [MC_CHANNEL-1:0] iafu2mc_read_eclk;
-  logic [MC_CHANNEL-1:0] iafu2mc_write_eclk;
-  logic [MC_CHANNEL-1:0] iafu2mc_write_poison_eclk;
-  logic [MC_CHANNEL-1:0] iafu2mc_write_ras_sbe_eclk;
-  logic [MC_CHANNEL-1:0] iafu2mc_write_ras_dbe_eclk;
-  logic [MC_HA_DP_ADDR_WIDTH-1:0] iafu2mc_address_eclk [MC_CHANNEL-1:0];
-  logic [MC_MDATA_WIDTH-1:0] iafu2mc_req_mdata_eclk [MC_CHANNEL-1:0];
-  logic [MC_HA_DP_DATA_WIDTH-1:0] mc2iafu_readdata_eclk [MC_CHANNEL-1:0];
-  logic [MC_MDATA_WIDTH-1:0] mc2iafu_rsp_mdata_eclk [MC_CHANNEL-1:0];
-  logic [MC_HA_DP_DATA_WIDTH-1:0] iafu2mc_writedata_eclk [MC_CHANNEL-1:0];
-  logic [MC_HA_DP_BE_WIDTH-1:0] iafu2mc_byteenable_eclk [MC_CHANNEL-1:0];
-  logic [MC_CHANNEL-1:0] mc2iafu_read_poison_eclk;
-  logic [MC_CHANNEL-1:0] mc2iafu_readdatavalid_eclk;
-  
-  logic [ALTECC_INST_NUMBER-1:0] mc2iafu_ecc_err_corrected_eclk [MC_CHANNEL-1:0];
-  logic [ALTECC_INST_NUMBER-1:0] mc2iafu_ecc_err_detected_eclk [MC_CHANNEL-1:0];
-  logic [ALTECC_INST_NUMBER-1:0] mc2iafu_ecc_err_fatal_eclk [MC_CHANNEL-1:0];
-  logic [ALTECC_INST_NUMBER-1:0] mc2iafu_ecc_err_syn_e_eclk [MC_CHANNEL-1:0];
-  logic [MC_CHANNEL-1:0] mc2iafu_ecc_err_valid_eclk;
-
-/* April 2023 - support for out of order resposnes via AXI4
- */
-`ifndef T1IP
-  `ifdef OOORSP_MC_AXI2AVMM
-     // == MC <--> iAFU signals ==
-     logic [MC_CHANNEL-1:0] iafu2mc_read_eclk; // AVMM read request from iAFU
-     logic [MC_CHANNEL-1:0] iafu2mc_write_eclk; // AVMM write request from iAFU
-     logic [MC_CHANNEL-1:0] iafu2mc_write_poison_eclk; // AVMM write poison from iAFU
-     logic [MC_CHANNEL-1:0] iafu2mc_write_ras_sbe_eclk; // AVMM write poison from iAFU
-     logic [MC_CHANNEL-1:0] iafu2mc_write_ras_dbe_eclk; // AVMM write poison from iAFU
-   
-     logic [MC_CHANNEL-1:0] mc2iafu_ready_eclk; // AVMM ready to iAFU   
-     logic [MC_CHANNEL-1:0] mc2iafu_read_poison_eclk; //  width = 1,
-     logic [MC_CHANNEL-1:0] mc2iafu_readdatavalid_eclk; // AVMM read data valid to iAFU
-   
-     logic [MC_HA_DP_ADDR_WIDTH-1:0] iafu2mc_address_eclk    [MC_CHANNEL-1:0]; // AVMM address from iAFU
-     logic [MC_MDATA_WIDTH-1:0] 	 iafu2mc_req_mdata_eclk  [MC_CHANNEL-1:0]; // AVMM reqeust MDATA  from iAFU
-     logic [MC_HA_DP_DATA_WIDTH-1:0] iafu2mc_writedata_eclk  [MC_CHANNEL-1:0]; // AVMM write data from iAFU
-     logic [MC_HA_DP_BE_WIDTH-1:0]   iafu2mc_byteenable_eclk [MC_CHANNEL-1:0]; // AVMM byte enable from iAFU
-
-     logic [MC_HA_DP_DATA_WIDTH-1:0] mc2iafu_readdata_eclk  [MC_CHANNEL-1:0]; // AVMM read data to iAFU
-     logic [MC_MDATA_WIDTH-1:0]      mc2iafu_rsp_mdata_eclk [MC_CHANNEL-1:0]; // AVMM response MDATA to iAFU
-
-     // Error Correction Code (ECC)
-     // Note *ecc_err_* are valid when mc2iafu_ecc_err_valid_eclk == 1
-     // If both mc2iafu_readdatavalid_eclk == 1 and mc2iafu_ecc_err_valid_eclk == 1
-     //   then *ecc_err_* are related to mc2iafu_readdata_eclk
-     // If mc2iafu_readdatavalid_eclk == 0 and mc2iafu_ecc_err_valid_eclk == 1
-     //   then *ecc_err_* are related to partial write. "Partial write" functionality is realised as read-modify-write function.
-     //   Readdata for this read is kept internal (not visible on mc_top output), but ECC statuses are provided.
-     logic [ALTECC_INST_NUMBER-1:0] mc2iafu_ecc_err_corrected_eclk [MC_CHANNEL-1:0];
-     logic [ALTECC_INST_NUMBER-1:0] mc2iafu_ecc_err_detected_eclk  [MC_CHANNEL-1:0];
-     logic [ALTECC_INST_NUMBER-1:0] mc2iafu_ecc_err_fatal_eclk     [MC_CHANNEL-1:0];
-     logic [ALTECC_INST_NUMBER-1:0] mc2iafu_ecc_err_syn_e_eclk     [MC_CHANNEL-1:0];
-     logic [MC_CHANNEL-1:0] 	    mc2iafu_ecc_err_valid_eclk;
-
-     // convert to packed
-     logic [MC_CHANNEL-1:0][MC_HA_DP_ADDR_WIDTH-1:0]    address_eclk; // out of axi2avmm
-     logic [MC_CHANNEL-1:0][MC_MDATA_WIDTH-1:0]       req_mdata_eclk; // out of axi2avmm
-     logic [MC_CHANNEL-1:0][MC_HA_DP_DATA_WIDTH-1:0]  writedata_eclk; // out of axi2avmm
-     logic [MC_CHANNEL-1:0][MC_HA_DP_BE_WIDTH-1:0]   byteenable_eclk; // out of axi2avmm
-   
-     logic [MC_CHANNEL-1:0][MC_HA_DP_DATA_WIDTH-1:0]         readdata_eclk; // in to axi2avmm
-     logic [MC_CHANNEL-1:0][MC_MDATA_WIDTH-1:0]             rsp_mdata_eclk; // in to axi2avmm
-     //logic [MC_CHANNEL-1:0][REQFIFO_DEPTH_WIDTH-1:0] reqFifoFillLevel_eclk; // in to axi2avmm
-
-     logic [MC_CHANNEL-1:0][ALTECC_INST_NUMBER-1:0] ecc_err_corrected_eclk; // in to axi2avmm
-     logic [MC_CHANNEL-1:0][ALTECC_INST_NUMBER-1:0] ecc_err_detected_eclk;  // in to axi2avmm
-     logic [MC_CHANNEL-1:0][ALTECC_INST_NUMBER-1:0] ecc_err_fatal_eclk;     // in to axi2avmm
-     logic [MC_CHANNEL-1:0][ALTECC_INST_NUMBER-1:0] ecc_err_syn_e_eclk;     // in to axi2avmm
-
-     generate
-     begin : gen_packed_structs
-       always_comb
-       begin
-         for( integer mc = 0 ; mc < MC_CHANNEL ; mc=mc+1 )
-	     begin
-              iafu2mc_address_eclk[mc] =    address_eclk[mc];
-            iafu2mc_req_mdata_eclk[mc] =  req_mdata_eclk[mc];
-            iafu2mc_writedata_eclk[mc] =  writedata_eclk[mc];
-           iafu2mc_byteenable_eclk[mc] = byteenable_eclk[mc];
-
-		           readdata_eclk[mc] =   mc2iafu_readdata_eclk[mc];
-                  rsp_mdata_eclk[mc] =  mc2iafu_rsp_mdata_eclk[mc];
-           //reqFifoFillLevel_eclk[mc] = reqfifo_fill_level_eclk[mc];
-		 
-		   ecc_err_corrected_eclk[mc] = mc2iafu_ecc_err_corrected_eclk[mc];
-		    ecc_err_detected_eclk[mc] =  mc2iafu_ecc_err_detected_eclk[mc];
-		       ecc_err_fatal_eclk[mc] =     mc2iafu_ecc_err_fatal_eclk[mc];
-		       ecc_err_syn_e_eclk[mc] =     mc2iafu_ecc_err_syn_e_eclk[mc];
-	     end // end for
-       end   // end always
-     end     // end gen
-     endgenerate
-   
-   axi2avmm_bridge
-   #(
-     .NUM_MC_CHANS     ( MC_CHANNEL ),
-     .REQ_MDATA_BW     ( MC_MDATA_WIDTH ),
-     .DATA_BW          ( MC_HA_DP_DATA_WIDTH ),
-     .DATA_BE_BW       ( MC_HA_DP_BE_WIDTH ),
-     .FULL_ADDR_MSB    ( FULL_ADDR_MSB ),
-     .FULL_ADDR_LSB    ( FULL_ADDR_LSB ),
-     .CHAN_ADDR_MSB    ( CHAN_ADDR_MSB ),
-     .CHAN_ADDR_LSB    ( CHAN_ADDR_LSB ),
-     .REQFIFO_DEPTH_BW ( REQFIFO_DEPTH_WIDTH ),
-     .ALTECC_INST_BW   ( ALTECC_INST_NUMBER )   
-    )
-   inst_axi2avmm_bridge
-   (
-      .ip_clk   ( eclk ),
-      .ip_rst_n ( reset_n_eclk ),
-
-      /* AXI4 signals
-       */
-      .i_to_mc_axi4   ( iafu2mc_to_mc_axi4   ),
-      .o_from_mc_axi4 ( mc2iafu_from_mc_axi4 ),
-	  
-      /* AVMM signals to MC logic
-       */
-      .o_avmm_read          ( iafu2mc_read_eclk ),
-      .o_avmm_write         ( iafu2mc_write_eclk ),
-      .o_avmm_write_poison  ( iafu2mc_write_poison_eclk ),
-      .o_avmm_write_ras_sbe ( iafu2mc_write_ras_sbe_eclk ),
-      .o_avmm_write_ras_dbe ( iafu2mc_write_ras_dbe_eclk ),
-      .o_avmm_req_mdata     ( req_mdata_eclk ),
-      .o_avmm_writedata     ( writedata_eclk ),
-      .o_avmm_byteenable    ( byteenable_eclk ),
-      .o_avmm_address       ( address_eclk ),
-
-      /* AVMM signals from MC logic
-         Error Correction Code (ECC)
-         Note *ecc_err_* are valid when iafu2cxlip_readdatavalid_eclk is active
-       */
-	  `ifdef INCLUDE_CXLMEM_READY
-         .i_avmm_ready              ( cxlmem_ready ),	  
-	  `else
-	     .i_avmm_ready              ( mc2iafu_ready_eclk ),
-	  `endif
-
-      .i_avmm_read_poison        ( mc2iafu_read_poison_eclk ),
-      .i_avmm_ecc_err_valid      ( mc2iafu_ecc_err_valid_eclk ),
-      .i_avmm_readdatavalid      ( mc2iafu_readdatavalid_eclk ),
-      //.i_avmm_reqfifo_full       ( reqfifo_full_eclk ),
-      .i_avmm_rsp_mdata          ( rsp_mdata_eclk ),
-      .i_avmm_readdata           ( readdata_eclk ),
-      //.i_avmm_reqfifo_fill_level ( reqFifoFillLevel_eclk ),
-      .i_avmm_ecc_err_corrected  ( ecc_err_corrected_eclk ),
-      .i_avmm_ecc_err_syn_e      ( ecc_err_syn_e_eclk ),
-      .i_avmm_ecc_err_fatal      ( ecc_err_fatal_eclk ),
-      .i_avmm_ecc_err_detected   ( ecc_err_detected_eclk )
-   );
-  `endif
-`endif
 
   /*  March 2022 -> signals added when moving Quartus IP modules up from mc_ecc.sv
   */
@@ -531,19 +363,10 @@ module mc_top
   end   // for( genvar chanCount = 0; chanCount < MC_CHANNEL; chanCount=chanCount+1 )
   endgenerate   // generate for channel adapter
 
-  // ==============================================================================================
-  `ifndef INCLUDE_CXLMEM_READY
-     logic [MC_CHANNEL-1:0] reqfifo_full_eclk_tmp;
-  `endif
-  
   generate  // generate for reqfifo and rspfifo
   for( genvar chanCount = 0; chanCount < MC_CHANNEL; chanCount=chanCount+1 )
   begin : GEN_CHAN_COUNT_REG_RSP_FIFO
-    
-    `ifndef INCLUDE_CXLMEM_READY
-       assign reqfifo_full_eclk[chanCount] = reqfifo_full_eclk_tmp[chanCount] | ( reqfifo_wrusedw_eclk[chanCount] >= 'd62 );
-    `endif
-	   
+
     //width = 640; depth=64
     reqfifo  reqfifo_inst
     (
@@ -556,13 +379,7 @@ module mc_top
        .q       ( reqfifo_data_out_mclk[chanCount] ), //  output, width = 640, fifo_output.dataout
        .wrusedw ( reqfifo_wrusedw_eclk[chanCount]  ), //  output, width = 6,              .wrusedw
        .rdempty ( reqfifo_empty_mclk[chanCount]    ), //  output, width = 1,              .rdempty
-	 
-	   `ifdef INCLUDE_CXLMEM_READY
-         .wrfull  ( reqfifo_full_eclk[chanCount]     ), //  output, width = 1,              .wrfull
-	   `else
-	     .wrfull  ( reqfifo_full_eclk_tmp[chanCount] ),
-	   `endif
-	 
+       .wrfull  ( reqfifo_full_eclk[chanCount]     ), //  output, width = 1,              .wrfull
        .wrempty ( reqfifo_empty_eclk[chanCount]    )  //  output, width = 1,              .wrempty
     );
  
@@ -748,11 +565,10 @@ module mc_top
     end          // end GEN_ECC_DEC_LATENCY_2
   endgenerate    // generate for ecc dec latency 1-2
 
-///////////////////////////////       March 2022 - modules that were down in mc_emif.sv but moved up for mpib branch
-`ifndef REVB_DEVKIT
-  
-  generate for( genvar chanCount = 0; chanCount < MC_CHANNEL; chanCount=chanCount+1 )
-  begin : GEN_CHAN_COUNT_EMIF
+  ///////////////////////////////       March 2022 - modules that were down in mc_emif.sv but moved up for mpib branch
+  generate
+    for( genvar chanCount = 0; chanCount < MC_CHANNEL; chanCount=chanCount+1 )
+    begin : GEN_CHAN_COUNT_EMIF
         //    assign mc_chan_memsize[chanCount] = 64'h20_0000_0000;  // 128 GB
         //    assign mc_chan_memsize[chanCount] = 64'h8_0000_0000;  // 32 GB
         //    assign mc_chan_memsize[chanCount] = 64'h2_0000_0000;  // 8 GB
@@ -777,10 +593,11 @@ module mc_top
            .mem_dqs              (mem_dqs[chanCount]       ),        //   inout,     width = 9,                   .mem_dqs
            .mem_dqs_n            (mem_dqs_n[chanCount]     ),        //   inout,     width = 9,                   .mem_dqs_n
            .mem_dq               (mem_dq[chanCount]        ),        //   inout,    width = 72,                   .mem_dq
-           .mem_dbi_n            (mem_dbi_n[chanCount]     ),        //   inout,     width = 9,                   .mem_dbi_n
-
+ `ifdef ENABLE_DDR_DBI_PINS
+           .mem_dbi_n            (mem_dbi_n[chanCount]),                                    //   inout,     width = 9,                   .mem_dbi_n
+ `endif
            .pll_ref_clk          (mem_refclk[chanCount]      ),      //   input,     width = 1,        pll_ref_clk.clk
-           .pll_ref_clk_out      (pll_ref_clk_out[chanCount] ),      //  output,     width = 1,    pll_ref_clk_out.clk
+          // .pll_ref_clk_out      (pll_ref_clk_out[chanCount] ),      //  output,     width = 1,    pll_ref_clk_out.clk
            .pll_locked           (pll_locked[chanCount]      ),      //  output,     width = 1,         pll_locked.pll_locked
 
            .local_reset_req      (1'b0),                             //   input,     width = 1,    local_reset_req.local_reset_req
@@ -796,134 +613,9 @@ module mc_top
            .amm_address_0        (emif_amm_address[chanCount]       ),    //   input,    width = 27,                   .address
            .amm_writedata_0      (emif_amm_writedata[chanCount]     ),    //   input,   width = 576,                   .writedata
            .amm_burstcount_0     (emif_amm_burstcount[chanCount]    ),    //   input,     width = 7,                   .burstcount
-           .amm_byteenable_0     (emif_amm_byteenable[chanCount]    ),    //   input,    width = 72,                   .byteenable
-           .amm_ready_0          (emif_amm_ready[chanCount]         ),    //  output,     width = 1,         ctrl_amm_0.waitrequest_n
-           .amm_readdata_0       (emif_amm_readdata[chanCount]      ),    //  output,   width = 576,                   .readdata
-           .amm_readdatavalid_0  (emif_amm_readdatavalid[chanCount] ),    //  output,     width = 1,                   .readdatavalid
-
-           .calbus_read          (calbus_read[chanCount]          ),  //   input,     width = 1,        emif_calbus.calbus_read
-           .calbus_write         (calbus_write[chanCount]         ),  //   input,     width = 1,                   .calbus_write
-           .calbus_address       (calbus_address[chanCount]       ),  //   input,    width = 20,                   .calbus_address
-           .calbus_wdata         (calbus_wdata[chanCount]         ),  //   input,    width = 32,                   .calbus_wdata
-           .calbus_clk           (calbus_clk                      ),  //   input,     width = 1,    emif_calbus_clk.clk
-           .calbus_rdata         (calbus_rdata[chanCount]         ),  //  output,    width = 32,                   .calbus_rdata
-           .calbus_seq_param_tbl (calbus_seq_param_tbl[chanCount] )   //  output,  width = 4096,                   .calbus_seq_param_tbl
-        );
-  end
-  endgenerate
-
-`else  // ifndef REVB_DEVKIT
-
-  generate for( genvar chanCount = 0; chanCount < MC_CHANNEL; chanCount=chanCount+1 )
-  begin : GEN_CHAN_COUNT_EMIF
-    //    assign mc_chan_memsize[chanCount] = 64'h20_0000_0000;  // 128 GB
-    //    assign mc_chan_memsize[chanCount] = 64'h8_0000_0000;  // 32 GB
-    //    assign mc_chan_memsize[chanCount] = 64'h2_0000_0000;  // 8 GB
-    // == memory channel size in bytes (assuming 512 bit words, not counting 64 ECC bits) ==
-    assign mc_chan_memsize[chanCount] = 2**EMIF_AMM_ADDR_WIDTH << 6;  // shift left by 6 as each row has 64 bytes
-    
-    if (chanCount == 0)
-    begin: NON_HPS_MEM
-
-        emif   emif_inst 
-        (
-           .oct_rzqin            (mem_oct_rzqin[chanCount] ),        //   input,     width = 1,                oct.oct_rzqin
-           .mem_ck               (mem_ck[chanCount]        ),        //  output,     width = 1,                mem.mem_ck
-           .mem_ck_n             (mem_ck_n[chanCount]      ),        //  output,     width = 1,                   .mem_ck_n
-           .mem_a                (mem_a[chanCount]         ),        //  output,    width = 17,                   .mem_a
-           .mem_act_n            (mem_act_n[chanCount]     ),        //  output,     width = 1,                   .mem_act_n
-           .mem_ba               (mem_ba[chanCount]        ),        //  output,     width = 2,                   .mem_ba
-           .mem_bg               (mem_bg[chanCount]        ),        //  output,     width = 2,                   .mem_bg
-           .mem_cke              (mem_cke[chanCount]       ),        //  output,     width = 2,                   .mem_cke
-           .mem_cs_n             (mem_cs_n[chanCount]      ),        //  output,     width = 2,                   .mem_cs_n
-           .mem_odt              (mem_odt[chanCount]       ),        //  output,     width = 2,                   .mem_odt
-           .mem_reset_n          (mem_reset_n[chanCount]   ),        //  output,     width = 1,                   .mem_reset_n
-           .mem_par              (mem_par[chanCount]       ),        //  output,     width = 1,                   .mem_par
-           .mem_alert_n          (mem_alert_n[chanCount]   ),        //   input,     width = 1,                   .mem_alert_n
-           .mem_dqs              (mem_dqs[chanCount]       ),        //   inout,     width = 9,                   .mem_dqs
-           .mem_dqs_n            (mem_dqs_n[chanCount]     ),        //   inout,     width = 9,                   .mem_dqs_n
-           .mem_dq               (mem_dq[chanCount]        ),        //   inout,    width = 72,                   .mem_dq
-         `ifdef ENABLE_DDR_DBI_PINS
-           .mem_dbi_n            (mem_dbi_n[chanCount]),                                    //   inout,     width = 9,                   .mem_dbi_n
-         `endif
-           .pll_ref_clk          (mem_refclk[chanCount]      ),      //   input,     width = 1,        pll_ref_clk.clk
-           .pll_ref_clk_out      (pll_ref_clk_out[chanCount] ),      //  output,     width = 1,    pll_ref_clk_out.clk
-           .pll_locked           (pll_locked[chanCount]      ),      //  output,     width = 1,         pll_locked.pll_locked
-
-           .local_reset_req      (1'b0),                             //   input,     width = 1,    local_reset_req.local_reset_req
-           .local_reset_done     (local_reset_done[chanCount]  ),    //  output,     width = 1, local_reset_status.local_reset_done
-           .local_cal_success    (local_cal_success[chanCount] ),    //  output,     width = 1,             status.local_cal_success
-           .local_cal_fail       (local_cal_fail[chanCount]    ),    //  output,     width = 1,                   .local_cal_fail
-
-           .emif_usr_reset_n     (emif_usr_reset_n[chanCount]  ),    //  output,     width = 1,   emif_usr_reset_n.reset_n
-           .emif_usr_clk         (emif_usr_clk[chanCount]      ),    //  output,     width = 1,       emif_usr_clk.clk
-
-           .amm_read_0           (emif_amm_read[chanCount]          ),    //   input,     width = 1,                   .read
-           .amm_write_0          (emif_amm_write[chanCount]         ),    //   input,     width = 1,                   .write
-           .amm_address_0        (emif_amm_address[chanCount]       ),    //   input,    width = 27,                   .address
-           .amm_writedata_0      (emif_amm_writedata[chanCount]     ),    //   input,   width = 576,                   .writedata
-           .amm_burstcount_0     (emif_amm_burstcount[chanCount]    ),    //   input,     width = 7, 
-         `ifdef ENABLE_DDR_DBI_PINS
+ `ifdef ENABLE_DDR_DBI_PINS
            .amm_byteenable_0     (emif_amm_byteenable[chanCount]),          //   input,    width = 72,                   .byteenable
-         `endif          
-           .amm_ready_0          (emif_amm_ready[chanCount]         ),    //  output,     width = 1,         ctrl_amm_0.waitrequest_n
-           .amm_readdata_0       (emif_amm_readdata[chanCount]      ),    //  output,   width = 576,                   .readdata
-           .amm_readdatavalid_0  (emif_amm_readdatavalid[chanCount] ),    //  output,     width = 1,                   .readdatavalid
-
-           .calbus_read          (calbus_read[chanCount]          ),  //   input,     width = 1,        emif_calbus.calbus_read
-           .calbus_write         (calbus_write[chanCount]         ),  //   input,     width = 1,                   .calbus_write
-           .calbus_address       (calbus_address[chanCount]       ),  //   input,    width = 20,                   .calbus_address
-           .calbus_wdata         (calbus_wdata[chanCount]         ),  //   input,    width = 32,                   .calbus_wdata
-           .calbus_clk           (calbus_clk                      ),  //   input,     width = 1,    emif_calbus_clk.clk
-           .calbus_rdata         (calbus_rdata[chanCount]         ),  //  output,    width = 32,                   .calbus_rdata
-           .calbus_seq_param_tbl (calbus_seq_param_tbl[chanCount] )   //  output,  width = 4096,                   .calbus_seq_param_tbl
-        );
-
-    end
-    if (chanCount == 1)
-    begin : HPS_MEM
-
-		emif2   emif_inst_2 
-        (
-           .oct_rzqin            (mem_oct_rzqin[chanCount] ),        //   input,     width = 1,                oct.oct_rzqin
-           .mem_ck               (mem_ck[chanCount]        ),        //  output,     width = 1,                mem.mem_ck
-           .mem_ck_n             (mem_ck_n[chanCount]      ),        //  output,     width = 1,                   .mem_ck_n
-           .mem_a                (mem_a[chanCount]         ),        //  output,    width = 17,                   .mem_a
-           .mem_act_n            (mem_act_n[chanCount]     ),        //  output,     width = 1,                   .mem_act_n
-           .mem_ba               (mem_ba[chanCount]        ),        //  output,     width = 2,                   .mem_ba
-           .mem_bg               (mem_bg[chanCount]        ),        //  output,     width = 2,                   .mem_bg
-           .mem_cke              (mem_cke[chanCount]       ),        //  output,     width = 2,                   .mem_cke
-           .mem_cs_n             (mem_cs_n[chanCount]      ),        //  output,     width = 2,                   .mem_cs_n
-           .mem_odt              (mem_odt[chanCount]       ),        //  output,     width = 2,                   .mem_odt
-           .mem_reset_n          (mem_reset_n[chanCount]   ),        //  output,     width = 1,                   .mem_reset_n
-           .mem_par              (mem_par[chanCount]       ),        //  output,     width = 1,                   .mem_par
-           .mem_alert_n          (mem_alert_n[chanCount]   ),        //   input,     width = 1,                   .mem_alert_n
-           .mem_dqs              (mem_dqs[chanCount]       ),        //   inout,     width = 9,                   .mem_dqs
-           .mem_dqs_n            (mem_dqs_n[chanCount]     ),        //   inout,     width = 9,                   .mem_dqs_n
-           .mem_dq               (mem_dq[chanCount]        ),        //   inout,    width = 72,                   .mem_dq
-         `ifdef ENABLE_DDR_DBI_PINS
-           .mem_dbi_n            (mem_dbi_n[chanCount]),                                    //   inout,     width = 9,                   .mem_dbi_n
-         `endif
-           .pll_ref_clk          (mem_refclk[chanCount]      ),      //   input,     width = 1,        pll_ref_clk.clk
-           //.pll_ref_clk_out      (pll_ref_clk_out[chanCount] ),      //  output,     width = 1,    pll_ref_clk_out.clk
-           .pll_locked           (pll_locked[chanCount]      ),      //  output,     width = 1,         pll_locked.pll_locked
-
-           .local_reset_req      (1'b0),                             //   input,     width = 1,    local_reset_req.local_reset_req
-           .local_reset_done     (local_reset_done[chanCount]  ),    //  output,     width = 1, local_reset_status.local_reset_done
-           .local_cal_success    (local_cal_success[chanCount] ),    //  output,     width = 1,             status.local_cal_success
-           .local_cal_fail       (local_cal_fail[chanCount]    ),    //  output,     width = 1,                   .local_cal_fail
-
-           .emif_usr_reset_n     (emif_usr_reset_n[chanCount]  ),    //  output,     width = 1,   emif_usr_reset_n.reset_n
-           .emif_usr_clk         (emif_usr_clk[chanCount]      ),    //  output,     width = 1,       emif_usr_clk.clk
-
-           .amm_read_0           (emif_amm_read[chanCount]          ),    //   input,     width = 1,                   .read
-           .amm_write_0          (emif_amm_write[chanCount]         ),    //   input,     width = 1,                   .write
-           .amm_address_0        (emif_amm_address[chanCount]       ),    //   input,    width = 27,                   .address
-           .amm_writedata_0      (emif_amm_writedata[chanCount]     ),    //   input,   width = 576,                   .writedata
-           .amm_burstcount_0     (emif_amm_burstcount[chanCount]    ),    //   input,     width = 7, 
-         `ifdef ENABLE_DDR_DBI_PINS
-           .amm_byteenable_0     (emif_amm_byteenable[chanCount]),          //   input,    width = 72,                   .byteenable
-         `endif          
+ `endif          
            .amm_ready_0          (emif_amm_ready[chanCount]         ),    //  output,     width = 1,         ctrl_amm_0.waitrequest_n
            .amm_readdata_0       (emif_amm_readdata[chanCount]      ),    //  output,   width = 576,                   .readdata
            .amm_readdatavalid_0  (emif_amm_readdatavalid[chanCount] ),    //  output,     width = 1,                   .readdatavalid
@@ -937,13 +629,11 @@ module mc_top
            .calbus_seq_param_tbl (calbus_seq_param_tbl[chanCount] )   //  output,  width = 4096,                   .calbus_seq_param_tbl
         );
     end
-  end
   endgenerate
 
-`endif  // ifndef REVB_DEVKIT
-
-generate if (MC_CHANNEL == 1) 
-begin : GEN_CAL_ONE_MEM_CHANNEL
+  generate
+    if (MC_CHANNEL == 1) 
+    begin : GEN_CAL_ONE_MEM_CHANNEL
         emif_cal_one_ch  emif_cal_one_ch_inst 
         (
             .calbus_clk             (calbus_clk              ),  //  output,     width = 1, emif_calbus_clk.clk
@@ -954,10 +644,8 @@ begin : GEN_CAL_ONE_MEM_CHANNEL
             .calbus_rdata_0         (calbus_rdata[0]         ),  //   input,    width = 32,                .calbus_rdata
             .calbus_seq_param_tbl_0 (calbus_seq_param_tbl[0] )   //   input,  width = 4096,                .calbus_seq_param_tbl
         );
-end
-else begin : GEN_CAL_TWO_MEM_CHANNELS
-        // 使用条件编译，以便可以通过定义EXCLUDE_EMIF_CAL_TWO_CH来排除这段代码
-        `ifndef EXCLUDE_EMIF_CAL_TWO_CH
+    end
+    else begin : GEN_CAL_TWO_MEM_CHANNELS
         emif_cal_two_ch  emif_cal_two_ch_inst 
         (
             .calbus_clk             (calbus_clk              ),  //  output,     width = 1, emif_calbus_clk.clk
@@ -976,109 +664,8 @@ else begin : GEN_CAL_TWO_MEM_CHANNELS
             .calbus_rdata_1         (calbus_rdata[1]         ),  //   input,    width = 32,                .calbus_rdata
             .calbus_seq_param_tbl_1 (calbus_seq_param_tbl[1] )   //   input,  width = 4096,                .calbus_seq_param_tbl
         );
-        `else
-        // 存根实现，仅连接信号以满足接口需求
-        assign calbus_read[0] = 1'b0;
-        assign calbus_write[0] = 1'b0;
-        assign calbus_address[0] = '0;
-        assign calbus_wdata[0] = '0;
-        
-        assign calbus_read[1] = 1'b0;
-        assign calbus_write[1] = 1'b0;
-        assign calbus_address[1] = '0;
-        assign calbus_wdata[1] = '0;
-        `endif
     end
   endgenerate
 
 
-
-//------------------------
-//   SBE/DBE CNT 
-//------------------------
-//
-
-
-  //--------------------------------------------------------------------
-  // DDR Memory Controller Interface
-  //--------------------------------------------------------------------
-
-  always_comb begin
-    for (int i=0; i<MC_CHANNEL; i++) begin
-      {mc_devmem_if_tmgstg1_in[i].RdData.Data.Data1, mc_devmem_if_tmgstg1_in[i].RdData.Data.Data0} = mc2iafu_readdata_eclk[i];
-      mc_devmem_if_tmgstg1_in[i].RdData.Poison        = mc2iafu_read_poison_eclk[i];
-      mc_devmem_if_tmgstg1_in[i].RdData.MetaField     = mc_ecc_pkg::M2S_METAFIELD_NOOP;
-      mc_devmem_if_tmgstg1_in[i].RdData.MetaValue     = mc_ecc_pkg::M2S_METAVALUE_INVALID;
-      mc_devmem_if_tmgstg1_in[i].RdData.EventTriggerB = '0;
-      mc_devmem_if_tmgstg1_in[i].RdDataECC.SBE        = mc2iafu_ecc_err_corrected_eclk[i] | mc2iafu_ecc_err_syn_e_eclk[i];
-      mc_devmem_if_tmgstg1_in[i].RdDataECC.DBE        = mc2iafu_ecc_err_fatal_eclk[i];
-      mc_devmem_if_tmgstg1_in[i].RdDataECC.Valid      = mc2iafu_ecc_err_valid_eclk[i];
-      mc_devmem_if_tmgstg1_in[i].RdDataValid          = mc2iafu_readdatavalid_eclk[i];
-      mc_devmem_if_tmgstg1_in[i].McReady              = mc2iafu_ready_eclk[i];  // ~ReqFifoFull & RamInitDone
-      mc_devmem_if_tmgstg1_in[i].CdcWrFifoUsedW       = {1'b0, reqfifo_fill_level_eclk[i]};
-      mc_devmem_if_tmgstg1_in[i].CdcWrFifoFull        = reqfifo_full_eclk[i];
-      mc_devmem_if_tmgstg1_in[i].CdcWrFifoEmpty       = reqfifo_empty_eclk[i];
-      mc_devmem_if_tmgstg1_in[i].cxlmem_ready         = cxlmem_ready[i];  // user defined & controlled memory controller ready flag
-    end
-  end
-  // Add register stage for timing
-  always_ff @(posedge eclk) begin
-    mc_devmem_if_tmgstg1_q <= mc_devmem_if_tmgstg1_in;
-  end
-
-  assign mc_devmem_if = mc_devmem_if_tmgstg1_q;
-
-
-    for (genvar numb=0; numb < MC_CHANNEL; numb++) begin : NumDev
-   
-       	    mc_devmem_top  mc_devmem_top_inst 
-        (
-            .clk             (eclk     ),  
-            .rst             (~reset_n_eclk     ),  
-            .mc_devmem_if    (mc_devmem_if[numb ]     ),  
-            .mc_err_cnt      (mc_err_cnt[numb] )   
-    );
-
-    end
-
-
-
-
-
-
 endmodule
-
-// 添加emif_cal_two_ch的存根模块定义
-// 这个模块将作为缺失IP核的替代品
-`ifndef NO_STUB_MODULE
-module emif_cal_two_ch (
-    output wire             calbus_clk,
-
-    output wire             calbus_read_0,
-    output wire             calbus_write_0,
-    output wire [19:0]      calbus_address_0,
-    output wire [31:0]      calbus_wdata_0,
-    input  wire [31:0]      calbus_rdata_0,
-    input  wire [4095:0]    calbus_seq_param_tbl_0,
-
-    output wire             calbus_read_1,
-    output wire             calbus_write_1,
-    output wire [19:0]      calbus_address_1,
-    output wire [31:0]      calbus_wdata_1,
-    input  wire [31:0]      calbus_rdata_1,
-    input  wire [4095:0]    calbus_seq_param_tbl_1
-);
-    // 简单的存根实现
-    assign calbus_clk = 1'b0;
-    
-    assign calbus_read_0 = 1'b0;
-    assign calbus_write_0 = 1'b0;
-    assign calbus_address_0 = '0;
-    assign calbus_wdata_0 = '0;
-    
-    assign calbus_read_1 = 1'b0;
-    assign calbus_write_1 = 1'b0;
-    assign calbus_address_1 = '0;
-    assign calbus_wdata_1 = '0;
-endmodule
-`endif

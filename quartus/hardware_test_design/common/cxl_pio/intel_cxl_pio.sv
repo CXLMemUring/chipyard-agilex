@@ -1,4 +1,4 @@
-// (C) 2001-2023 Intel Corporation. All rights reserved.
+// (C) 2001-2022 Intel Corporation. All rights reserved.
 // Your use of Intel Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files from any of the foregoing (including device programming or simulation 
@@ -12,7 +12,7 @@
 
 
 
-// (C) 2001-2023 Intel Corporation. All rights reserved.
+// (C) 2001-2022 Intel Corporation. All rights reserved.
 // Your use of Intel Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files from any of the foregoing (including device programming or simulation 
@@ -28,12 +28,13 @@
 //----------------------------------------------------------------------------- 
 //  Project Name:  intel_cxl 
 //  Module Name :  intel_cxl_pio                                 
+//  Author      :  ochittur                                   
 //  Date        :  Aug 22, 2022                                 
 //  Description :  PIO top file
 //-----------------------------------------------------------------------------
 
 module intel_cxl_pio  # (
-     parameter DEVICE_FAMILY   = "Agilex",
+     parameter DEVICE_FAMILY   = "Stratix 10",
      parameter PFNUM_WIDTH = 2,
      parameter VFNUM_WIDTH = 12,
      parameter BAM_DATAWIDTH = 1024,
@@ -107,7 +108,6 @@ module intel_cxl_pio  # (
      output             bam_txc_valid_o,        // From bam_sch_intf_inst of intel_pcie_bam_sch_intf.v
      output             bam_txc_vfactive_o,     // From bam_sch_intf_inst of intel_pcie_bam_sch_intf.v
      output [VFNUM_WIDTH-1:0] bam_txc_vfnum_o,  // From bam_sch_intf_inst of intel_pcie_bam_sch_intf.v
-     output logic           	  pio_to_send_cpl, //pio about to send output
      output             bam_vfactive_o,         // From bam_avmm_intf_inst of intel_pcie_bam_avmm_intf.v
      output [VFNUM_WIDTH-1:0] bam_vfnum_o,      // From bam_avmm_intf_inst of intel_pcie_bam_avmm_intf.v
      output             bam_write_o,            // From bam_avmm_intf_inst of intel_pcie_bam_avmm_intf.v
@@ -122,17 +122,17 @@ module intel_cxl_pio  # (
      output logic          for_rxcrdt_hdr_is_rd_o,
      output logic          for_rxcrdt_hdr_is_wr_o,
 //==new ports
-    output logic           tx_hdr_fifo_rreq_o ,
-    input logic           tx_hdr_fifo_empty_i ,
-    input logic   [96:0]     tx_hdr_fifo_rdata_i ,  
-    output logic  [8:0]   cplram_rd_addr_o ,
-    input logic   [BAM_DATAWIDTH+1:0]  cplram_rd_data_i ,
-    input logic           cpl_cmd_fifo_rdreq_i ,
-    output logic   [80:0]        cpl_cmd_fifo_rddata_o ,
-    output logic           cpl_cmd_fifo_empty_o ,
-    input logic           cpl_ram_rdreq_i ,
-    output logic           avmm_read_data_valid_o,
-    output logic   [BAM_DATAWIDTH:0]        cplram_read_data_o 
+output logic           tx_hdr_fifo_rreq_o ,
+ input logic           tx_hdr_fifo_empty_i ,
+input logic   [96:0]     tx_hdr_fifo_rdata_i ,  
+output logic  [8:0]   cplram_rd_addr_o ,
+input logic   [BAM_DATAWIDTH+1:0]  cplram_rd_data_i ,
+input logic           cpl_cmd_fifo_rdreq_i ,
+output logic   [80:0]        cpl_cmd_fifo_rddata_o ,
+output logic           cpl_cmd_fifo_empty_o ,
+input logic           cpl_ram_rdreq_i ,
+output logic           avmm_read_data_valid_o,
+output logic   [BAM_DATAWIDTH:0]        cplram_read_data_o 
 
 
 
@@ -217,7 +217,6 @@ logic           write_done;
     .bam_txc_vfactive_o(bam_txc_vfactive_o ),
     .bam_txc_pfnum_o(bam_txc_pfnum_o ),
     .bam_txc_vfnum_o(bam_txc_vfnum_o),   
-    .pio_to_send_cpl(pio_to_send_cpl),
     .valid_eop_o(rx_valid_eop),
     .max_payload_size_i(dev_mps),
     .for_rxcrdt_tlp_len_o(for_rxcrdt_tlp_len_o),        //For rx credit interface
