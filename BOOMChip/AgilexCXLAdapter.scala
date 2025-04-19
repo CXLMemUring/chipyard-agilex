@@ -2,12 +2,12 @@ package chipyard
 
 import chisel3._
 import chisel3.util._
-import org.chipsalliance.config.{Parameters, Field}
-import org.chipsalliance.diplomacy._
-import org.chipsalliance.tilelink._
-import org.chipsalliance.amba.axi4._
-import org.chipsalliance.subsystem.{MBUS}
-import org.chipsalliance.devices.tilelink._
+import org.chipsalliance.cde.config.{Config, Field, Parameters}
+import freechips.rocketchip.diplomacy._
+import freechips.rocketchip.tilelink._
+import freechips.rocketchip.amba.axi4._
+import freechips.rocketchip.subsystem.{BaseSubsystem, HasTileLinkLocations, MBUS}
+import freechips.rocketchip.devices.tilelink._
 
 // Parameters specific to Intel Agilex CXL IP
 case class AgilexCXLParams(
@@ -77,8 +77,3 @@ trait CanHaveAgilexCXL { this: BaseSubsystem =>
   cxlAdapter.node := mbusWrapper.outwardNode
 }
 
-// Function to create a configuration with CXL support
-class WithAgilexCXL(params: AgilexCXLParams = AgilexCXLParams()) extends Config((site, here, up) => {
-  case AgilexCXLKey => params
-  case BuildSystem => (p: Parameters) => new ChipyardSystem()(p) with CanHaveAgilexCXL
-}) 

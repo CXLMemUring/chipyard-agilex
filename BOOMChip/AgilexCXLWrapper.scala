@@ -2,8 +2,12 @@ package chipyard
 
 import chisel3._
 import chisel3.util._
-import freechips.rocketchip.config.{Parameters}
+import org.chipsalliance.cde.config.Parameters
 import freechips.rocketchip.amba.axi4._
+import freechips.rocketchip.diplomacy.{AddressSet, TransferSizes}
+import freechips.rocketchip.resources.SimpleDevice
+import freechips.rocketchip.subsystem.BaseSubsystem
+import org.chipsalliance.diplomacy.lazymodule.{LazyModule, LazyModuleImp}
 
 // BlackBox wrapper for Intel Agilex CXL IP
 class AgilexCXLBlackBox(params: AgilexCXLParams) extends BlackBox {
@@ -95,7 +99,3 @@ trait CanHaveAgilexCXLWrapper extends CanHaveAgilexCXL { this: BaseSubsystem =>
   cxlWrapper.node := cxlAdapter.axi4Node
 }
 
-// Configuration to include CXL wrapper
-class WithAgilexCXLWrapper extends Config((site, here, up) => {
-  case BuildSystem => (p: Parameters) => new ChipyardSystem()(p) with CanHaveAgilexCXL with CanHaveAgilexCXLWrapper
-}) 
