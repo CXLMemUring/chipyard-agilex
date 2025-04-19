@@ -2,12 +2,12 @@ package chipyard
 
 import chisel3._
 import chisel3.util._
-import freechips.rocketchip.config.{Parameters, Field}
-import freechips.rocketchip.diplomacy._
-import freechips.rocketchip.tilelink._
-import freechips.rocketchip.amba.axi4._
-import freechips.rocketchip.subsystem.{MBUS}
-import freechips.rocketchip.devices.tilelink._
+import org.chipsalliance.config.{Parameters, Field}
+import org.chipsalliance.diplomacy._
+import org.chipsalliance.tilelink._
+import org.chipsalliance.amba.axi4._
+import org.chipsalliance.subsystem.{MBUS}
+import org.chipsalliance.devices.tilelink._
 
 // Parameters specific to Intel Agilex CXL IP
 case class AgilexCXLParams(

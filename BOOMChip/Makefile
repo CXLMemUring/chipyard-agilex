@@ -3,7 +3,9 @@ SHELL := /bin/bash
 all: copy_rtl
 
 add_config: BOOMChip.scala
-	cp BOOMChip.scala ../chipyard/generators/chipyard/src/main/scala/config
+	ln -sf ${PWD}/BOOMChip.scala ../chipyard/generators/chipyard/src/main/scala/config
+	mkdir -p ../chipyard/generators/rocket-chip/src/main/scala/cxl
+	ln -sf ${PWD}/*CXL*.scala ../chipyard/generators/rocket-chip/src/main/scala/cxl
 
 bootrom_replace: bootrom
 	cp -r bootrom ../chipyard/generators/testchipip/src/main/resources/testchipip/bootrom

@@ -10,3 +10,4 @@ output_files
 sim
 sim_filelist
 qdb
+*.zip
