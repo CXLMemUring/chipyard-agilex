@@ -21,7 +21,3 @@ copy_rtl:
 	cp ../chipyard/sims/verilator/generated-src/chipyard.harness.TestHarness.BOOMChip/EICG_wrapper.v ../quartus/ip/BOOMChip/EICG_wrapper.v
 	cp ../chipyard/sims/verilator/generated-src/chipyard.harness.TestHarness.BOOMChip/IOCell.v ../quartus/ip/BOOMChip/IOCell.v
 	cp ../chipyard/sims/verilator/generated-src/chipyard.harness.TestHarness.BOOMChip/plusarg_reader.v ../quartus/ip/BOOMChip/plusarg_reader.v
-
-gen_fsbl_mif: FSBL/FSBL.S
-	cd FSBL && make clean && make && make mif
-	cp FSBL/FSBL.mif ../quartus/onchip_memory.mif

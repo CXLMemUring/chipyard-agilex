@@ -4,7 +4,6 @@ import org.chipsalliance.cde.config.{Config, Parameters}
 
 /* ------------------------- */
 
-// Configuració del sistema
 class BOOMConfig
   extends Config(
     // Add CXL-specific configurations with default parameters
