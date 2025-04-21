@@ -115,29 +115,109 @@ module afu_top(
 
 //Passthrough User can implement the AFU logic here 
 
-assign iafu2cxlip_ready_eclk                = mc2iafu_ready_eclk             ;
-assign iafu2cxlip_read_poison_eclk          = mc2iafu_read_poison_eclk       ;
-assign iafu2cxlip_readdatavalid_eclk        = mc2iafu_readdatavalid_eclk     ;
-assign iafu2cxlip_ecc_err_corrected_eclk    = mc2iafu_ecc_err_corrected_eclk ;
-assign iafu2cxlip_ecc_err_detected_eclk     = mc2iafu_ecc_err_detected_eclk  ;
-assign iafu2cxlip_ecc_err_fatal_eclk        = mc2iafu_ecc_err_fatal_eclk     ;
-assign iafu2cxlip_ecc_err_syn_e_eclk        = mc2iafu_ecc_err_syn_e_eclk     ;
-assign iafu2cxlip_ecc_err_valid_eclk        = mc2iafu_ecc_err_valid_eclk     ;
-assign iafu2cxlip_cxlmem_ready              = mc2iafu_cxlmem_ready           ;
-assign iafu2cxlip_readdata_eclk             = mc2iafu_readdata_eclk          ;
-assign iafu2cxlip_rsp_mdata_eclk            = mc2iafu_rsp_mdata_eclk         ;  
+//assign iafu2cxlip_ready_eclk                = mc2iafu_ready_eclk             ;
+//assign iafu2cxlip_read_poison_eclk          = mc2iafu_read_poison_eclk       ;
+//assign iafu2cxlip_readdatavalid_eclk        = mc2iafu_readdatavalid_eclk     ;
+//assign iafu2cxlip_ecc_err_corrected_eclk    = mc2iafu_ecc_err_corrected_eclk ;
+//assign iafu2cxlip_ecc_err_detected_eclk     = mc2iafu_ecc_err_detected_eclk  ;
+//assign iafu2cxlip_ecc_err_fatal_eclk        = mc2iafu_ecc_err_fatal_eclk     ;
+//assign iafu2cxlip_ecc_err_syn_e_eclk        = mc2iafu_ecc_err_syn_e_eclk     ;
+//assign iafu2cxlip_ecc_err_valid_eclk        = mc2iafu_ecc_err_valid_eclk     ;
+//assign iafu2cxlip_cxlmem_ready              = mc2iafu_cxlmem_ready           ;
+//assign iafu2cxlip_readdata_eclk             = mc2iafu_readdata_eclk          ;
+//assign iafu2cxlip_rsp_mdata_eclk            = mc2iafu_rsp_mdata_eclk         ;
+//
+//
+//assign iafu2mc_writedata_eclk               = cxlip2iafu_writedata_eclk     ;
+//assign iafu2mc_byteenable_eclk              = cxlip2iafu_byteenable_eclk    ;
+//assign iafu2mc_read_eclk                    = cxlip2iafu_read_eclk          ;
+//assign iafu2mc_write_eclk                   = cxlip2iafu_write_eclk         ;
+//assign iafu2mc_write_poison_eclk            = cxlip2iafu_write_poison_eclk  ;
+//assign iafu2mc_write_ras_sbe_eclk           = cxlip2iafu_write_ras_sbe_eclk ;
+//assign iafu2mc_write_ras_dbe_eclk           = cxlip2iafu_write_ras_dbe_eclk ;
+//assign iafu2mc_address_eclk                 = cxlip2iafu_address_eclk       ;
+//assign iafu2mc_req_mdata_eclk               = cxlip2iafu_req_mdata_eclk     ;
 
+ //=================================================================
+ // 1) 在顶层实例化 cust_afu_wrapper，让它取代简单的 passthrough
+ //=================================================================
 
-assign iafu2mc_writedata_eclk               = cxlip2iafu_writedata_eclk     ;
-assign iafu2mc_byteenable_eclk              = cxlip2iafu_byteenable_eclk    ;
-assign iafu2mc_read_eclk                    = cxlip2iafu_read_eclk          ;
-assign iafu2mc_write_eclk                   = cxlip2iafu_write_eclk         ;
-assign iafu2mc_write_poison_eclk            = cxlip2iafu_write_poison_eclk  ;
-assign iafu2mc_write_ras_sbe_eclk           = cxlip2iafu_write_ras_sbe_eclk ;
-assign iafu2mc_write_ras_dbe_eclk           = cxlip2iafu_write_ras_dbe_eclk ;
-assign iafu2mc_address_eclk                 = cxlip2iafu_address_eclk       ;
-assign iafu2mc_req_mdata_eclk               = cxlip2iafu_req_mdata_eclk     ;
+ cust_afu_wrapper u_cust_wrapper (
+   .axi4_mm_clk       (afu_clk),
+   .axi4_mm_rst_n     (afu_rstn),
 
+   // --------------------------
+   // 1) MC ↔ AFU 接口 (mc2iafu_* 输入)
+   // --------------------------
+   .mc2iafu_ready_eclk            (mc2iafu_ready_eclk),
+   .mc2iafu_read_poison_eclk      (mc2iafu_read_poison_eclk),
+   .mc2iafu_readdatavalid_eclk    (mc2iafu_readdatavalid_eclk),
+   .mc2iafu_ecc_err_corrected_eclk(mc2iafu_ecc_err_corrected_eclk),
+   .mc2iafu_ecc_err_detected_eclk (mc2iafu_ecc_err_detected_eclk),
+   .mc2iafu_ecc_err_fatal_eclk    (mc2iafu_ecc_err_fatal_eclk),
+   .mc2iafu_ecc_err_syn_e_eclk    (mc2iafu_ecc_err_syn_e_eclk),
+   .mc2iafu_ecc_err_valid_eclk    (mc2iafu_ecc_err_valid_eclk),
+   .mc2iafu_cxlmem_ready          (mc2iafu_cxlmem_ready),
+   .mc2iafu_readdata_eclk         (mc2iafu_readdata_eclk),
+   .mc2iafu_rsp_mdata_eclk        (mc2iafu_rsp_mdata_eclk),
+
+   // --------------------------
+   // 2) AFU → MC 接口 (iafu2mc_* 输出)
+   // --------------------------
+   .iafu2mc_writedata_eclk        (iafu2mc_writedata_eclk),
+   .iafu2mc_byteenable_eclk       (iafu2mc_byteenable_eclk),
+   .iafu2mc_read_eclk             (iafu2mc_read_eclk),
+   .iafu2mc_write_eclk            (iafu2mc_write_eclk),
+   .iafu2mc_write_poison_eclk     (iafu2mc_write_poison_eclk),
+   .iafu2mc_write_ras_sbe_eclk    (iafu2mc_write_ras_sbe_eclk),
+   .iafu2mc_write_ras_dbe_eclk    (iafu2mc_write_ras_dbe_eclk),
+   .iafu2mc_address_eclk          (iafu2mc_address_eclk),
+   .iafu2mc_req_mdata_eclk        (iafu2mc_req_mdata_eclk),
+
+   // --------------------------
+   // 3) CAFU Passthrough (iafu2cxlip_* 输出)
+   // --------------------------
+   .iafu2cxlip_ready_eclk         (iafu2cxlip_ready_eclk),
+   .iafu2cxlip_read_poison_eclk   (iafu2cxlip_read_poison_eclk),
+   .iafu2cxlip_readdatavalid_eclk (iafu2cxlip_readdatavalid_eclk),
+   .iafu2cxlip_ecc_err_corrected_eclk (iafu2cxlip_ecc_err_corrected_eclk),
+   .iafu2cxlip_ecc_err_detected_eclk  (iafu2cxlip_ecc_err_detected_eclk),
+   .iafu2cxlip_ecc_err_fatal_eclk     (iafu2cxlip_ecc_err_fatal_eclk),
+   .iafu2cxlip_ecc_err_syn_e_eclk     (iafu2cxlip_ecc_err_syn_e_eclk),
+   .iafu2cxlip_ecc_err_valid_eclk     (iafu2cxlip_ecc_err_valid_eclk),
+   .iafu2cxlip_cxlmem_ready           (iafu2cxlip_cxlmem_ready),
+   .iafu2cxlip_readdata_eclk          (iafu2cxlip_readdata_eclk),
+   .iafu2cxlip_rsp_mdata_eclk         (iafu2cxlip_rsp_mdata_eclk),
+
+   // --------------------------
+   // 4) CXLIP → AFU Passthrough (cxlip2iafu_* 输入)
+   // --------------------------
+   .cxlip2iafu_writedata_eclk     (cxlip2iafu_writedata_eclk),
+   .cxlip2iafu_byteenable_eclk    (cxlip2iafu_byteenable_eclk),
+   .cxlip2iafu_read_eclk          (cxlip2iafu_read_eclk),
+   .cxlip2iafu_write_eclk         (cxlip2iafu_write_eclk),
+   .cxlip2iafu_write_poison_eclk  (cxlip2iafu_write_poison_eclk),
+   .cxlip2iafu_write_ras_sbe_eclk (cxlip2iafu_write_ras_sbe_eclk),
+   .cxlip2iafu_write_ras_dbe_eclk (cxlip2iafu_write_ras_dbe_eclk),
+   .cxlip2iafu_address_eclk       (cxlip2iafu_address_eclk),
+   .cxlip2iafu_req_mdata_eclk     (cxlip2iafu_req_mdata_eclk),
+   // TileLink Cached 总线，顶层对外暴露
+   .tl_clk         (tilelink_clk),
+   .tl_rst_n       (tilelink_rstn),
+   .tl_req_valid   (tl_cach_req_valid),
+   .tl_req_ready   (tl_cach_req_ready),
+   .tl_req_addr    (tl_cach_req_addr),
+   .tl_req_len     (tl_cach_req_len),
+   .tl_req_op      (tl_cach_req_op),
+   .tl_req_wdata   (tl_cach_req_wdata),
+   .tl_req_wstrb   (tl_cach_req_wstrb),
+   .tl_resp_valid  (tl_cach_resp_valid),
+   .tl_resp_ready  (tl_cach_resp_ready),
+   .tl_resp_rdata  (tl_cach_resp_rdata),
+   .tl_resp_code   (tl_cach_resp_code)
+ );
+
+ // （原来那一堆直接 assign 都删掉了）
 
 
 

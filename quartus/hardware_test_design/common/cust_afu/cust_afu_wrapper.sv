@@ -109,8 +109,32 @@ module cust_afu_wrapper
    input                            rlast,
    input [3:0]                      ruser,
    input                            rvalid,
-   output logic                     rready
-  
+   output logic                     rready,
+  /*
+    TileLink Cached interface
+  */
+  input logic                       tl_clk,
+  input  logic                      tl_rst_n,
+  // TL 请求通道
+  input  logic                      tl_req_valid,
+  output logic                      tl_req_ready,
+  input  logic [63:0]               tl_req_addr,
+  input  logic [7:0]                tl_req_len,
+  input  logic [1:0]                tl_req_op,      // 00=Read,01=Write
+  input  logic [511:0]              tl_req_wdata,
+  input  logic [63:0]               tl_req_wstrb,
+  // TL 响应通道
+  output logic                      tl_resp_valid,
+  input  logic                      tl_resp_ready,
+  output logic [511:0]              tl_resp_rdata,
+  output logic [1:0]                tl_resp_code
+
+  // =============================
+  // 3) 实例化真正的 AFU 核心
+  // =============================
+  // 我们假设已经在同目录下编写了 my_afu.sv，并且它的接口是：
+  //   • Avalon‑MM Master: avm_*
+  //   • TileLink Slave:    tl_*
 
    
 );
@@ -166,7 +190,74 @@ module cust_afu_wrapper
   assign  arregion     = '0   ;
   assign  rready       = '0   ;
 
+  // 实例化 Custom AFU 核心
+  my_afu u_my_afu (
+    // 时钟复位
+    .clk             (axi4_mm_clk),
+    .rst_n           (axi4_mm_rst_n),
 
+    //——————————————
+    // Avalon‑MM Master 接口（对应原来的 AXI‑MM 端口）
+    //——————————————
+    .avm_awid        (awid      ),  // write address channel
+    .avm_awaddr      (awaddr    ),
+    .avm_awlen       (awlen     ),
+    .avm_awsize      (awsize    ),
+    .avm_awburst     (awburst   ),
+    .avm_awprot      (awprot    ),
+    .avm_awcache     (awcache   ),
+    .avm_awuser      (awuser    ),
+    .avm_awqos       (awqos     ),
+    .avm_awvalid     (awvalid   ),
+    .avm_awready     (awready   ),
+
+    .avm_writedata   (wdata     ),  // write data channel
+    .avm_byteenable  (wstrb     ),
+    .avm_wlast       (wlast     ),
+    .avm_wvalid      (wvalid    ),
+    .avm_wready      (wready    ),
+
+    .avm_bid         (bid       ),  // write response channel
+    .avm_bresp       (bresp     ),
+    .avm_bvalid      (bvalid    ),
+    .avm_bready      (bready    ),
+
+    .avm_arid        (arid      ),  // read address channel
+    .avm_araddr      (araddr    ),
+    .avm_arlen       (arlen     ),
+    .avm_arsize      (arsize    ),
+    .avm_arburst     (arburst   ),
+    .avm_arprot      (arprot    ),
+    .avm_arcache     (arcache   ),
+    .avm_aruser      (aruser    ),
+    .avm_arvalid     (arvalid   ),
+    .avm_arready     (arready   ),
+
+    .avm_rid         (rid       ),  // read response channel
+    .avm_rdata       (rdata     ),
+    .avm_rresp       (rresp     ),
+    .avm_rlast       (rlast     ),
+    .avm_rvalid      (rvalid    ),
+    .avm_rready      (rready    ),
+
+    //——————————————
+    // TileLink Slave 接口
+    //——————————————
+    .tl_clk          (tl_clk       ),
+    .tl_rst_n        (tl_rst_n     ),
+    .tl_req_valid    (tl_req_valid ),
+    .tl_req_ready    (tl_req_ready ),
+    .tl_req_addr     (tl_req_addr  ),
+    .tl_req_len      (tl_req_len   ),
+    .tl_req_op       (tl_req_op    ),
+    .tl_req_wdata    (tl_req_wdata ),
+    .tl_req_wstrb    (tl_req_wstrb ),
+
+    .tl_resp_valid   (tl_resp_valid),
+    .tl_resp_ready   (tl_resp_ready),
+    .tl_resp_rdata   (tl_resp_rdata),
+    .tl_resp_code    (tl_resp_code )
+  );
 endmodule
 
 

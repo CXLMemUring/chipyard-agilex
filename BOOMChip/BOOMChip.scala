@@ -1,16 +1,16 @@
 package chipyard
 
 import org.chipsalliance.cde.config.{Config, Parameters}
+import chipyard.cxl.{AgilexCXLKey, AgilexCXLParams, CanHaveAgilexCXL, CanHaveAgilexCXLWrapper}
+import chipyard.harness.BuildTop
+import freechips.rocketchip.subsystem.{BaseSubsystem, HasTileLinkLocations}
 
 /* ------------------------- */
 
 class BOOMConfig
   extends Config(
-    // Add CXL-specific configurations with default parameters
-    new WithAgilexCXL() ++
-
-      // IO Binders for connecting to external interfaces
-      new chipyard.iobinders.WithAXI4MemPunchthrough ++
+    //     IO Binders for connecting to external interfaces
+    new chipyard.iobinders.WithAXI4MemPunchthrough ++
 
       // Standard harness binders for simulation
       new chipyard.harness.WithUARTAdapter ++
@@ -24,42 +24,34 @@ class BOOMConfig
       // Standard IO binders
       new chipyard.iobinders.WithAXI4MMIOPunchthrough ++
       new chipyard.iobinders.WithL2FBusAXI4Punchthrough ++
-      new chipyard.iobinders.WithBlockDeviceIOPunchthrough ++
-      new chipyard.iobinders.WithNICIOPunchthrough ++
-      new chipyard.iobinders.WithSerialTLIOCells ++
-      new chipyard.iobinders.WithUARTIOCells ++
-      new chipyard.iobinders.WithGPIOCells ++
       new chipyard.iobinders.WithTraceIOPunchthrough ++
       new chipyard.iobinders.WithExtInterruptIOCells ++
 
-      // Clock domain setup
-      new chipyard.config.WithPeripheryBusFrequency(10.0) ++
-      new chipyard.config.WithMemoryBusFrequency(100.0) ++
-      new chipyard.config.WithPeripheryBusFrequency(100.0) ++
-
       // System configuration
       new chipyard.config.WithSystemBusWidth(128) ++
-      new chipyard.config.WithBootROM ++
-      new chipyard.config.AbstractConfig
+      new chipyard.config.WithBootROM
   )
 
-// Function to create a configuration with CXL support
-class WithAgilexCXL(params: AgilexCXLParams = AgilexCXLParams()) extends Config((site, here, up) => {
-  case AgilexCXLKey => params
-  case BuildSystem => (p: Parameters) => new ChipyardSystem()(p) with CanHaveAgilexCXL
-})
+// We subclass the normal ChipTop module, mixing in the CXL traits
+class SystemWithCXL(implicit p: Parameters)
+  extends ChipyardSystem()(p)
+    with CanHaveAgilexCXL
+    with CanHaveAgilexCXLWrapper
+// 2) Override BuildTop (NOT BuildSystem) so that the harness instantiates your ChipTopWithCXL:
+class WithCXLConfig extends Config(
+  // Step A: pull in every default from AbstractConfig
+  new chipyard.config.AbstractConfig++
 
-// Configuration to include CXL wrapper
-class WithAgilexCXLWrapper extends Config((site, here, up) => {
-  case BuildSystem => (p: Parameters) => new ChipyardSystem()(p) with CanHaveAgilexCXL with CanHaveAgilexCXLWrapper
-})
+  // Step B: then bind our CXL key and swap in the subclassed system
+  new Config((site, here, up) => {
+    case AgilexCXLKey => AgilexCXLParams()                                     // non‑null defaults
+    case BuildSystem  => (p: Parameters) => new chipyard.SystemWithCXL()(p)    // PRCI + our mixins
+  })
+)
 
-class BOOMChip
-  extends Config(
-    // BOOM核心配置
-    new boom.v4.common.WithNLargeBooms(1) ++
-      new chipyard.config.WithSystemBusWidth(128) ++
-      new WithAgilexCXL ++
-      new WithAgilexCXLWrapper ++
-      new BOOMConfig
-  )
+// 3) Then put that Config _last_ in your BOOMChip chain:
+class BOOMChip extends Config(
+  new boom.v4.common.WithNLargeBooms(1) ++
+    new BOOMConfig ++ // includes AbstractConfig
+    new WithCXLConfig // ← override BuildTop _after_ AbstractConfig
+)
