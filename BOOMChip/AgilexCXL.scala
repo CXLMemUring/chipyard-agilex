@@ -155,16 +155,22 @@ trait CanHaveAgilexCXL {
   // Connect to memory bus
   //  val mbus = locateTLBusWrapper(MBUS)
   //  cxlAdapter.node :=* mbus.inwardNode
-  val mbus = locateTLBusWrapper(MBUS)
+//  val mbus = locateTLBusWrapper(MBUS)
   // bind manager (cxlAdapter.node) into the bus’s inward port
-  mbus.inwardNode := cxlAdapter.node
+//  mbus.inwardNode := cxlAdapter.node
+//  cxlAdapter.node := mbus.inwardNode
+  val mbus = locateTLBusWrapper(MBUS)
+  mbus.coupleTo("cxl") { c =>
+    // ‘c’ here is the bus’s TLInwardNode being handed in,
+    // and we connect your manager node into it:
+    cxlAdapter.node := c
+  }
 }
 
 /** Mixin trait to add CXL BlackBox wrapper linked to adapter */
 trait CanHaveAgilexCXLWrapper extends CanHaveAgilexCXL {
   this: BaseSubsystem with HasTileLinkLocations =>
   // Use p from BaseSubsystem
-  override lazy val cxlParams = p(AgilexCXLKey)
   val cxlWrapper = LazyModule(new AgilexCXLWrapper(cxlParams))
 
   // Connect adapter AXI4 master to CXL IP wrapper AXI4 slave
