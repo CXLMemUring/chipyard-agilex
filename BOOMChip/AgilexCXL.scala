@@ -26,48 +26,45 @@ case class AgilexCXLParams(
 
 /** Key to configure the CXL adapter */
 //case object AgilexCXLKey extends Field[AgilexCXLParams](AgilexCXLParams())
-case object AgilexCXLKey extends Field[Option[AgilexCXLParams]](None)
+case object AgilexCXLKey extends Field[AgilexCXLParams]()
 
 /**
  * TL Manager + TL→AXI4 Adapter for CXL memory region
  */
 // 修改后的 CXL Adapter
-class AgilexCXLAdapter(params: AgilexCXLParams)(implicit p: Parameters) extends LazyModule {
-  val node = TLManagerNode(Seq(TLSlavePortParameters.v1(
-    managers = Seq(TLSlaveParameters.v1(
-      address    = Seq(AddressSet(params.base, params.size - 1)),
-      resources  = (new SimpleDevice("intel-cxl", Seq("intel,agilex-cxl"))).reg("mem"),
-      regionType = RegionType.UNCACHED,
-      executable = true,
-      supportsGet        = TransferSizes(1, params.beatBytes * 8),
-      supportsPutFull    = TransferSizes(1, params.beatBytes * 8),
-      supportsPutPartial = TransferSizes(1, params.beatBytes * 8),
-      fifoId             = Some(0)
-    )),
-    beatBytes = params.beatBytes
-  )))
+class AgilexCXLAdapter(params: AgilexCXLParams)(implicit p: Parameters)
+  extends LazyModule {
 
-  val axi4Node = AXI4MasterNode(Seq(AXI4MasterPortParameters(
-    masters = Seq(AXI4MasterParameters(
-      name = "agilex-cxl-adapter",
-      id   = IdRange(0, 1 << params.idBits)
-    ))
-  )))
+  val node = TLManagerNode(Seq(
+    TLSlavePortParameters.v1(
+      managers = Seq(TLSlaveParameters.v1(
+        address    = Seq(AddressSet(params.base, params.size - 1)),
+        resources  = (new SimpleDevice("intel-cxl", Seq("intel,agilex-cxl"))).reg("mem"),
+        regionType = RegionType.UNCACHED,
+        executable = true,
+        supportsGet        = TransferSizes(1, params.beatBytes * 8),
+        supportsPutFull    = TransferSizes(1, params.beatBytes * 8),
+        supportsPutPartial = TransferSizes(1, params.beatBytes * 8),
+        fifoId             = Some(0)
+      )),
+      beatBytes = params.beatBytes
+    )
+  ))
 
-  // 节点连接必须在这里完成，不在 module 中
-  axi4Node := TLToAXI4() := node
+  val axi4Node = AXI4MasterNode(Seq(
+    AXI4MasterPortParameters(
+      masters = Seq(AXI4MasterParameters(
+        name = "agilex-cxl-adapter",
+        id   = IdRange(0, 1 << params.idBits)
+      ))
+    )
+  ))
 
-  lazy val module = new LazyModuleImp(this) {
-    val io = IO(new Bundle {
-      val cxl_status = Output(Bool())
-    })
+  // Convert TileLink to AXI‑4
+  axi4Node := TLToAXI4() := node   //  <‑‑ don’t leave this commented out!
 
-    // 简单的状态寄存器
-    val status = RegInit(false.B)
-    io.cxl_status := status
-  }
+  lazy val module = new LazyModuleImp(this) { }
 }
-
 
 
 /**
