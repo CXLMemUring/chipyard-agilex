@@ -33,7 +33,6 @@ case object AgilexCXLKey extends Field[Option[AgilexCXLParams]](None)
  */
 // 修改后的 CXL Adapter
 class AgilexCXLAdapter(params: AgilexCXLParams)(implicit p: Parameters) extends LazyModule {
-  // 只保留 TileLink manager 节点
   val node = TLManagerNode(Seq(TLSlavePortParameters.v1(
     managers = Seq(TLSlaveParameters.v1(
       address    = Seq(AddressSet(params.base, params.size - 1)),
@@ -48,18 +47,27 @@ class AgilexCXLAdapter(params: AgilexCXLParams)(implicit p: Parameters) extends 
     beatBytes = params.beatBytes
   )))
 
-  // 添加重置域
-  val resetDomain = LazyScope(this) {
-    implicit val valName = ValName("cxl_reset")
-    val resetCrossingSource = ClockSinkNode(Seq(ClockSinkParameters()))
-  }
+  val axi4Node = AXI4MasterNode(Seq(AXI4MasterPortParameters(
+    masters = Seq(AXI4MasterParameters(
+      name = "agilex-cxl-adapter",
+      id   = IdRange(0, 1 << params.idBits)
+    ))
+  )))
+
+  // 节点连接必须在这里完成，不在 module 中
+  axi4Node := TLToAXI4() := node
 
   lazy val module = new LazyModuleImp(this) {
-    // 确保有重置信号
-    val reset_domain = IO(Input(Reset()))
-    reset := reset_domain
+    val io = IO(new Bundle {
+      val cxl_status = Output(Bool())
+    })
+
+    // 简单的状态寄存器
+    val status = RegInit(false.B)
+    io.cxl_status := status
   }
 }
+
 
 
 /**
