@@ -1,102 +1,61 @@
 package chipyard
 
-import boom.v4.common.WithNLargeBooms
+import chipyard.config.WithSystemBusWidth
 import org.chipsalliance.cde.config.{Config, Parameters}
-import chipyard.cxl.{AgilexCXLKey, AgilexCXLParams, CanHaveAgilexCXL, CanHaveAgilexCXLWrapper}
-import chipyard.harness.{BuildTop, HasHarnessInstantiators}
-import chipyard.iobinders.{HasIOBinders, Port}
-import chisel3.{Bool, Bundle, Clock, IO, Input, Output, RawModule, Reset}
-import freechips.rocketchip.diplomacy.LazyModule
-import freechips.rocketchip.subsystem.{BaseSubsystem, HasTileLinkLocations}
+import freechips.rocketchip.subsystem._
+import chipyard.cxl._
+import chipyard.harness.BuildTop
+import chisel3.Module.{clock, reset}
+import chisel3._
+import freechips.rocketchip.diplomacy._
+import freechips.rocketchip.util.ResetCatchAndSync
 
-/* ------------------------- */
+// 添加简单的 CXL 配置
 
-class BOOMConfig
-  extends Config(
-    //     IO Binders for connecting to external interfaces
-    new chipyard.iobinders.WithAXI4MemPunchthrough ++
+// 添加简单的 CXL 配置
+class WithCXLBasic extends Config((site, here, up) => {
+  case AgilexCXLKey => Some(AgilexCXLParams(
+    base = 0xc0000000L,
+    size = 0x40000000L,
+    beatBytes = 8,
+    idBits = 4
+  ))
+})
 
-      // Standard harness binders for simulation
-      new chipyard.harness.WithUARTAdapter ++
-      new chipyard.harness.WithBlackBoxSimMem ++
-      new chipyard.harness.WithGPIOTiedOff ++
-      new chipyard.harness.WithSimSPIFlashModel ++
-      new chipyard.harness.WithSimAXIMMIO ++
-      new chipyard.harness.WithTieOffInterrupts ++
-      new chipyard.harness.WithTieOffL2FBusAXI ++
+// 创建一个包含 CXL 的自定义系统
+class BOOMWithCXLSystem(implicit p: Parameters) extends ChipyardSystem {
+  // 添加 CXL 适配器
+  val cxlOpt = p(AgilexCXLKey).map { cxlParams =>
+    val adapter = LazyModule(new AgilexCXLAdapter(cxlParams))
+    val mbus = locateTLBusWrapper(MBUS)
 
-      // Standard IO binders
-      new chipyard.iobinders.WithAXI4MMIOPunchthrough ++
-      new chipyard.iobinders.WithL2FBusAXI4Punchthrough ++
-      new chipyard.iobinders.WithTraceIOPunchthrough ++
-      new chipyard.iobinders.WithExtInterruptIOCells ++
-
-      // System configuration
-      new chipyard.config.WithSystemBusWidth(128) ++
-      new chipyard.config.WithBootROM ++
-      new chipyard.config.AbstractConfig
-  )
-class WithCXLSystem extends Config((site, here, up) => {
-    case AgilexCXLKey => AgilexCXLParams()
-      case BuildSystem =>
-      (p: Parameters) => new chipyard.ChipyardSystem()(p)
-        with CanHaveAgilexCXL
-        with CanHaveAgilexCXLWrapper
-  })
-/**
- * 2) Wrap the existing ChipTop in I/O binders + harness instantiators,
- *    catching that early `None.get` on ports.
- */
-class ChipTopWithCXL(implicit p: Parameters)
-  extends chipyard.ChipTop()(p)
-    with HasIOBinders
-    with HasHarnessInstantiators {
-
-  // ports() in HasIOBinders actually returns Seq[Port[_]]
-  override def ports: Seq[chipyard.iobinders.Port[_]] = {
-    try super.ports
-    catch { case _: NoSuchElementException => Seq.empty }
-  }
-
-  // harness signals (in a RawModule you must declare IOs yourself)
-  val harnessClock   = IO(Input(Clock()))
-  val harnessReset   = IO(Input(Bool()))
-  val harnessSuccess = IO(Output(Bool()))
-
-  // tie into the harness trait:
-  override def referenceClockFreqMHz: Double = 100.0
-  override def referenceClock: Clock          = harnessClock
-  override def referenceReset: Reset          = harnessReset.asAsyncReset
-  override def success: Bool                  = harnessSuccess
-  override def instantiateChipTops(): Seq[LazyModule] = {
-    // <-- name this local val exactly "ChipTop"
-    val ChipTop = LazyModule(
-      new ChipyardSystem()(p)
-        with CanHaveAgilexCXL
-        with CanHaveAgilexCXLWrapper
-    )
-
-    Seq(ChipTop)
+    mbus.coupleTo("cxl") { adapter.node := _ }
+    InModuleBody {
+      adapter.module.reset := ResetCatchAndSync(clock, reset.asBool)
+    }
+    adapter
   }
 }
 
-/**
- * 3) Override BuildTop so the harness tops out on your ChipTopWithCXL.
- */
-class WithCXLTop extends Config((site, here, up) => {
-  case BuildTop => (p: Parameters) => new ChipTopWithCXL()(p)
-})
+// 创建自定义的 ChipTop
+class BOOMWithCXLChipTop(implicit p: Parameters) extends ChipTop {
+  override lazy val lazySystem = LazyModule(new BOOMWithCXLSystem)
+}
 
-/**
- * 4) Finally compose your BOOMChip config:
- *    - One BOOM core
- *    - CXL‑augmented subsystem
- *    - CXL‑wrapped harness top
- *    - Your BOOMConfig (I/O binders, bootROM, etc.)
- */
+// 最终的配置
 class BOOMChip extends Config(
-  new boom.v4.common.WithNLargeBooms(1) ++
-    new WithCXLSystem ++    // subsystem has CXL
-    new WithCXLTop ++       // top has harness & IO binders
-    new BOOMConfig          // your existing I/O binders, BootROM, etc.
+  new Config((site, here, up) => {
+    case BuildTop => (p: Parameters) => new BOOMWithCXLChipTop()(p).suggestName("ChipTop")
+  }) ++
+    new WithCXLBasic ++
+    new boom.v4.common.WithNLargeBooms(1) ++
+    new WithSystemBusWidth(128) ++
+    new WithCoherentBusTopology ++
+    new WithMemoryBusFrequency(500.0) ++
+    new WithSystemBusFrequency(500.0) ++
+    new WithPeripheryBusFrequency(500.0) ++
+    new WithControlBusFrequency(500.0) ++
+    new WithFrontBusFrequency(500.0) ++
+    new WithNBanks(1) ++
+    new chipyard.config.AbstractConfig
 )

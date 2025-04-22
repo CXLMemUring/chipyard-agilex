@@ -10,88 +10,80 @@ import freechips.rocketchip.tilelink._
 import freechips.rocketchip.amba.axi4._
 import freechips.rocketchip.subsystem.{BaseSubsystem, HasTileLinkLocations, MBUS}
 import freechips.rocketchip.devices.tilelink._
+import freechips.rocketchip.prci.{ClockSinkNode, ClockSinkParameters}
 import freechips.rocketchip.resources.SimpleDevice
 
 /** Parameters for Intel Agilex CXL IP Integration */
+
+/** Parameters for Intel Agilex CXL IP Integration */
 case class AgilexCXLParams(
-                            base: BigInt = 0x8000_0000L,
-                            size: BigInt = 0x4000_0000L, // 1 GB
+                            base: BigInt = 0xc0000000L, // 改为对齐的地址
+                            size: BigInt = 0x40000000L, // 1 GB (必须是2的幂次方)
                             beatBytes: Int = 8,
                             idBits: Int = 4,
                             cxlVersion: Int = 2 // CXL 2.0
                           )
 
 /** Key to configure the CXL adapter */
-case object AgilexCXLKey extends Field[AgilexCXLParams](AgilexCXLParams())
+//case object AgilexCXLKey extends Field[AgilexCXLParams](AgilexCXLParams())
+case object AgilexCXLKey extends Field[Option[AgilexCXLParams]](None)
 
 /**
  * TL Manager + TL→AXI4 Adapter for CXL memory region
  */
+// 修改后的 CXL Adapter
 class AgilexCXLAdapter(params: AgilexCXLParams)(implicit p: Parameters) extends LazyModule {
-  // TileLink manager for CPU/Cache to access CXL region
+  // 只保留 TileLink manager 节点
   val node = TLManagerNode(Seq(TLSlavePortParameters.v1(
     managers = Seq(TLSlaveParameters.v1(
-      address = Seq(AddressSet(params.base, params.size - 1)),
-      resources = (new SimpleDevice("intel-cxl", Seq("intel,agilex-cxl"))).reg("mem"),
+      address    = Seq(AddressSet(params.base, params.size - 1)),
+      resources  = (new SimpleDevice("intel-cxl", Seq("intel,agilex-cxl"))).reg("mem"),
       regionType = RegionType.UNCACHED,
       executable = true,
-      supportsGet = TransferSizes(1, params.beatBytes * 8),
-      supportsPutFull = TransferSizes(1, params.beatBytes * 8),
+      supportsGet        = TransferSizes(1, params.beatBytes * 8),
+      supportsPutFull    = TransferSizes(1, params.beatBytes * 8),
       supportsPutPartial = TransferSizes(1, params.beatBytes * 8),
-      fifoId = Some(0)
+      fifoId             = Some(0)
     )),
     beatBytes = params.beatBytes
   )))
 
-  // AXI4 Master Node to CXL IP
-  val axi4Node = AXI4MasterNode(Seq(AXI4MasterPortParameters(
-    masters = Seq(AXI4MasterParameters(
-      name = "agilex-cxl-adapter",
-      id = IdRange(0, 1 << params.idBits)
-    ))
-  )))
-
-  // Diplomatic connection: TL → TLBuffer → TLFragmenter → TLToAXI4 → Deinterleaver → UserYanker → AXI4
-  axi4Node :=
-    AXI4UserYanker() :=
-    AXI4Deinterleaver(params.beatBytes * 8) :=
-    TLToAXI4(combinational = false, adapterName = Some("AgilexCXL")) :=
-    TLFragmenter(params.beatBytes, params.beatBytes * 8) :=
-    TLBuffer() :=
-    node
+  // 添加重置域
+  val resetDomain = LazyScope(this) {
+    implicit val valName = ValName("cxl_reset")
+    val resetCrossingSource = ClockSinkNode(Seq(ClockSinkParameters()))
+  }
 
   lazy val module = new LazyModuleImp(this) {
-    val (axi4Bundle, _) = axi4Node.out.head
-    // Expose debug signals if needed
-    dontTouch(axi4Bundle)
+    // 确保有重置信号
+    val reset_domain = IO(Input(Reset()))
+    reset := reset_domain
   }
 }
+
 
 /**
  * BlackBox wrapper for Intel Agilex CXL IP
  */
 class AgilexCXLBlackBox(params: AgilexCXLParams) extends BlackBox with HasBlackBoxResource {
   val io = IO(new Bundle {
-    // AXI4 interface
     val axi4 = Flipped(new AXI4Bundle(AXI4BundleParameters(
       addrBits = 64,
       dataBits = params.beatBytes * 8,
       idBits = params.idBits
     )))
-    // CXL status
     val cxl_link_up = Output(Bool())
-    // Clocks and resets
     val clock = Input(Clock())
     val reset = Input(Reset())
   })
 
   override def desiredName = "intel_agilex_cxl_ip"
 
-  addResource("AgilexCXLBlackBox.v") // If needed
+  addResource("AgilexCXLBlackBox.v")
 }
 
 /**
- * Module to instantiate BlackBox and connect AXI4
+ * Module that instantiates the BlackBox and connects AXI4
  */
 class AgilexCXLWrapperModule(params: AgilexCXLParams) extends Module {
   val io = IO(new Bundle {
@@ -104,21 +96,17 @@ class AgilexCXLWrapperModule(params: AgilexCXLParams) extends Module {
   })
 
   val cxl = Module(new AgilexCXLBlackBox(params))
-  // Connect clocks and resets
+  // Clock & reset
   cxl.io.clock := clock
   cxl.io.reset := reset
-  // Connect AXI4 signals
+  // AXI4
   cxl.io.axi4 <> io.axi4
-  // Expose status
+  // Status
   io.cxl_link_up := cxl.io.cxl_link_up
 }
 
 /**
- * Diplomatic LazyModule wrapper around the BlackBox
- */
-
-/**
- * Diplomatic LazyModule wrapper around the BlackBox
+ * Diplomatic wrapper around the BlackBox
  */
 class AgilexCXLWrapper(params: AgilexCXLParams)(implicit p: Parameters) extends LazyModule {
   val node = AXI4SlaveNode(Seq(AXI4SlavePortParameters(
@@ -134,45 +122,10 @@ class AgilexCXLWrapper(params: AgilexCXLParams)(implicit p: Parameters) extends 
 
   lazy val module = new LazyModuleImp(this) {
     val (axi4Bundle, _) = node.in.head
-
-    // Instantiate the Chisel BlackBox under a fresh name
     val wrapperMod = Module(new AgilexCXLWrapperModule(params))
     wrapperMod.io.axi4 <> axi4Bundle
 
-    // Expose CXL status
     val cxl_link_up = IO(Output(Bool()))
     cxl_link_up := wrapperMod.io.cxl_link_up
   }
-}
-
-/** Mixin trait to add CXL adapter to a subsystem */
-trait CanHaveAgilexCXL {
-  this: BaseSubsystem with HasTileLinkLocations =>
-  // Remove redundant implicit p; use p from BaseSubsystem
-  lazy val cxlParams = p(AgilexCXLKey)
-  lazy val cxlAdapter = LazyModule(new AgilexCXLAdapter(cxlParams))
-
-  // Connect to memory bus
-  //  val mbus = locateTLBusWrapper(MBUS)
-  //  cxlAdapter.node :=* mbus.inwardNode
-//  val mbus = locateTLBusWrapper(MBUS)
-  // bind manager (cxlAdapter.node) into the bus’s inward port
-//  mbus.inwardNode := cxlAdapter.node
-//  cxlAdapter.node := mbus.inwardNode
-  val mbus = locateTLBusWrapper(MBUS)
-  mbus.coupleTo("cxl") { c =>
-    // ‘c’ here is the bus’s TLInwardNode being handed in,
-    // and we connect your manager node into it:
-    cxlAdapter.node := c
-  }
-}
-
-/** Mixin trait to add CXL BlackBox wrapper linked to adapter */
-trait CanHaveAgilexCXLWrapper extends CanHaveAgilexCXL {
-  this: BaseSubsystem with HasTileLinkLocations =>
-  // Use p from BaseSubsystem
-  val cxlWrapper = LazyModule(new AgilexCXLWrapper(cxlParams))
-
-  // Connect adapter AXI4 master to CXL IP wrapper AXI4 slave
-  cxlWrapper.node := cxlAdapter.axi4Node
 }
