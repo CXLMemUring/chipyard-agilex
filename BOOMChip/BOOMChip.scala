@@ -1,3 +1,5 @@
+// See LICENSE.SiFive for license details.
+
 package chipyard
 
 import boom.v4.common.BoomTile
@@ -5,26 +7,37 @@ import chipyard.config.WithSystemBusWidth
 import org.chipsalliance.cde.config.{Config, Parameters}
 import freechips.rocketchip.subsystem._
 import chipyard.cxl._
-import chipyard.harness.{BuildTop, WithSimAXIMem}
-import chisel3.Module.{clock, reset}
+import chipyard.harness.{BuildTop, WithSimAXIMem, WithUARTAdapter}
+import chipyard.iobinders.{IOCellKey, OverrideIOBinder, UARTPort, WithUARTIOCells}
+import chipyard.iocell.{DigitalInIOCell, DigitalInIOCellBundle, GenericAnalogIOCell, GenericDigitalGPIOCell, GenericDigitalOutIOCell, IOCellTypeParams}
+import chisel3.Module.clock
 import chisel3._
 import freechips.rocketchip.diplomacy._
-import freechips.rocketchip.prci.SynchronousCrossing
-import freechips.rocketchip.tilelink.TLWidthWidget
-import freechips.rocketchip.util.ResetCatchAndSync
-
-// 添加简单的 CXL 配置
-class WithCXLBasic extends Config((site, here, up) => {
-  case AgilexCXLKey => AgilexCXLParams(
-    base = 0xc0000000L,
-    size = 0x40000000L,
-    beatBytes = 8,
-    idBits = 4
-  )
-})
 
 // -----------------------------------------------------------------------------
-// 2) System that instantiates the CXL adapter
+// 1) Simple CXL configuration binding
+// -----------------------------------------------------------------------------
+class WithCXLBasic extends Config((site, here, up) => {
+  case AgilexCXLKey => AgilexCXLParams()
+})
+
+class BOOMWithCXLSystem(implicit p: Parameters) extends ChipyardSystem
+ {
+  // 使用 Option 处理 CXL 参数
+  val cxlParams = p(AgilexCXLKey)
+  val cxlAdapter = LazyModule(new AgilexCXLAdapter(cxlParams))
+  val wrapperMod = LazyModule(new AgilexCXLWrapper(cxlParams))
+
+// 获取内存总线并连接
+  private val sbus = locateTLBusWrapper(SBUS)
+  sbus.coupleTo("cxl") { bus =>
+    cxlAdapter.node := bus
+  }
+  // 直接连接 adapter 到 wrapper
+  wrapperMod.node := cxlAdapter.axi4Node
+ }
+// -----------------------------------------------------------------------------
+// 3) Custom top without ChipTop
 // -----------------------------------------------------------------------------
 class BOOMWithCXLSystem(implicit p: Parameters) extends ChipyardSystem {
   // 首先确保BOOM处理器的时钟和复位域已正确设置
@@ -40,7 +53,7 @@ class BOOMWithCXLSystem(implicit p: Parameters) extends ChipyardSystem {
 }
 
 // -----------------------------------------------------------------------------
-// 3) ChipTop and configuration
+// 4) Build-time configuration
 // -----------------------------------------------------------------------------
 class BOOMWithCXLChipTop(implicit p: Parameters) extends ChipTop {
   override lazy val lazySystem = LazyModule(new BOOMWithCXLSystem)
@@ -49,7 +62,7 @@ class BOOMWithCXLChipTop(implicit p: Parameters) extends ChipTop {
 
 class BOOMChip extends Config(
 
-    new WithSimAXIMem ++
+  new WithSimAXIMem ++
     new WithCXLBasic ++
     new boom.v4.common.WithNLargeBooms(1) ++
     new WithSystemBusWidth(128) ++
