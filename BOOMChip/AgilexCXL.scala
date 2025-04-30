@@ -7,13 +7,6 @@ import chisel3.util._
 import org.chipsalliance.cde.config.{Field, Parameters}
 import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.tilelink._
-import freechips.rocketchip.amba.axi4._
-import freechips.rocketchip.subsystem.{BaseSubsystem, HasTileLinkLocations, MBUS}
-import freechips.rocketchip.devices.tilelink._
-import freechips.rocketchip.prci.{ClockSinkNode, ClockSinkParameters}
-import freechips.rocketchip.resources.SimpleDevice
-
-/** Parameters for Intel Agilex CXL IP Integration */
 
 /** Parameters for Intel Agilex CXL IP Integration */
 case class AgilexCXLParams(
@@ -27,44 +20,6 @@ case class AgilexCXLParams(
 /** Key to configure the CXL adapter */
 //case object AgilexCXLKey extends Field[AgilexCXLParams](AgilexCXLParams())
 case object AgilexCXLKey extends Field[AgilexCXLParams](AgilexCXLParams())
-
-/**
- * TL Manager + TL→AXI4 Adapter for CXL memory region
- */
-// 修改后的 CXL Adapter
-//class AgilexCXLAdapter(params: AgilexCXLParams)(implicit p: Parameters)
-//  extends LazyModule {
-//
-//  val node = TLManagerNode(Seq(
-//    TLSlavePortParameters.v1(
-//      managers = Seq(TLSlaveParameters.v1(
-//        address    = Seq(AddressSet(params.base, params.size - 1)),
-//        resources  = (new SimpleDevice("intel-cxl", Seq("intel,agilex-cxl"))).reg("mem"),
-//        regionType = RegionType.UNCACHED,
-//        executable = true,
-//        supportsGet        = TransferSizes(1, params.beatBytes * 8),
-//        supportsPutFull    = TransferSizes(1, params.beatBytes * 8),
-//        supportsPutPartial = TransferSizes(1, params.beatBytes * 8),
-//        fifoId             = Some(0)
-//      )),
-//      beatBytes = params.beatBytes
-//    )
-//  ))
-//
-//  val axi4Node = AXI4MasterNode(Seq(
-//    AXI4MasterPortParameters(
-//      masters = Seq(AXI4MasterParameters(
-//        name = "agilex-cxl-adapter",
-//        id   = IdRange(0, 1 << params.idBits)
-//      ))
-//    )
-//  ))
-//
-//  // Convert TileLink to AXI‑4
-//  axi4Node := TLToAXI4() := node
-//
-//  lazy val module = new LazyModuleImp(this) { }
-//}
 
 /**
  * Scala BlackBox wrapper matching the Verilog stub for Intel Agilex CXL IP
@@ -137,56 +92,6 @@ class AgilexCXLBlackBox(params: AgilexCXLParams)(implicit p: Parameters)
 }
 
 /**
- * Module that instantiates the BlackBox and connects AXI4
- */
-class AgilexCXLWrapperModule(params: AgilexCXLParams) extends Module {
-  val io = IO(new Bundle {
-    val axi4 = Flipped(new AXI4Bundle(AXI4BundleParameters(
-      addrBits = 64,
-      dataBits = params.beatBytes * 8,
-      idBits = params.idBits
-    )))
-    val cxl_link_up = Output(Bool())
-  })
-
-  val cxl = Module(new AgilexCXLBlackBox(params))
-  // Clock & reset
-  cxl.io.clock := clock
-  cxl.io.reset := reset
-  // AXI4
-  cxl.io.axi4 <> io.axi4
-  // Status
-  io.cxl_link_up := cxl.io.cxl_link_up
-}
-
-/**
- * Diplomatic wrapper around the BlackBox
- */
-class AgilexCXLWrapper(params: AgilexCXLParams)(implicit p: Parameters) extends LazyModule {
-  val node = AXI4SlaveNode(Seq(AXI4SlavePortParameters(
-    slaves = Seq(AXI4SlaveParameters(
-      address = Seq(AddressSet(params.base, params.size - 1)),
-      resources = (new SimpleDevice("agilex-cxl", Seq("intel,agilex-cxl"))).reg("mem"),
-      regionType = RegionType.UNCACHED,
-      supportsWrite = TransferSizes(1, params.beatBytes * 8),
-      supportsRead = TransferSizes(1, params.beatBytes * 8)
-    )),
-    beatBytes = params.beatBytes
-  )))
-
-  lazy val module = new LazyModuleImp(this) {
-    val (axi4Bundle, _) = node.in.head
-    val wrapperMod = Module(new AgilexCXLWrapperModule(params))
-    wrapperMod.io.axi4 <> axi4Bundle
-
-    val cxl_link_up = IO(Output(Bool()))
-    cxl_link_up := wrapperMod.io.cxl_link_up
-  }
-}
-
-
-
-/**
  * Adapter from CXL HIP TLP Stream to TileLink-C interface
  * Supports basic CXL.mem Get/Put and CXL.cache Acquire/Release.
  * For full x86 coherence and ordering, a directory and fence engine must be added.
@@ -197,12 +102,15 @@ class AgilexCXLAdapter(val hipParams: AgilexCXLParams)(implicit p: Parameters) e
     TLSlavePortParameters.v1(
       managers = Seq(TLSlaveParameters.v1(
         address     = Seq(AddressSet(hipParams.base, hipParams.size-1)),
-        regionType  = RegionType.CACHED,
-        executable  = true,
-        supportsGet = TransferSizes(1, hipParams.beatBytes),
-        supportsPutFull = TransferSizes(1, hipParams.beatBytes)
+        regionType       = RegionType.CACHED,
+        executable       = true,
+        supportsAcquireT = TransferSizes(1, hipParams.beatBytes),  // Probe T
+        supportsAcquireB = TransferSizes(1, hipParams.beatBytes),  // Probe B (必填)
+        supportsGet      = TransferSizes(1, hipParams.beatBytes),
+        supportsPutFull  = TransferSizes(1, hipParams.beatBytes)
       )),
-      beatBytes = hipParams.beatBytes
+      beatBytes = hipParams.beatBytes,
+      endSinkId  = 1
     )
   ))
 
@@ -235,7 +143,7 @@ class AgilexCXLAdapter(val hipParams: AgilexCXLParams)(implicit p: Parameters) e
     hip.io.axi4_rdata  := tl.d.bits.data
     hip.io.axi4_rresp  := 0.U
     hip.io.axi4_rid    := tl.d.bits.source
-    hip.io.axi4_rlast  := tl.d.bits.last
+    hip.io.axi4_rlast  := true.B
 
     // 同理，为写响应映射 B 通道
     hip.io.axi4_bvalid := tl.d.valid && tl.d.bits.opcode === TLMessages.AccessAckData

@@ -7,5 +7,4 @@ package object cxl {
   type AgilexCXLParams    = chipyard.cxl.AgilexCXLParams
   type AgilexCXLKey       = chipyard.cxl.AgilexCXLKey.type
   type AgilexCXLAdapter   = chipyard.cxl.AgilexCXLAdapter
-  type AgilexCXLWrapper   = chipyard.cxl.AgilexCXLWrapper
 }
