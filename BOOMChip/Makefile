@@ -1,6 +1,16 @@
 SHELL := /bin/bash
+QIPDIR = ../quartus/hardware_test_design/IP/BOOMChip
+F = ../chipyard/sims/verilator/generated-src/chipyard.harness.TestHarness.BOOMChip/chipyard.harness.TestHarness.BOOMChip.top.f
+SV = $(QIPDIR)/chipyard.harness.TestHarness.BOOMChip.top.sv
 
 all: copy_rtl
+
+# rule to build the .sv
+$(SV): $(F)
+	@echo "→ Ensuring $(QIPDIR) exists"
+	@mkdir -p $(@D)
+	@echo "→ Concatenating all .sv from $< into $@"
+	@xargs cat < $< > $@
 
 add_config: BOOMChip.scala
 	ln -sf ${PWD}/BOOMChip.scala ../chipyard/generators/chipyard/src/main/scala/config
@@ -15,8 +25,5 @@ compile: add_config bootrom_replace
 	source ../chipyard/env.sh
 	cd ../chipyard/sims/verilator && make verilog CONFIG=BOOMChip
 
-copy_rtl:
+copy_rtl: compile ../quartus/hardware_test_design/IP/BOOMChip/chipyard.harness.TestHarness.BOOMChip.top.sv 
 	cp ../chipyard/sims/verilator/generated-src/chipyard.harness.TestHarness.BOOMChip/gen-collateral/chipyard.harness.TestHarness.BOOMChip.top.mems.v ../quartus/hardware_test_design/IP/BOOMChip/chipyard.harness.TestHarness.BOOMChip.top.mems.v
-	cp ../chipyard/sims/verilator/generated-src/chipyard.harness.TestHarness.BOOMChip/chipyard.harness.TestHarness.BOOMChip.top.f ../quartus/hardware_test_design/IP/BOOMChip/chipyard.harness.TestHarness.BOOMChip.top.f
-	cp ../chipyard/sims/verilator/generated-src/chipyard.harness.TestHarness.BOOMChip/gen-collateral/*.v ../quartus/hardware_test_design/IP/BOOMChip/
-	cp ../chipyard/sims/verilator/generated-src/chipyard.harness.TestHarness.BOOMChip/gen-collateral/*.sv ../quartus/hardware_test_design/IP/BOOMChip/
